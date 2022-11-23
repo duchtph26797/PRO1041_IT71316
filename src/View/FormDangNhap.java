@@ -4,8 +4,6 @@
  */
 package View;
 
-
-
 import Service.TaiKhoanService;
 import ViewModel.TaiKhoanView;
 import javax.swing.JOptionPane;
@@ -17,12 +15,12 @@ import javax.swing.JOptionPane;
 public class FormDangNhap extends javax.swing.JFrame {
 
     TaiKhoanService iTaiKhoanService;
+
     public FormDangNhap() {
         initComponents();
         setLocationRelativeTo(null);
-        iTaiKhoanService=new TaiKhoanService();
+        iTaiKhoanService = new TaiKhoanService();
     }
-
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -115,24 +113,22 @@ public class FormDangNhap extends javax.swing.JFrame {
     }//GEN-LAST:event_btnToDangKyActionPerformed
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
-        String username=txtTaiKhoan.getText();
-        String pass=String.valueOf(txtMatKhau.getPassword());
-        TaiKhoanView taiKhoanView=new TaiKhoanView();
-        taiKhoanView.setUserName(username);
-        taiKhoanView.setPassword(pass);
-        TaiKhoanView tkv=iTaiKhoanService.dangNhap(taiKhoanView);  
-        if(tkv==null){
+        try {
+            String username = txtTaiKhoan.getText();
+            String pass = String.valueOf(txtMatKhau.getPassword());
+            TaiKhoanView taiKhoanView = new TaiKhoanView();
+            taiKhoanView.setUserName(username);
+            taiKhoanView.setPassword(pass);
+            TaiKhoanView tkv = iTaiKhoanService.dangNhap(taiKhoanView);
+            if (tkv == null) {
+                JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu chưa đúng");
+                return;
+            } else {
+                new TrangChu(tkv).setVisible(true);
+            }
+        } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu chưa đúng");
             return;
-        }
-        else if(tkv.getLoaiTk().equalsIgnoreCase("khachhang")){
-            JOptionPane.showMessageDialog(this, "khachhang Đăng nhập thành công");
-        }
-        else if(tkv.getLoaiTk().equalsIgnoreCase("nhanvien")){
-            JOptionPane.showMessageDialog(this, "nhanvien Đăng nhập thành công");
-        }
-        else if(tkv.getLoaiTk().equalsIgnoreCase("quanly")){
-            JOptionPane.showMessageDialog(this, "quanly Đăng nhập thành công");
         }
     }//GEN-LAST:event_btnDangNhapActionPerformed
 

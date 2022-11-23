@@ -29,6 +29,7 @@ public class TaiKhoanRepository {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            return null;
         }
         return null;
     }
@@ -113,8 +114,6 @@ public class TaiKhoanRepository {
 
     public static void main(String[] args) {
         TaiKhoanRepository taiKhoanRepository=new TaiKhoanRepository();
-        for (TaiKhoan taiKhoan : taiKhoanRepository.getAll()) {
-            System.out.println(taiKhoan.toString());
-        }
+        System.out.println(taiKhoanRepository.dangNhap(new TaiKhoan("duc11","11", "khachhang")).toString());
     }
 }

@@ -5,6 +5,7 @@
 package View;
 
 import DomainModel.TaiKhoan;
+import ViewModel.TaiKhoanView;
 import java.awt.BorderLayout;
 import java.awt.CardLayout;
 import java.awt.FlowLayout;
@@ -21,9 +22,22 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
     }
 
-    public TrangChu(TaiKhoan tk) {
+    public TrangChu(TaiKhoanView tkv) {
         initComponents();
         setLocationRelativeTo(null);
+        if(tkv.getLoaiTk().equalsIgnoreCase("khachhang")){
+            btnQLSP.setEnabled(false);
+            btnKhachHang.setEnabled(false);
+            btnHoaDon.setEnabled(false);
+            btnThongKe.setEnabled(false);
+            btnNhanVien.setEnabled(false);
+        }
+        
+        if(tkv.getLoaiTk().equalsIgnoreCase("nhanvien")){
+            btnThongKe.setEnabled(false);
+            btnNhanVien.setEnabled(false);
+        }
+        
         
     }
 
@@ -32,13 +46,13 @@ public class TrangChu extends javax.swing.JFrame {
     private void initComponents() {
 
         panelMenu = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
-        jButton7 = new javax.swing.JButton();
+        btnXemSp = new javax.swing.JButton();
+        btnQLSP = new javax.swing.JButton();
+        btnKhachHang = new javax.swing.JButton();
+        btnHoaDon = new javax.swing.JButton();
+        btnThongKe = new javax.swing.JButton();
+        btnNhanVien = new javax.swing.JButton();
+        btnDangXuat = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
 
@@ -47,65 +61,70 @@ public class TrangChu extends javax.swing.JFrame {
         panelMenu.setBackground(new java.awt.Color(255, 204, 204));
         panelMenu.setLayout(new java.awt.GridLayout(7, 0));
 
-        jButton1.setBackground(new java.awt.Color(204, 204, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Actions-help-about-icon-16.png"))); // NOI18N
-        jButton1.setText("Xem Sản phẩm");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnXemSp.setBackground(new java.awt.Color(204, 204, 255));
+        btnXemSp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Actions-help-about-icon-16.png"))); // NOI18N
+        btnXemSp.setText("Xem Sản phẩm");
+        btnXemSp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnXemSpActionPerformed(evt);
             }
         });
-        panelMenu.add(jButton1);
+        panelMenu.add(btnXemSp);
 
-        jButton2.setBackground(new java.awt.Color(153, 255, 204));
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/List.png"))); // NOI18N
-        jButton2.setText("Quản lý sản phẩm");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        btnQLSP.setBackground(new java.awt.Color(153, 255, 204));
+        btnQLSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/List.png"))); // NOI18N
+        btnQLSP.setText("Quản lý sản phẩm");
+        btnQLSP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                btnQLSPActionPerformed(evt);
             }
         });
-        panelMenu.add(jButton2);
+        panelMenu.add(btnQLSP);
 
-        jButton3.setBackground(new java.awt.Color(204, 255, 204));
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Users.png"))); // NOI18N
-        jButton3.setText("Khách hàng");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
+        btnKhachHang.setBackground(new java.awt.Color(204, 255, 204));
+        btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Users.png"))); // NOI18N
+        btnKhachHang.setText("Khách hàng");
+        btnKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
+                btnKhachHangActionPerformed(evt);
             }
         });
-        panelMenu.add(jButton3);
+        panelMenu.add(btnKhachHang);
 
-        jButton4.setBackground(new java.awt.Color(204, 255, 255));
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Add to basket.png"))); // NOI18N
-        jButton4.setText("Hóa đơn");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        btnHoaDon.setBackground(new java.awt.Color(204, 255, 255));
+        btnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Add to basket.png"))); // NOI18N
+        btnHoaDon.setText("Hóa đơn");
+        btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                btnHoaDonActionPerformed(evt);
             }
         });
-        panelMenu.add(jButton4);
+        panelMenu.add(btnHoaDon);
 
-        jButton5.setBackground(new java.awt.Color(255, 255, 204));
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Price list.png"))); // NOI18N
-        jButton5.setText("Thống kê");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
+        btnThongKe.setBackground(new java.awt.Color(255, 255, 204));
+        btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Price list.png"))); // NOI18N
+        btnThongKe.setText("Thống kê");
+        btnThongKe.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
+                btnThongKeActionPerformed(evt);
             }
         });
-        panelMenu.add(jButton5);
+        panelMenu.add(btnThongKe);
 
-        jButton6.setBackground(new java.awt.Color(255, 153, 153));
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/User.png"))); // NOI18N
-        jButton6.setText("Nhân Viên");
-        panelMenu.add(jButton6);
+        btnNhanVien.setBackground(new java.awt.Color(255, 153, 153));
+        btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/User.png"))); // NOI18N
+        btnNhanVien.setText("Nhân Viên");
+        panelMenu.add(btnNhanVien);
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
-        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
-        jButton7.setText("Đăng Xuất");
-        panelMenu.add(jButton7);
+        btnDangXuat.setBackground(new java.awt.Color(255, 255, 255));
+        btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
+        btnDangXuat.setText("Đăng Xuất");
+        btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuatActionPerformed(evt);
+            }
+        });
+        panelMenu.add(btnDangXuat);
 
         panel.setLayout(new java.awt.GridLayout(1, 0));
 
@@ -135,50 +154,55 @@ public class TrangChu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnXemSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSpActionPerformed
         panel.removeAll();
         Form_1 f = new Form_1();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btnXemSpActionPerformed
 
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+    private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         panel.removeAll();
         Form_1 f = new Form_1();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
-    }//GEN-LAST:event_jButton3ActionPerformed
+    }//GEN-LAST:event_btnKhachHangActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
         panel.removeAll();
         Form_1 f = new Form_1();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_btnQLSPActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         panel.removeAll();
         Form_1 f = new Form_1();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_btnHoaDonActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         panel.removeAll();
         Form_1 f = new Form_1();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_btnThongKeActionPerformed
+
+    private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
+        this.dispose();
+        new FormDangNhap().setVisible(true);
+    }//GEN-LAST:event_btnDangXuatActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,21 +235,21 @@ public class TrangChu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TaiKhoan b = new TaiKhoan();
-                b.setLoaiTk("quanly");
-                new TrangChu(b).setVisible(true);
+                TaiKhoanView tkv=new TaiKhoanView();
+                tkv.setLoaiTk("quanly");
+                new TrangChu(tkv).setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
+    private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnHoaDon;
+    private javax.swing.JButton btnKhachHang;
+    private javax.swing.JButton btnNhanVien;
+    private javax.swing.JButton btnQLSP;
+    private javax.swing.JButton btnThongKe;
+    private javax.swing.JButton btnXemSp;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panelMenu;
