@@ -114,6 +114,12 @@ public class FormDangNhap extends javax.swing.JFrame {
 
     private void btnDangNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangNhapActionPerformed
         try {
+            if (txtTaiKhoan.getText().trim().isEmpty()
+                    || String.valueOf(txtMatKhau.getPassword()).isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Hãy nhập tài khoản và mật khẩu");
+                return;
+            }
+
             String username = txtTaiKhoan.getText();
             String pass = String.valueOf(txtMatKhau.getPassword());
             TaiKhoanView taiKhoanView = new TaiKhoanView();
