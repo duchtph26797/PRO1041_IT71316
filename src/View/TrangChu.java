@@ -52,14 +52,22 @@ public class TrangChu extends javax.swing.JFrame {
         btnHoaDon = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         btnNhanVien = new javax.swing.JButton();
+        btnDangXuat1 = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
+        crudSp = new javax.swing.JMenuItem();
+        crudChatLieu = new javax.swing.JMenuItem();
+        crudKichCo = new javax.swing.JMenuItem();
+        crudMauSac = new javax.swing.JMenuItem();
+        crudLoaiHang = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelMenu.setBackground(new java.awt.Color(255, 204, 204));
-        panelMenu.setLayout(new java.awt.GridLayout(7, 0));
+        panelMenu.setLayout(new java.awt.GridLayout(8, 0));
 
         btnXemSp.setBackground(new java.awt.Color(204, 204, 255));
         btnXemSp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Actions-help-about-icon-16.png"))); // NOI18N
@@ -116,6 +124,16 @@ public class TrangChu extends javax.swing.JFrame {
         btnNhanVien.setText("Nhân Viên");
         panelMenu.add(btnNhanVien);
 
+        btnDangXuat1.setBackground(new java.awt.Color(255, 204, 255));
+        btnDangXuat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/new-icon-16.png"))); // NOI18N
+        btnDangXuat1.setText("Khuyến mãi");
+        btnDangXuat1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDangXuat1ActionPerformed(evt);
+            }
+        });
+        panelMenu.add(btnDangXuat1);
+
         btnDangXuat.setBackground(new java.awt.Color(255, 255, 255));
         btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
         btnDangXuat.setText("Đăng Xuất");
@@ -130,6 +148,42 @@ public class TrangChu extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/logo.png"))); // NOI18N
         panel.add(jLabel2);
+
+        jMenu1.setText("Quản lý");
+
+        crudSp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudSp.setText("Quản lý sản phẩm");
+        crudSp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudSpActionPerformed(evt);
+            }
+        });
+        jMenu1.add(crudSp);
+
+        crudChatLieu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudChatLieu.setText("Quản lý chất liệu");
+        jMenu1.add(crudChatLieu);
+
+        crudKichCo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudKichCo.setText("Quản lý kích cỡ");
+        jMenu1.add(crudKichCo);
+
+        crudMauSac.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudMauSac.setText("Quản lý màu sắc");
+        jMenu1.add(crudMauSac);
+
+        crudLoaiHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudLoaiHang.setText("Quản lý loại hàng");
+        crudLoaiHang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudLoaiHangActionPerformed(evt);
+            }
+        });
+        jMenu1.add(crudLoaiHang);
+
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -204,6 +258,18 @@ public class TrangChu extends javax.swing.JFrame {
         new FormDangNhap().setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
+    private void crudSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudSpActionPerformed
+
+    }//GEN-LAST:event_crudSpActionPerformed
+
+    private void crudLoaiHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudLoaiHangActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_crudLoaiHangActionPerformed
+
+    private void btnDangXuat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuat1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnDangXuat1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -244,13 +310,21 @@ public class TrangChu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
+    private javax.swing.JButton btnDangXuat1;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQLSP;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JButton btnXemSp;
+    private javax.swing.JMenuItem crudChatLieu;
+    private javax.swing.JMenuItem crudKichCo;
+    private javax.swing.JMenuItem crudLoaiHang;
+    private javax.swing.JMenuItem crudMauSac;
+    private javax.swing.JMenuItem crudSp;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel panel;
     private javax.swing.JPanel panelMenu;
     // End of variables declaration//GEN-END:variables
