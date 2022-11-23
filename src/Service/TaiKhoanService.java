@@ -4,7 +4,6 @@
  */
 package Service;
 
-
 import DomainModel.TaiKhoan;
 import Repository.TaiKhoanRepository;
 import Service.Interface.ITaiKhoanService;
@@ -25,11 +24,12 @@ public class TaiKhoanService implements ITaiKhoanService {
 
     @Override
     public TaiKhoanView dangNhap(TaiKhoanView taiKhoanView) {
-        TaiKhoan taiKhoan=new TaiKhoan();
+        TaiKhoan taiKhoan = new TaiKhoan();
         taiKhoan.setUserName(taiKhoanView.getUserName());
         taiKhoan.setPassword(taiKhoanView.getPassword());
-        TaiKhoan tk=taiKhoanRepository.dangNhap(taiKhoan);
-        return new TaiKhoanView(tk.getUserName(), tk.getPassword(), tk.getLoaiTk());
+        TaiKhoan tk = taiKhoanRepository.dangNhap(taiKhoan);
+        TaiKhoanView tkv = new TaiKhoanView(tk.getUserName(), tk.getPassword(), tk.getLoaiTk());
+        return tkv;
     }
 
     @Override
@@ -38,7 +38,6 @@ public class TaiKhoanService implements ITaiKhoanService {
         taiKhoan.setUserName(taiKhoanView.getUserName());
         return taiKhoanRepository.checkTonTai(taiKhoan);
     }
-
 
     @Override
     public ArrayList<TaiKhoanView> getAll() {
@@ -65,13 +64,13 @@ public class TaiKhoanService implements ITaiKhoanService {
     }
 
     @Override
-    public Boolean sua(TaiKhoanView taiKhoanView,String username) {
+    public Boolean sua(TaiKhoanView taiKhoanView, String username) {
         TaiKhoan taiKhoan = new TaiKhoan(
                 taiKhoanView.getUserName(),
                 taiKhoanView.getPassword(),
                 taiKhoanView.getLoaiTk());
         System.out.println(taiKhoan.toString());
-        return taiKhoanRepository.sua(taiKhoan,username);
+        return taiKhoanRepository.sua(taiKhoan, username);
     }
 
     @Override
