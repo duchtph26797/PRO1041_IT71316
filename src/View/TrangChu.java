@@ -36,9 +36,7 @@ public class TrangChu extends javax.swing.JFrame {
         if(tkv.getLoaiTk().equalsIgnoreCase("nhanvien")){
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);
-        }
-        
-        
+        } 
     }
 
     @SuppressWarnings("unchecked")
