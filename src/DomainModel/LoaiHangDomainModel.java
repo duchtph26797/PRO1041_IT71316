@@ -21,6 +21,10 @@ public class LoaiHangDomainModel {
         this.tenLoai = tenLoai;
     }
 
+    public LoaiHangDomainModel(String tenLoai) {
+        this.tenLoai = tenLoai;
+    }
+
     public int getMaLoai() {
         return maLoai;
     }

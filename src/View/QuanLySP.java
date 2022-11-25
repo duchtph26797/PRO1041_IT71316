@@ -4,6 +4,7 @@
  */
 package View;
 
+import DomainModel.LoaiHangDomainModel;
 import Service.ChatLieuIplm;
 import Service.Interface.ChatLieuServices;
 import Service.Interface.IQlspService;
@@ -23,6 +24,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -39,34 +41,33 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private DefaultTableModel dtm;
     DefaultComboBoxModel dcmMaSP;
-    DefaultComboBoxModel dcmLoaiHang,dcmLoaiHangSerch;
-    DefaultComboBoxModel dcmChatLieu,dcmChatLieuSerch;
-    DefaultComboBoxModel dcmSize,dcmSizeSerch;
-    DefaultComboBoxModel dcmMau,dcmMauSerch;
-    
+    DefaultComboBoxModel dcmLoaiHang, dcmLoaiHangSerch;
+    DefaultComboBoxModel dcmChatLieu, dcmChatLieuSerch;
+    DefaultComboBoxModel dcmSize, dcmSizeSearch;
+    DefaultComboBoxModel dcmMau, dcmMauSerch;
+
     IQlspService iQlspService;
     ISanPhamService iSanPhamService;
     LoaiHangServices loaiHangServices;
     MauSacServices mauSacServices;
     ChatLieuServices chatLieuServices;
     KichCoServices kichCoServices;
-    
+
     public QuanLySP() {
         initComponents();
-        
-        iQlspService=new QlspImpl();
-        iSanPhamService=new SanPhamImpl();
-        loaiHangServices=new LoaiHangIplm();
-        mauSacServices =new MauSacIplm();
-        chatLieuServices=new ChatLieuIplm();
-        kichCoServices=new KichCoIplm();
-        
-        dtm=(DefaultTableModel) tblQLSP.getModel();
-        
-        
+
+        iQlspService = new QlspImpl();
+        iSanPhamService = new SanPhamImpl();
+        loaiHangServices = new LoaiHangIplm();
+        mauSacServices = new MauSacIplm();
+        chatLieuServices = new ChatLieuIplm();
+        kichCoServices = new KichCoIplm();
+
+        dtm = (DefaultTableModel) tblQLSP.getModel();
+
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtm.setColumnIdentifiers(hihi);
-        
+
         loadCbbMaSp(iSanPhamService.getListMaSp());
         loadCbbLoaiHang(loaiHangServices.getListTenLoai());
         loadCbbChatLieu(chatLieuServices.getListTenCL());
@@ -75,17 +76,17 @@ public class QuanLySP extends javax.swing.JPanel {
         loadData(iQlspService.getAll());
     }
 
-    private void loadCbbMaSp(ArrayList<String> list){
-        dcmMaSP=(DefaultComboBoxModel) cbbMaSP.getModel();
+    private void loadCbbMaSp(ArrayList<String> list) {
+        dcmMaSP = (DefaultComboBoxModel) cbbMaSP.getModel();
         dcmMaSP.removeAllElements();
         for (String s : list) {
             dcmMaSP.addElement(s);
         }
     }
-    
-    void loadCbbLoaiHang(ArrayList<String> list){
-        dcmLoaiHang=(DefaultComboBoxModel) cbbLoai.getModel();
-        dcmLoaiHangSerch=(DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
+
+    void loadCbbLoaiHang(ArrayList<String> list) {
+        dcmLoaiHang = (DefaultComboBoxModel) cbbLoai.getModel();
+        dcmLoaiHangSerch = (DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
         dcmLoaiHang.removeAllElements();
         dcmLoaiHangSerch.removeAllElements();
         for (String s : list) {
@@ -93,44 +94,44 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmLoaiHangSerch.addElement(s);
         }
     }
-    
-    void loadCbbChatLieu(ArrayList<String> list){
-        dcmChatLieu=(DefaultComboBoxModel) cbbChatLieu.getModel();
-        dcmChatLieuSerch=(DefaultComboBoxModel) cbbSearchChatLieu.getModel();
+
+    void loadCbbChatLieu(ArrayList<String> list) {
+        dcmChatLieu = (DefaultComboBoxModel) cbbChatLieu.getModel();
+        dcmChatLieuSerch = (DefaultComboBoxModel) cbbSearchChatLieu.getModel();
         dcmChatLieu.removeAllElements();
         dcmChatLieuSerch.removeAllElements();
         for (String s : list) {
             dcmChatLieu.addElement(s);
             dcmChatLieuSerch.addElement(s);
         }
-        
+
     }
-    
-    void loadCbbSize(ArrayList<String> list){
-        dcmSize=(DefaultComboBoxModel) cbbChatLieu.getModel();
-        dcmSizeSerch=(DefaultComboBoxModel) cbbSearchSize.getModel();
+
+    void loadCbbSize(ArrayList<String> list) {
+        dcmSize = (DefaultComboBoxModel) cbbSize.getModel();
+        dcmSizeSearch = (DefaultComboBoxModel) cbbSearchSize.getModel();
         dcmSize.removeAllElements();
-        dcmSizeSerch.removeAllElements();
+        dcmSizeSearch.removeAllElements();
         for (String s : list) {
             dcmSize.addElement(s);
-            dcmSizeSerch.addElement(s);
+            dcmSizeSearch.addElement(s);
         }
-        
+
     }
-    
-    void loadCbbMauSac(ArrayList<String> list){
-        dcmMau=(DefaultComboBoxModel) cbbMauSac.getModel();
-        dcmMauSerch=(DefaultComboBoxModel) cbbSearchMauSP.getModel();
+
+    void loadCbbMauSac(ArrayList<String> list) {
+        dcmMau = (DefaultComboBoxModel) cbbMauSac.getModel();
+        dcmMauSerch = (DefaultComboBoxModel) cbbSearchMauSP.getModel();
         dcmMau.removeAllElements();
         dcmMauSerch.removeAllElements();
         for (String s : list) {
             dcmMau.addElement(s);
             dcmMauSerch.addElement(s);
         }
-        
+
     }
-    
-    private void loadData(ArrayList<Qlsp> list){
+
+    private void loadData(ArrayList<Qlsp> list) {
         dtm.setRowCount(0);
         for (Qlsp qlsp : list) {
             dtm.addRow(new Object[]{
@@ -145,7 +146,7 @@ public class QuanLySP extends javax.swing.JPanel {
             });
         }
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -636,10 +637,9 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemNhanhSizeActionPerformed
 
     private void rdMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMauActionPerformed
-        if(rdMau.isSelected()){
+        if (rdMau.isSelected()) {
             cbbSearchMauSP.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchMauSP.setEnabled(false);
         }
     }//GEN-LAST:event_rdMauActionPerformed
@@ -653,32 +653,32 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemNhanhClActionPerformed
 
     private void btnThemNhanhLhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhLhActionPerformed
-        // TODO add your handling code here:
+        String loai = JOptionPane.showInputDialog("Them loai hang moi:");
+        LoaiHangDomainModel lh = new LoaiHangDomainModel(loai);
+        JOptionPane.showMessageDialog(cbbLoai, loaiHangServices.add(lh));
+        loadCbbLoaiHang(loaiHangServices.getListTenLoai());
     }//GEN-LAST:event_btnThemNhanhLhActionPerformed
 
     private void rdSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdSizeActionPerformed
-        if(rdSize.isSelected()){
+        if (rdSize.isSelected()) {
             cbbSearchSize.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchSize.setEnabled(false);
         }
     }//GEN-LAST:event_rdSizeActionPerformed
 
     private void rdChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdChatLieuActionPerformed
-        if(rdChatLieu.isSelected()){
+        if (rdChatLieu.isSelected()) {
             cbbSearchChatLieu.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchChatLieu.setEnabled(false);
         }
     }//GEN-LAST:event_rdChatLieuActionPerformed
 
     private void rdLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdLoaiActionPerformed
-        if(rdLoai.isSelected()){
+        if (rdLoai.isSelected()) {
             cbbSearchLoaiSP.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchLoaiSP.setEnabled(false);
         }
     }//GEN-LAST:event_rdLoaiActionPerformed
