@@ -36,7 +36,7 @@ public class NhanVienImp implements NhanVienSer {
 
     @Override
     public String add(NhanVienModel Nvv) {
-        if (Nvv.getMaNV().isEmpty() || Nvv.getTenNV().isEmpty() || Nvv.getNgaySinh().isEmpty()) {
+        if (Nvv.getTenNV().isEmpty() || Nvv.getNgaySinh().isEmpty()) {
             return "Đang có trường để trống không thể thêm NV !";
         }
         boolean add = NvRepo.add(Nvv);

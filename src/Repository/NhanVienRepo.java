@@ -23,15 +23,14 @@ public class NhanVienRepo {
         String query = "SELECT [MaNV]\n"
                 + "      ,[TenNV]\n"
                 + "      ,[SDT]\n"
+                + "      ,[Username]\n"
                 + "      ,[NgaySinh]\n"
-                + "      ,[MaLuong]\n"
-                + "      ,[MaTK]\n"
-                + "  FROM [dbo].[NhanVien]";
+                + "  FROM [dbo].[NHANVIEN]";
         try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             List<NhanVienModel> list = new ArrayList<>();
             while (rs.next()) {
-                list.add(new NhanVienModel(rs.getString(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5), rs.getString(6)));
+                list.add(new NhanVienModel(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
             return list;
         } catch (SQLException e) {
@@ -41,23 +40,20 @@ public class NhanVienRepo {
     }
 
     public boolean add(NhanVienModel Nv) {
-        String query = "INSERT INTO [dbo].[NhanVien]\n"
-                + "           ([MaNV]\n"
-                + "           ,[TenNV]\n"
+        String query = "INSERT INTO [dbo].[NHANVIEN]\n"
+                + "           ([TenNV]\n"
                 + "           ,[SDT]\n"
-                + "           ,[NgaySinh]\n"
-                + "           ,[MaLuong]\n"
-                + "           ,[MaTK])\n"
+                + "           ,[Username]\n"
+                + "           ,[NgaySinh])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           (?,?,?,?)";
         int check = 0;
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
             ps.setObject(1, Nv.getMaNV());
             ps.setObject(2, Nv.getTenNV());
             ps.setObject(3, Nv.getSdt());
-            ps.setObject(4, Nv.getNgaySinh());
-            ps.setObject(5, Nv.getMaLuong());
-            ps.setObject(6, Nv.getMaTk());
+            ps.setObject(4, Nv.getUseName());
+            ps.setObject(5, Nv.getNgaySinh());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -79,24 +75,20 @@ public class NhanVienRepo {
     }
 
     public boolean Update(NhanVienModel Nv, String Ma) {
-        String query = "UPDATE [dbo].[NhanVien]\n"
-                + "   SET [MaNV] = ?\n"
-                + "      ,[TenNV] = ?\n"
+        String query = "UPDATE [dbo].[NHANVIEN]\n"
+                + "   SET [TenNV] = ?\n"
                 + "      ,[SDT] = ?\n"
+                + "      ,[Username] = ?\n"
                 + "      ,[NgaySinh] = ?\n"
-                + "      ,[MaLuong] = ?\n"
-                + "      ,[MaTK] = ?\n"
                 + " WHERE MaNV = ?";
 
         int check = 0;
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
-            ps.setObject(1, Nv.getMaNV());
-            ps.setObject(2, Nv.getTenNV());
-            ps.setObject(3, Nv.getSdt());
+            ps.setObject(1, Nv.getTenNV());
+            ps.setObject(2, Nv.getSdt());
+            ps.setObject(3, Nv.getUseName());
             ps.setObject(4, Nv.getNgaySinh());
-            ps.setObject(5, Nv.getMaLuong());
-            ps.setObject(6, Nv.getMaTk());
-            ps.setObject(7, Nv.getMaNV());
+            ps.setObject(5, Nv.getMaNV());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

@@ -9,31 +9,22 @@ package DomainModel;
  * @author admin
  */
 public class NhanVienModel {
-    private String MaNV;
+
+    private int MaNV;
     private String TenNV;
-    private int Sdt;
+    private String Sdt;
+    private String UseName;
     private String NgaySinh;
-    private String MaLuong;
-    private String MaTk;
     //Contructor
 
     public NhanVienModel() {
     }
 
-    public NhanVienModel(String MaNV, String TenNV, int Sdt, String NgaySinh, String MaLuong, String MaTk) {
-        this.MaNV = MaNV;
-        this.TenNV = TenNV;
-        this.Sdt = Sdt;
-        this.NgaySinh = NgaySinh;
-        this.MaLuong = MaLuong;
-        this.MaTk = MaTk;
-    }
-
-    public String getMaNV() {
+    public int getMaNV() {
         return MaNV;
     }
 
-    public void setMaNV(String MaNV) {
+    public void setMaNV(int MaNV) {
         this.MaNV = MaNV;
     }
 
@@ -45,12 +36,20 @@ public class NhanVienModel {
         this.TenNV = TenNV;
     }
 
-    public int getSdt() {
+    public String getSdt() {
         return Sdt;
     }
 
-    public void setSdt(int Sdt) {
+    public void setSdt(String Sdt) {
         this.Sdt = Sdt;
+    }
+
+    public String getUseName() {
+        return UseName;
+    }
+
+    public void setUseName(String UseName) {
+        this.UseName = UseName;
     }
 
     public String getNgaySinh() {
@@ -61,29 +60,21 @@ public class NhanVienModel {
         this.NgaySinh = NgaySinh;
     }
 
-    public String getMaLuong() {
-        return MaLuong;
+    public NhanVienModel(int MaNV, String TenNV, String Sdt, String UseName, String NgaySinh) {
+        this.MaNV = MaNV;
+        this.TenNV = TenNV;
+        this.Sdt = Sdt;
+        this.UseName = UseName;
+        this.NgaySinh = NgaySinh;
     }
 
-    public void setMaLuong(String MaLuong) {
-        this.MaLuong = MaLuong;
+    public Object[] toDataRow() {
+        return new Object[]{MaNV, TenNV, Sdt, UseName, NgaySinh};
     }
 
-    public String getMaTk() {
-        return MaTk;
-    }
-
-    public void setMaTk(String MaTk) {
-        this.MaTk = MaTk;
-    }
-    
-    
-    public Object[] toDataRow()
-    {return new Object[]{MaNV,TenNV,Sdt,NgaySinh,MaLuong, MaTk};}
     //To String
-
     @Override
     public String toString() {
-        return "NhanVienModel{" + "MaNV=" + MaNV + ", TenNV=" + TenNV + ", Sdt=" + Sdt + ", NgaySinh=" + NgaySinh + ", MaLuong=" + MaLuong + ", MaTk=" + MaTk + '}';
-    }  
+        return "NhanVienModel{" + "MaNV=" + MaNV + ", TenNV=" + TenNV + ", Sdt=" + Sdt + ", UseName=" + UseName + ", NgaySinh=" + NgaySinh + '}';
+    }
 }
