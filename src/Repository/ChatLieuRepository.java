@@ -76,5 +76,22 @@ public class ChatLieuRepository {
         }
         return check > 0;
     }
+    final String get_all = "select TenCL from CHATLIEU";
+    public ArrayList<String> getListTenCL(){
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(get_all);
+            while(rs.next()){
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    public static void main(String[] args) {
+        System.out.println(new ChatLieuRepository().getListTenCL());
+    }
 
 }
+

@@ -7,6 +7,7 @@ package Service;
 import DomainModel.ChatLieuDomainModel;
 import Repository.ChatLieuRepository;
 import Service.Interface.ChatLieuServices;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -51,4 +52,13 @@ public class ChatLieuIplm implements ChatLieuServices {
             return "delete thất bại";
         }
     }
+
+    @Override
+    public ArrayList<String> getListTenCL() {
+        return res.getListTenCL();
+    }
+     public static void main(String[] args){
+        ChatLieuServices sv = new ChatLieuIplm();
+        System.out.println(sv.getListTenCL());
+     }
 }
