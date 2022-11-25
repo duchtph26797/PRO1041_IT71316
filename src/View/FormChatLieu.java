@@ -103,6 +103,8 @@ public class FormChatLieu extends javax.swing.JFrame {
             }
         });
 
+        txtMaCL.setEnabled(false);
+
         jLabel3.setText("Tên CL");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -197,9 +199,8 @@ public class FormChatLieu extends javax.swing.JFrame {
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         // TODO add your handling code here:
-        String ma = txtMaCL.getText();
         String ten = txtTenCL.getText();
-        ChatLieuDomainModel cl = new ChatLieuDomainModel(ma, ten);
+        ChatLieuDomainModel cl = new ChatLieuDomainModel(1, ten);
         JOptionPane.showMessageDialog(this, service.add(cl));
         listCL = service.getAll();
         showDataCL(listCL);
@@ -207,7 +208,7 @@ public class FormChatLieu extends javax.swing.JFrame {
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // TODO add your handling code here:
-        ChatLieuDomainModel cl = new ChatLieuDomainModel(null, txtTenCL.getText());
+        ChatLieuDomainModel cl = new ChatLieuDomainModel(1, txtTenCL.getText());
         String ma = txtMaCL.getText();
         JOptionPane.showMessageDialog(this, service.update(cl, ma));
         showDataCL(service.getAll());

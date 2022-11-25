@@ -27,7 +27,7 @@ public class MauSacRepository {
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listMS.add(new MauSacDomainModel(rs.getString(1), rs.getString(2)));
+                listMS.add(new MauSacDomainModel(rs.getInt(1), rs.getString(2)));
 
             }
             return listMS;
@@ -40,14 +40,9 @@ public class MauSacRepository {
 
     public boolean Add(MauSacDomainModel ms) {
         int check = 0;
-        String query = "INSERT INTO [dbo].[MAUSAC]\n"
-                + "           ([MaMS]\n"
-                + "           ,[TenMS])\n"
-                + "     VALUES\n"
-                + "           (?, ?)";
+        String query = "INSERT mausac values(?)";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setObject(1, ms.getMaMau());
-            ps.setObject(2, ms.getTenMau());
+            ps.setObject(1, ms.getTenMau());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -93,7 +88,7 @@ public class MauSacRepository {
 //            ps.setObject(1, ten);
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                MauSacDomainModel ms = new MauSacDomainModel(rs.getString(1), rs.getString(2));
+                MauSacDomainModel ms = new MauSacDomainModel(rs.getInt(1), rs.getString(2));
                 list.add(ms);
             }
         } catch (SQLException e) {

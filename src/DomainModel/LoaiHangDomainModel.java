@@ -10,22 +10,22 @@ package DomainModel;
  */
 public class LoaiHangDomainModel {
 
-    private String maLoai;
+    private int maLoai;
     private String tenLoai;
 
     public LoaiHangDomainModel() {
     }
 
-    public LoaiHangDomainModel(String maLoai, String tenLoai) {
+    public LoaiHangDomainModel(int maLoai, String tenLoai) {
         this.maLoai = maLoai;
         this.tenLoai = tenLoai;
     }
 
-    public String getMaLoai() {
+    public int getMaLoai() {
         return maLoai;
     }
 
-    public void setMaLoai(String maLoai) {
+    public void setMaLoai(int maLoai) {
         this.maLoai = maLoai;
     }
 

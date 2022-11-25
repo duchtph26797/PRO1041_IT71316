@@ -27,7 +27,7 @@ public class KichCoRepository {
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listKC.add(new KichCoDomainModel(rs.getString(1), rs.getString(2)));
+                listKC.add(new KichCoDomainModel(rs.getInt(1), rs.getString(2)));
             }
             return listKC;
         } catch (SQLException e) {
@@ -38,14 +38,9 @@ public class KichCoRepository {
 
     public boolean Add(KichCoDomainModel kc) {
         int check = 0;
-        String query = "INSERT INTO [dbo].[KICHCO]\n"
-                + "           ([MaKC]\n"
-                + "           ,[TenKC])\n"
-                + "     VALUES\n"
-                + "           (?, ?)";
+        String query = "INSERT kichco values(?)";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setObject(1, kc.getMaKC());
-            ps.setObject(2, kc.getTenKC());
+            ps.setObject(1, kc.getTenKC());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
