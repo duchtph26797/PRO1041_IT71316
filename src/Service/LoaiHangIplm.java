@@ -25,6 +25,15 @@ public class LoaiHangIplm implements LoaiHangServices {
 
     @Override
     public String add(LoaiHangDomainModel lh) {
+        if(lh.getTenLoai().trim().isEmpty()){
+            return "Loại hàng không được để trống";
+        }
+        List<LoaiHangDomainModel>list = rep.getAll();
+        for (LoaiHangDomainModel x : list) {
+            if(x.getTenLoai()==lh.getTenLoai()){
+                return "trùng mã";
+            }
+        }
         boolean add = rep.add(lh);
         if (add) {
             return "Them thong tin loai hang thanh cong";

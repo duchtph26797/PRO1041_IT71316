@@ -9,6 +9,7 @@ import Repository.ChatLieuRepository;
 import Service.Interface.ChatLieuServices;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -22,9 +23,18 @@ public class ChatLieuIplm implements ChatLieuServices {
     public List<ChatLieuDomainModel> getAll() {
         return res.getAll();
     }
-
+    
     @Override
     public String add(ChatLieuDomainModel cl) {
+        if(cl.getTenCL().trim().isEmpty()){
+            return "Chất liệu không được để trống";
+        }
+        List<ChatLieuDomainModel>list = res.getAll();
+        for (ChatLieuDomainModel x : list) {
+            if(x.getTenCL()== cl.getTenCL()){
+                return "trùng mã";
+            }
+        }
         boolean add = res.Add(cl);
         if (add) {
             return "Add thành công";
