@@ -5,6 +5,7 @@
 package View;
 
 import DomainModel.LoaiHangDomainModel;
+import DomainModel.MauSacDomainModel;
 import Service.ChatLieuIplm;
 import Service.Interface.ChatLieuServices;
 import Service.Interface.IQlspService;
@@ -645,7 +646,14 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_rdMauActionPerformed
 
     private void btnThemNhanhMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhMauActionPerformed
-        // TODO add your handling code here:
+        String mau = JOptionPane.showInputDialog("Them mau sac moi");
+        if(mau==null){
+            mau="";
+        }
+        MauSacDomainModel ms = new MauSacDomainModel();
+        ms.setTenMau(mau);
+        JOptionPane.showMessageDialog(this, mauSacServices.add(ms));
+        loadCbbMauSac(mauSacServices.getTenMS());
     }//GEN-LAST:event_btnThemNhanhMauActionPerformed
 
     private void btnThemNhanhClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhClActionPerformed

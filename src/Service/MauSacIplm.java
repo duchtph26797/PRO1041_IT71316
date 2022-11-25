@@ -28,12 +28,12 @@ public class MauSacIplm implements MauSacServices {
     @Override
     public String add(MauSacDomainModel ms) {
         if (ms.getTenMau().trim().isEmpty()) {
-            return "không được để trống";
+            return "Không được để trống";
         }
         List<MauSacDomainModel> list = res.getAll();
         for (MauSacDomainModel x : list) {
             if (x.getTenMau().equalsIgnoreCase(ms.getTenMau())) {
-                return "trùng mã";
+                return "Màu đã tồn tại";
             }
         }
         boolean add = res.Add(ms);
