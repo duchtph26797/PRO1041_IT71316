@@ -4,6 +4,7 @@
  */
 package View;
 
+import DomainModel.KichCoDomainModel;
 import DomainModel.LoaiHangDomainModel;
 import DomainModel.MauSacDomainModel;
 import Service.ChatLieuIplm;
@@ -634,7 +635,14 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_txtSearchTenSPActionPerformed
 
     private void btnThemNhanhSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhSizeActionPerformed
-        // TODO add your handling code here:
+        String kichCo = JOptionPane.showInputDialog("them size");
+        if(kichCo==null){
+            kichCo="";
+        }
+        KichCoDomainModel kc = new KichCoDomainModel();
+        kc.setTenKC(kichCo);
+        JOptionPane.showMessageDialog(this, kichCoServices.add(kc));
+        loadCbbSize((kichCoServices.getListTenKC()));
     }//GEN-LAST:event_btnThemNhanhSizeActionPerformed
 
     private void rdMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMauActionPerformed
@@ -646,9 +654,9 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_rdMauActionPerformed
 
     private void btnThemNhanhMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhMauActionPerformed
-        String mau = JOptionPane.showInputDialog("Them mau sac moi");
-        if(mau==null){
-            mau="";
+        String mau = JOptionPane.showInputDialog("Them mau sac moi:");
+        if (mau == null) {
+            mau = "";
         }
         MauSacDomainModel ms = new MauSacDomainModel();
         ms.setTenMau(mau);
@@ -661,9 +669,9 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemNhanhClActionPerformed
 
     private void btnThemNhanhLhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhLhActionPerformed
-        String loai = JOptionPane.showInputDialog(this,"Them loai hang moi:");
-        if(loai==null){
-            loai="";
+        String loai = JOptionPane.showInputDialog(this, "Them loai hang moi:");
+        if (loai == null) {
+            loai = "";
         }
         LoaiHangDomainModel lh = new LoaiHangDomainModel(loai);
         JOptionPane.showMessageDialog(this, loaiHangServices.add(lh));
