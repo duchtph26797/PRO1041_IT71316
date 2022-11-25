@@ -10,15 +10,19 @@ package Service;
  */
 import DomainModel.KichCoDomainModel;
 import Repository.KichCoRepository;
+import Repository.SanPhamRepository;
 import Service.Interface.KichCoServices;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author DELL 5570
  */
-public class KichCoIplm implements KichCoServices{
+public class KichCoIplm implements KichCoServices {
+
     private KichCoRepository res = new KichCoRepository();
+
     @Override
     public List<KichCoDomainModel> getAll() {
         return res.getAll();
@@ -26,10 +30,19 @@ public class KichCoIplm implements KichCoServices{
 
     @Override
     public String add(KichCoDomainModel kc) {
+        if(kc.getTenKC().trim().isEmpty()){
+            return "Kích cỡ không được để trống";
+        }
+         List<KichCoDomainModel>list = res.getAll();
+         for (KichCoDomainModel x : list) {
+            if(x.getTenKC()==kc.getTenKC()){
+                return "trùng mã";
+            }
+        }
         boolean add = res.Add(kc);
-        if(add){
+        if (add) {
             return "Add thành công";
-        }else{
+        } else {
             return "add thất bại";
         }
     }
@@ -37,9 +50,9 @@ public class KichCoIplm implements KichCoServices{
     @Override
     public String update(KichCoDomainModel kc, String ma) {
         boolean update = res.update(kc, ma);
-        if(update){
+        if (update) {
             return "update thành công";
-        }else{
+        } else {
             return "update thất bại";
         }
     }
@@ -47,11 +60,21 @@ public class KichCoIplm implements KichCoServices{
     @Override
     public String delete(String ma) {
         boolean delete = res.delete(ma);
-        if(delete){
+        if (delete) {
             return "delete thành công";
-        }else{
+        } else {
             return "delete thất bại";
         }
     }
-    
+
+    @Override
+    public ArrayList<String> getListTenKC() {
+        return res.getListTenKC();
+
+    }
+
+    public static void main(String[] args) {
+        KichCoServices kcsv = new KichCoIplm();
+        System.out.println(kcsv.getListTenKC());
+    }
 }

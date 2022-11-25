@@ -76,7 +76,22 @@ public class LoaiHangRepository {
         return true;
     }
 
+    final String get_list_ten_loai = "select tenloai from loaihang";
+
+    public ArrayList<String> getListTenLoaiHang() {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(get_list_ten_loai);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+
     public static void main(String[] args) {
-        new LoaiHangRepository().getAll().forEach(s -> System.out.println(s.toString()));
+        System.out.println(new LoaiHangRepository().getListTenLoaiHang());
     }
 }

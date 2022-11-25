@@ -5,6 +5,8 @@
 package Service.Interface;
 
 import DomainModel.ChatLieuDomainModel;
+import Service.ChatLieuIplm;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,4 +18,8 @@ public interface ChatLieuServices {
     String add(ChatLieuDomainModel cl);
     String update(ChatLieuDomainModel cl, String ma);
     String delete(String ma);
-}
+    ArrayList<String> getListTenCL();
+   
+    }
+
+

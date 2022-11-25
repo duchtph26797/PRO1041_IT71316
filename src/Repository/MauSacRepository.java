@@ -97,4 +97,18 @@ public class MauSacRepository {
         return list;
     }
 
+    final String get_list_TenMS = "select TenMS from MAUSAC";
+
+    public ArrayList<String> getTenMS() {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(get_list_TenMS);
+            while (rs.next()) {
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

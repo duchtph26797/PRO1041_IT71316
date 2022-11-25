@@ -7,6 +7,7 @@ package Service;
 import DomainModel.LoaiHangDomainModel;
 import Repository.LoaiHangRepository;
 import Service.Interface.LoaiHangServices;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,15 @@ public class LoaiHangIplm implements LoaiHangServices {
 
     @Override
     public String add(LoaiHangDomainModel lh) {
+        if(lh.getTenLoai().trim().isEmpty()){
+            return "Loại hàng không được để trống";
+        }
+        List<LoaiHangDomainModel>list = rep.getAll();
+        for (LoaiHangDomainModel x : list) {
+            if(x.getTenLoai()==lh.getTenLoai()){
+                return "trùng mã";
+            }
+        }
         boolean add = rep.add(lh);
         if (add) {
             return "Them thong tin loai hang thanh cong";
@@ -50,6 +60,11 @@ public class LoaiHangIplm implements LoaiHangServices {
         } else {
             return "Xoa thong tin loai hang that bai";
         }
+    }
+
+    @Override
+    public ArrayList<String> getListTenLoai() {
+        return rep.getListTenLoaiHang();
     }
 
 }
