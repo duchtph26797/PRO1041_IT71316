@@ -10,7 +10,9 @@ package Service;
  */
 import DomainModel.KichCoDomainModel;
 import Repository.KichCoRepository;
+import Repository.SanPhamRepository;
 import Service.Interface.KichCoServices;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -53,5 +55,14 @@ public class KichCoIplm implements KichCoServices{
             return "delete thất bại";
         }
     }
-    
+
+    @Override
+    public ArrayList<String> getListTenKC() {
+        return res.getListTenKC();
+        
+    }
+    public static void main(String[] args) {
+         KichCoServices kcsv = new KichCoIplm();
+         System.out.println(kcsv.getListTenKC());
+     }
 }
