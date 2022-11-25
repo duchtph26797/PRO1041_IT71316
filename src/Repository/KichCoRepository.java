@@ -75,5 +75,22 @@ public class KichCoRepository {
         }
         return check >0;
     }
+    final String get_all = "select TenKC from KICHCO";
+    public ArrayList<String> getListTenKC(){
+        ArrayList<String>list = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(get_all);
+            
+            while(rs.next()){
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            
+        }
+        return list;
+    }
+    public static void main(String[] args) {
+        System.out.println(new KichCoRepository().getListTenKC());
+    }
 
 }

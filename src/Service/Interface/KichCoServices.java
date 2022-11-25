@@ -5,6 +5,8 @@
 package Service.Interface;
 
 import DomainModel.KichCoDomainModel;
+import Service.KichCoIplm;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,4 +18,10 @@ public interface KichCoServices {
     String add(KichCoDomainModel kc);
     String update(KichCoDomainModel kc, String ma);
     String delete(String ma);
+    ArrayList<String>getListTenKC();
+     public static void main(String[] args) {
+         KichCoServices kcsv = new KichCoIplm();
+         System.out.println(kcsv.getListTenKC());
+     }
 }
+
