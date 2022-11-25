@@ -6,77 +6,77 @@ package DomainModel;
 
 
 public class ModelSanPham {
-    private String chiTietSP;
-    private String maSP;
-    private String mauSP;
-    private String loaiSP;
-    private String chatLieu;
-    private String size;
+    private int chiTietSP;
+    private int maSP;
+    private int mauSP;
+    private int MaLSP;
+    private int MaCL;
+    private int MaKC;
     private int soLuong;
-    private int donGia;
+    private String donGia;
     private String moTa;
 
     public ModelSanPham() {
     }
 
-    public ModelSanPham(String chiTietSP, String maSP, String mauSP, String loaiSP, String chatLieu, String size, int soLuong, int donGia, String moTa) {
+    public ModelSanPham(int chiTietSP, int maSP, int mauSP, int MaLSP, int MaCL, int MaKC, int soLuong, String donGia, String moTa) {
         this.chiTietSP = chiTietSP;
         this.maSP = maSP;
         this.mauSP = mauSP;
-        this.loaiSP = loaiSP;
-        this.chatLieu = chatLieu;
-        this.size = size;
+        this.MaLSP = MaLSP;
+        this.MaCL = MaCL;
+        this.MaKC = MaKC;
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.moTa = moTa;
     }
 
-    public String getChiTietSP() {
+    public int getChiTietSP() {
         return chiTietSP;
     }
 
-    public void setChiTietSP(String chiTietSP) {
+    public void setChiTietSP(int chiTietSP) {
         this.chiTietSP = chiTietSP;
     }
 
-    public String getMaSP() {
+    public int getMaSP() {
         return maSP;
     }
 
-    public void setMaSP(String maSP) {
+    public void setMaSP(int maSP) {
         this.maSP = maSP;
     }
 
-    public String getMauSP() {
+    public int getMauSP() {
         return mauSP;
     }
 
-    public void setMauSP(String mauSP) {
+    public void setMauSP(int mauSP) {
         this.mauSP = mauSP;
     }
 
-    public String getLoaiSP() {
-        return loaiSP;
+    public int getMaLSP() {
+        return MaLSP;
     }
 
-    public void setLoaiSP(String loaiSP) {
-        this.loaiSP = loaiSP;
+    public void setMaLSP(int MaLSP) {
+        this.MaLSP = MaLSP;
     }
 
-    public String getChatLieu() {
-        return chatLieu;
+    public int getMaCL() {
+        return MaCL;
     }
 
-    public void setChatLieu(String chatLieu) {
-        this.chatLieu = chatLieu;
+    public void setMaCL(int MaCL) {
+        this.MaCL = MaCL;
     }
 
-    public String getSize() {
-        return size;
+    public int getMaKC() {
+        return MaKC;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setMaKC(int MaKC) {
+        this.MaKC = MaKC;
     }
 
     public int getSoLuong() {
@@ -87,11 +87,11 @@ public class ModelSanPham {
         this.soLuong = soLuong;
     }
 
-    public int getDonGia() {
+    public String getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(int donGia) {
+    public void setDonGia(String donGia) {
         this.donGia = donGia;
     }
 
@@ -105,10 +105,11 @@ public class ModelSanPham {
 
     @Override
     public String toString() {
-        return "ModelSanPham{" + "chiTietSP=" + chiTietSP + ", maSP=" + maSP + ", mauSP=" + mauSP + ", loaiSP=" + loaiSP + ", chatLieu=" + chatLieu + ", size=" + size + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
+        return "ModelSanPham{" + "chiTietSP=" + chiTietSP + ", maSP=" + maSP + ", mauSP=" + mauSP + ", MaLSP=" + MaLSP + ", MaCL=" + MaCL + ", MaKC=" + MaKC + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
     }
 
+
     public Object[] showdata(){
-        return new Object[]{chiTietSP,maSP,mauSP,chatLieu,loaiSP,size,soLuong,donGia,moTa};
+        return new Object[]{chiTietSP,maSP,mauSP,MaLSP,MaCL,MaKC,soLuong,donGia,moTa};
     }
 }

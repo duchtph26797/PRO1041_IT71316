@@ -102,9 +102,13 @@ public class TrangChu extends javax.swing.JFrame {
         jButton6.setText("Nhân Viên");
         panelMenu.add(jButton6);
 
-        jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
         jButton7.setText("Đăng Xuất");
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
         panelMenu.add(jButton7);
 
         panel.setLayout(new java.awt.GridLayout(1, 0));
@@ -155,11 +159,11 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         panel.removeAll();
-        QuanLySP f=new  QuanLySP();
-        panel.add(f);
+        QuanLySP  Sp=new  QuanLySP();
+        panel.add(Sp);
         panel.setLayout(new FlowLayout());
         this.pack();
-        f.setVisible(true);
+        Sp.setVisible(true);
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -179,6 +183,10 @@ public class TrangChu extends javax.swing.JFrame {
         this.pack();
         f.setVisible(true);
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton7ActionPerformed
 
     /**
      * @param args the command line arguments

@@ -12,7 +12,7 @@ import java.util.List;
 public class QlspRepository {
 
     public List<ModelSanPham> getAll() {
-        String sql = "SELECT TOP (1000) [MaCTSP]\n"
+        String sql = "SELECT [MaCTSP]\n"
                 + "      ,[MaSP]\n"
                 + "      ,[MaMS]\n"
                 + "      ,[MaLoai]\n"
@@ -21,13 +21,13 @@ public class QlspRepository {
                 + "      ,[SoLuong]\n"
                 + "      ,[DonGia]\n"
                 + "      ,[MoTa]\n"
-                + "  FROM [PRO1041_IT17316_N5].[dbo].[CHITIETSP]";
+                + "  FROM [dbo].[CHITIETSP]";
         try ( Connection con = new DBConnection().openDbConnection();  PreparedStatement ps = con.prepareCall(sql)) {
 
             ResultSet rs = ps.executeQuery();
             List<ModelSanPham> list = new ArrayList<>();
             while (rs.next()) {
-                ModelSanPham sp = new ModelSanPham(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9));
+                ModelSanPham sp = new ModelSanPham(rs.getInt(1), rs.getInt(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6), rs.getInt(7), rs.getString(8), rs.getString(9));
                 list.add(sp);
             }
             return list;
@@ -40,8 +40,7 @@ public class QlspRepository {
     public boolean Add(ModelSanPham sanp) {
         int check = 0;
         String sqp = "INSERT INTO [dbo].[CHITIETSP]\n"
-                + "           ([MaCTSP]\n"
-                + "           ,[MaSP]\n"
+                + "           ([MaSP]\n"
                 + "           ,[MaMS]\n"
                 + "           ,[MaLoai]\n"
                 + "           ,[MaCL]\n"
@@ -50,14 +49,14 @@ public class QlspRepository {
                 + "           ,[DonGia]\n"
                 + "           ,[MoTa])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?,?,?,?)";
+                + "           (?,?,?,?,?,?,?,?)";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(sqp)) {
             ps.setObject(1, sanp.getChiTietSP());
             ps.setObject(2, sanp.getMaSP());
             ps.setObject(3, sanp.getMauSP());
-            ps.setObject(4, sanp.getLoaiSP());
-            ps.setObject(5, sanp.getChatLieu());
-            ps.setObject(6, sanp.getSize());
+            ps.setObject(4, sanp.getMaLSP());
+            ps.setObject(5, sanp.getMaCL());
+            ps.setObject(6, sanp.getMaKC());
             ps.setObject(7, sanp.getSoLuong());
             ps.setObject(8, sanp.getDonGia());
             ps.setObject(9, sanp.getMoTa());
@@ -80,13 +79,13 @@ public class QlspRepository {
                 + "      ,[SoLuong] = ?\n"
                 + "      ,[DonGia] = ?\n"
                 + "      ,[MoTa] = ?\n"
-                + " WHERE  MaCTSP =?";
+                + " WHERE MaCTSP = ?\n";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
             ps.setObject(1, sanp.getMaSP());
             ps.setObject(2, sanp.getMauSP());
-            ps.setObject(3, sanp.getLoaiSP());
-            ps.setObject(4, sanp.getChatLieu());
-            ps.setObject(5, sanp.getSize());
+            ps.setObject(3, sanp.getMaLSP());
+            ps.setObject(4, sanp.getMaCL());
+            ps.setObject(5, sanp.getMaKC());
             ps.setObject(6, sanp.getSoLuong());
             ps.setObject(7, sanp.getDonGia());
             ps.setObject(8, sanp.getMoTa());
@@ -110,8 +109,8 @@ public class QlspRepository {
         }
         return check > 0;
     }
-    
+
     public static void main(String[] args) {
-        System.out.println(new QlspRepository().delete("hh"));
+         new QlspRepository().getAll().forEach(s -> System.out.println(s.toString()));
     }
 }

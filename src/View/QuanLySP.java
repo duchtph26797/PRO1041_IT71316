@@ -25,9 +25,9 @@ public class QuanLySP extends javax.swing.JPanel {
     public QuanLySP() {
         initComponents();
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
-        tblQLSP.setModel(dtm);
+        TBbangQLSP.setModel(dtm);
         dtm.setColumnIdentifiers(hihi);
-        showdata(spv.getAll());//
+        showdata(spv.getAll());
     }
 
     private void showdata(List<ModelSanPham> list) {
@@ -35,7 +35,6 @@ public class QuanLySP extends javax.swing.JPanel {
         for (ModelSanPham x : list) {
             dtm.addRow(x.showdata());
         }
-
     }
 
     @SuppressWarnings("unchecked")
@@ -57,7 +56,7 @@ public class QuanLySP extends javax.swing.JPanel {
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
-        tblQLSP = new javax.swing.JTable();
+        TBbangQLSP = new javax.swing.JTable();
         txtMoTa = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
@@ -133,7 +132,7 @@ public class QuanLySP extends javax.swing.JPanel {
             }
         });
 
-        tblQLSP.setModel(new javax.swing.table.DefaultTableModel(
+        TBbangQLSP.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -144,7 +143,7 @@ public class QuanLySP extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane2.setViewportView(tblQLSP);
+        jScrollPane2.setViewportView(TBbangQLSP);
 
         jLabel11.setText("Mô tả");
 
@@ -347,6 +346,11 @@ public class QuanLySP extends javax.swing.JPanel {
 
         cbbSearchMauSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbSearchMauSP.setEnabled(false);
+        cbbSearchMauSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSearchMauSPActionPerformed(evt);
+            }
+        });
 
         cbbSearchLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cbbSearchLoaiSP.setEnabled(false);
@@ -573,8 +577,13 @@ public class QuanLySP extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_btnXoaActionPerformed
 
+    private void cbbSearchMauSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchMauSPActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbSearchMauSPActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTable TBbangQLSP;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnLoadData;
     private javax.swing.JButton btnSearch;
@@ -618,7 +627,6 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JRadioButton rdLoai;
     private javax.swing.JRadioButton rdMau;
     private javax.swing.JRadioButton rdSize;
-    private javax.swing.JTable tblQLSP;
     private javax.swing.JTextField txtChiTietSP;
     private javax.swing.JTextField txtMoTa;
     private javax.swing.JTextField txtSearchTenSP;
