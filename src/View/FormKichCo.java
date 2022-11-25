@@ -71,6 +71,8 @@ public class FormKichCo extends javax.swing.JFrame {
 
         jLabel2.setText("Mã KC");
 
+        txtMaKC.setEnabled(false);
+
         jLabel3.setText("Tên KC");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -175,7 +177,6 @@ public class FormKichCo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -189,7 +190,7 @@ public class FormKichCo extends javax.swing.JFrame {
                             .addComponent(txtTenKC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(buttonDelete)
                             .addComponent(buttonClear))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
                         .addComponent(jLabel4))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -205,9 +206,8 @@ public class FormKichCo extends javax.swing.JFrame {
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         // TODO add your handling code here:
-        String ma = txtMaKC.getText();
         String ten = txtTenKC.getText();
-        KichCoDomainModel kc = new KichCoDomainModel(ma, ten);
+        KichCoDomainModel kc = new KichCoDomainModel(1, ten);
         JOptionPane.showMessageDialog(this, service.add(kc));
         listKC = service.getAll();
         showDataKC(listKC);
@@ -215,7 +215,7 @@ public class FormKichCo extends javax.swing.JFrame {
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // TODO add your handling code here:
-        KichCoDomainModel kc = new KichCoDomainModel(null, txtTenKC.getText());
+        KichCoDomainModel kc = new KichCoDomainModel(1, txtTenKC.getText());
         String ma = txtMaKC.getText();
         JOptionPane.showMessageDialog(this, service.update(kc, ma));
         showDataKC(service.getAll());

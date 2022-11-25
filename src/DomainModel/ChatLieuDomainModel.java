@@ -9,22 +9,22 @@ package DomainModel;
  * @author DELL 5570
  */
 public class ChatLieuDomainModel {
-    private String maCL;
+    private int maCL;
     private String tenCL;
 
     public ChatLieuDomainModel() {
     }
 
-    public ChatLieuDomainModel(String maCL, String tenCL) {
+    public ChatLieuDomainModel(int maCL, String tenCL) {
         this.maCL = maCL;
         this.tenCL = tenCL;
     }
 
-    public String getMaCL() {
+    public int getMaCL() {
         return maCL;
     }
 
-    public void setMaCL(String maCL) {
+    public void setMaCL(int maCL) {
         this.maCL = maCL;
     }
 

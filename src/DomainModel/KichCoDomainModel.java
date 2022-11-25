@@ -9,22 +9,22 @@ package DomainModel;
  * @author DELL 5570
  */
 public class KichCoDomainModel {
-    private String maKC;
+    private int maKC;
     private String tenKC;
 
     public KichCoDomainModel() {
     }
 
-    public KichCoDomainModel(String maKC, String tenKC) {
+    public KichCoDomainModel(int maKC, String tenKC) {
         this.maKC = maKC;
         this.tenKC = tenKC;
     }
 
-    public String getMaKC() {
+    public int getMaKC() {
         return maKC;
     }
 
-    public void setMaKC(String maKC) {
+    public void setMaKC(int maKC) {
         this.maKC = maKC;
     }
 
@@ -35,7 +35,7 @@ public class KichCoDomainModel {
     public void setTenKC(String tenKC) {
         this.tenKC = tenKC;
     }
-
+ 
     @Override
     public String toString() {
         return "KichCoDomainModel{" + "maKC=" + maKC + ", tenKC=" + tenKC + '}';

@@ -28,7 +28,7 @@ public class ChatLieuRepository {
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
             while (rs.next()) {
-                listCL.add(new ChatLieuDomainModel(rs.getString(1), rs.getString(2)));
+                listCL.add(new ChatLieuDomainModel(rs.getInt(1), rs.getString(2)));
             }
             return listCL;
         } catch (SQLException e) {
@@ -39,14 +39,9 @@ public class ChatLieuRepository {
 
     public boolean Add(ChatLieuDomainModel cl) {
         int check = 0;
-        String query = "INSERT INTO [dbo].[CHATLIEU]\n"
-                + "           ([MaCL]\n"
-                + "           ,[TenCL])\n"
-                + "     VALUES\n"
-                + "           (?, ?)";
+        String query = "insert chatlieu values(?)";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setObject(1, cl.getMaCL());
-            ps.setObject(2, cl.getTenCL());
+            ps.setObject(1, cl.getTenCL());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

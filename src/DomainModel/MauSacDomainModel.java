@@ -9,22 +9,23 @@ package DomainModel;
  * @author DELL 5570
  */
 public class MauSacDomainModel {
-    private String maMau;
+
+    private int maMau;
     private String tenMau;
 
     public MauSacDomainModel() {
     }
 
-    public MauSacDomainModel(String maMau, String tenMau) {
+    public MauSacDomainModel(int maMau, String tenMau) {
         this.maMau = maMau;
         this.tenMau = tenMau;
     }
 
-    public String getMaMau() {
+    public int getMaMau() {
         return maMau;
     }
 
-    public void setMaMau(String maMau) {
+    public void setMaMau(int maMau) {
         this.maMau = maMau;
     }
 
@@ -40,8 +41,9 @@ public class MauSacDomainModel {
     public String toString() {
         return "MauSacDomainModel{" + "maMau=" + maMau + ", tenMau=" + tenMau + '}';
     }
-    public Object[] toRowMauSacData(){
+
+    public Object[] toRowMauSacData() {
         return new Object[]{maMau, tenMau};
     }
-    
+
 }

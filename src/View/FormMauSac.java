@@ -69,6 +69,8 @@ public class FormMauSac extends javax.swing.JFrame {
 
         jLabel2.setText("Mã MS");
 
+        txtMaMS.setEnabled(false);
+
         jLabel3.setText("Tên MS");
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
@@ -214,9 +216,8 @@ public class FormMauSac extends javax.swing.JFrame {
 
     private void buttonAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonAddActionPerformed
         // TODO add your handling code here:
-        String maMau = txtMaMS.getText();
         String tenMau = txtTenMS.getText();
-        MauSacDomainModel ms = new MauSacDomainModel(maMau, tenMau);
+        MauSacDomainModel ms = new MauSacDomainModel(1, tenMau);
         JOptionPane.showMessageDialog(this, service.add(ms));
         listMS = service.getAll();
         showData(listMS);
@@ -224,7 +225,7 @@ public class FormMauSac extends javax.swing.JFrame {
 
     private void buttonUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonUpdateActionPerformed
         // TODO add your handling code here:
-        MauSacDomainModel ms = new MauSacDomainModel(null, txtTenMS.getText());
+        MauSacDomainModel ms = new MauSacDomainModel(1, txtTenMS.getText());
         String ma = txtMaMS.getText();
         JOptionPane.showMessageDialog(this, service.update(ms, ma));
         showData(service.getAll());

@@ -22,7 +22,7 @@ public class LoaiHangRepository {
         try {
             ResultSet rs = DBConnection.getDataFromQuery(select_all);
             while (rs.next()) {
-                list.add(new LoaiHangDomainModel(rs.getString(1), rs.getString(2)));
+                list.add(new LoaiHangDomainModel(rs.getInt(1), rs.getString(2)));
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -30,13 +30,12 @@ public class LoaiHangRepository {
         return list;
     }
 
-    final String add = "insert LOAIHANG values(?,?)";
+    final String add = "insert LOAIHANG values(?)";
 
     public Boolean add(LoaiHangDomainModel lh) {
         try {
             if (DBConnection.ExcuteQuery(
                     add,
-                    lh.getMaLoai(),
                     lh.getTenLoai()) == 0) {
                 return false;
             }
