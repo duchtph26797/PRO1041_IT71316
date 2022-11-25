@@ -108,11 +108,6 @@ public class ModelSanPham {
         return "ModelSanPham{" + "chiTietSP=" + chiTietSP + ", maSP=" + maSP + ", mauSP=" + mauSP + ", loaiSP=" + loaiSP + ", chatLieu=" + chatLieu + ", size=" + size + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
     }
 
-    
-
-   
-
-   
     public Object[] showdata(){
         return new Object[]{chiTietSP,maSP,mauSP,chatLieu,loaiSP,size,soLuong,donGia,moTa};
     }
