@@ -5,10 +5,13 @@
 package View;
 
 import Service.Interface.IQlspService;
+import Service.Interface.ISanPhamService;
 import Service.QlspImpl;
+import Service.SanPhamImpl;
 import ViewModel.Qlsp;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -18,22 +21,38 @@ import javax.swing.table.DefaultTableModel;
 public class QuanLySP extends javax.swing.JPanel {
 
     private DefaultTableModel dtm;
+    DefaultComboBoxModel dcmMaSP;
+    
+    
     IQlspService iQlspService;
-
+    ISanPhamService iSanPhamService;
 
     public QuanLySP() {
         initComponents();
         
         iQlspService=new QlspImpl();
+        iSanPhamService=new SanPhamImpl();
         
         dtm=(DefaultTableModel) tblQLSP.getModel();
+        dcmMaSP=(DefaultComboBoxModel) cbbMaSP.getModel();
         
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtm.setColumnIdentifiers(hihi);
+        
+        loadCbbMaSp(iSanPhamService.getListMaSp());
+        
+        
         loadData(iQlspService.getAll());
     }
 
-
+    private void loadCbbMaSp(ArrayList<String> list){
+        dcmMaSP.removeAllElements();
+        for (String s : list) {
+            dcmMaSP.addElement(s);
+        }
+    }
+    
+    
     private void loadData(ArrayList<Qlsp> list){
         dtm.setRowCount(0);
         for (Qlsp qlsp : list) {
