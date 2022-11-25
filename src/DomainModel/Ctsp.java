@@ -16,13 +16,13 @@ public class Ctsp {
     ChatLieuDomainModel cl;
     KichCoDomainModel kc;
     int soLuong;
-    int donGia;
+    float donGia;
     String moTa;
 
     public Ctsp() {
     }
 
-    public Ctsp(int maCtsp, SanPham sp, MauSacDomainModel ms, LoaiHangDomainModel loai, ChatLieuDomainModel cl, KichCoDomainModel kc, int soLuong, int donGia, String moTa) {
+    public Ctsp(int maCtsp, SanPham sp, MauSacDomainModel ms, LoaiHangDomainModel loai, ChatLieuDomainModel cl, KichCoDomainModel kc, int soLuong, float donGia, String moTa) {
         this.maCtsp = maCtsp;
         this.sp = sp;
         this.ms = ms;
@@ -90,11 +90,11 @@ public class Ctsp {
         this.soLuong = soLuong;
     }
 
-    public int getDonGia() {
+    public float getDonGia() {
         return donGia;
     }
 
-    public void setDonGia(int donGia) {
+    public void setDonGia(float donGia) {
         this.donGia = donGia;
     }
 

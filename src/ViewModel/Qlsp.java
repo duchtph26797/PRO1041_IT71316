@@ -9,10 +9,12 @@ package ViewModel;
  * @author TRUNG DUC
  */
 public class Qlsp {
+
     int maCtsp;
     int maSp;
-    String tenSp,tenMs,tenCl,tenKc,tenLoai;
-    int soLuong,donGia;
+    String tenSp, tenMs, tenCl, tenKc, tenLoai;
+    int soLuong;
+    float donGia;
     String moTa;
 
     @Override
@@ -23,7 +25,15 @@ public class Qlsp {
     public Qlsp() {
     }
 
-    public Qlsp(int maCtsp, int maSp, String tenSp, String tenMs, String tenCl, String tenKc, String tenLoai, int soLuong, int donGia, String moTa) {
+    public float getDonGia() {
+        return donGia;
+    }
+
+    public void setDonGia(float donGia) {
+        this.donGia = donGia;
+    }
+
+    public Qlsp(int maCtsp, int maSp, String tenSp, String tenMs, String tenCl, String tenKc, String tenLoai, int soLuong, float donGia, String moTa) {
         this.maCtsp = maCtsp;
         this.maSp = maSp;
         this.tenSp = tenSp;
@@ -100,14 +110,6 @@ public class Qlsp {
         this.soLuong = soLuong;
     }
 
-    public int getDonGia() {
-        return donGia;
-    }
-
-    public void setDonGia(int donGia) {
-        this.donGia = donGia;
-    }
-
     public String getMoTa() {
         return moTa;
     }
@@ -115,5 +117,5 @@ public class Qlsp {
     public void setMoTa(String moTa) {
         this.moTa = moTa;
     }
-    
+
 }

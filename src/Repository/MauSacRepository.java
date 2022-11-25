@@ -111,4 +111,21 @@ public class MauSacRepository {
         }
         return list;
     }
+    
+    final String tim_mams_by_ten = "select mams from mausac where tenms=?";
+    public int tim_mams_by_ten(String ten){
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(tim_mams_by_ten,ten);  
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
+    public static void main(String[] args) {
+        System.out.println(new MauSacRepository().tim_mams_by_ten("Đỏ"));
+    }
 }
