@@ -7,7 +7,6 @@ package Service;
 import DomainModel.MauSacDomainModel;
 import Repository.MauSacRepository;
 import Service.Interface.MauSacServices;
-import java.util.ArrayList;
 
 import java.util.List;
 
@@ -15,10 +14,8 @@ import java.util.List;
  *
  * @author DELL 5570
  */
-public class MauSacIplm implements MauSacServices {
-
+public class MauSacIplm implements MauSacServices{
     private MauSacRepository res = new MauSacRepository();
-
     @Override
     public List<MauSacDomainModel> getAll() {
         return res.getAll();
@@ -27,9 +24,9 @@ public class MauSacIplm implements MauSacServices {
     @Override
     public String add(MauSacDomainModel ms) {
         boolean add = res.Add(ms);
-        if (add) {
+        if(add){
             return "add thành công";
-        } else {
+        }else{
             return "add thất bại";
         }
     }
@@ -37,9 +34,9 @@ public class MauSacIplm implements MauSacServices {
     @Override
     public String update(MauSacDomainModel ms, String ma) {
         boolean update = res.Update(ms, ma);
-        if (update) {
+        if(update){
             return "update thành công";
-        } else {
+        }else{
             return "update thất bại";
         }
     }
@@ -47,9 +44,9 @@ public class MauSacIplm implements MauSacServices {
     @Override
     public String delete(String ma) {
         boolean delete = res.delete(ma);
-        if (delete) {
+        if(delete){
             return "delete thành công";
-        } else {
+        }else{
             return "delete thất bại";
         }
     }
@@ -59,9 +56,6 @@ public class MauSacIplm implements MauSacServices {
         return res.timKiem(ten);
     }
 
-    @Override
-    public ArrayList<String> getMS() {
-        return res.getTenMS();
-    }
-
+   
+    
 }

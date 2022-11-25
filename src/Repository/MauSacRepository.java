@@ -82,7 +82,7 @@ public class MauSacRepository {
         String query = "SELECT [MaMS]\n"
                 + "      ,[TenMS]\n"
                 + "  FROM [dbo].[MAUSAC]\n"
-                + "  where TenMS like N'%" + ten + "%'";
+                + "  where TenMS like N'%"+ten+"%'";
         List<MauSacDomainModel> list = new ArrayList<>();
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
 //            ps.setObject(1, ten);
@@ -93,21 +93,6 @@ public class MauSacRepository {
             }
         } catch (SQLException e) {
             e.printStackTrace(System.out);
-        }
-        return list;
-    }
-
-    final String get_list_TenMS = "select TenMS from MAUSAC";
-
-    public ArrayList<String> getTenMS() {
-        ArrayList<String> list = new ArrayList<>();
-        try {
-            ResultSet rs = DBConnection.getDataFromQuery(get_list_TenMS);
-            while (rs.next()) {
-                list.add(rs.getString(1));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
         }
         return list;
     }
