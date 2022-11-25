@@ -6,12 +6,23 @@ package View;
 
 import Service.Interface.IQlspService;
 import Service.Interface.ISanPhamService;
+import Service.Interface.LoaiHangServices;
+import Service.LoaiHangIplm;
 import Service.QlspImpl;
 import Service.SanPhamImpl;
 import ViewModel.Qlsp;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -22,36 +33,105 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private DefaultTableModel dtm;
     DefaultComboBoxModel dcmMaSP;
+    DefaultComboBoxModel dcmLoaiHang,dcmLoaiHangSerch;
     
     
     IQlspService iQlspService;
     ISanPhamService iSanPhamService;
+    LoaiHangServices loaiHangServices;
+    public QuanLySP(DefaultTableModel dtm, DefaultComboBoxModel dcmMaSP, IQlspService iQlspService, ISanPhamService iSanPhamService, JButton btnClear, JButton btnLoadData, JButton btnSearch, JButton btnSua, JButton btnThem, JButton btnThemNhanhCl, JButton btnThemNhanhLh, JButton btnThemNhanhMau, JButton btnThemNhanhSize, JButton btnXoa, JComboBox<String> cbbChatLieu, JComboBox<String> cbbLoai, JComboBox<String> cbbMaSP, JComboBox<String> cbbMauSac, JComboBox<String> cbbSearchChatLieu, JComboBox<String> cbbSearchLoaiSP, JComboBox<String> cbbSearchMauSP, JComboBox<String> cbbSearchSize, JComboBox<String> cbbSize, JLabel jLabel1, JLabel jLabel10, JLabel jLabel11, JLabel jLabel12, JLabel jLabel13, JLabel jLabel14, JLabel jLabel15, JLabel jLabel16, JLabel jLabel17, JLabel jLabel18, JLabel jLabel19, JLabel jLabel5, JLabel jLabel6, JLabel jLabel7, JLabel jLabel8, JLabel jLabel9, JPanel jPanel2, JPanel jPanel4, JScrollPane jScrollPane2, JTabbedPane jTabbedPane2, JRadioButton rdChatLieu, JRadioButton rdLoai, JRadioButton rdMau, JRadioButton rdSize, JTable tblQLSP, JTextField txtChiTietSP, JTextField txtMoTa, JTextField txtSearchTenSP, JTextField txtSoLuong, JTextField txtTenSP, JTextField txtdDonGia) {
+        this.dtm = dtm;
+        this.dcmMaSP = dcmMaSP;
+        this.iQlspService = iQlspService;
+        this.iSanPhamService = iSanPhamService;
+        this.btnClear = btnClear;
+        this.btnLoadData = btnLoadData;
+        this.btnSearch = btnSearch;
+        this.btnSua = btnSua;
+        this.btnThem = btnThem;
+        this.btnThemNhanhCl = btnThemNhanhCl;
+        this.btnThemNhanhLh = btnThemNhanhLh;
+        this.btnThemNhanhMau = btnThemNhanhMau;
+        this.btnThemNhanhSize = btnThemNhanhSize;
+        this.btnXoa = btnXoa;
+        this.cbbChatLieu = cbbChatLieu;
+        this.cbbLoai = cbbLoai;
+        this.cbbMaSP = cbbMaSP;
+        this.cbbMauSac = cbbMauSac;
+        this.cbbSearchChatLieu = cbbSearchChatLieu;
+        this.cbbSearchLoaiSP = cbbSearchLoaiSP;
+        this.cbbSearchMauSP = cbbSearchMauSP;
+        this.cbbSearchSize = cbbSearchSize;
+        this.cbbSize = cbbSize;
+        this.jLabel1 = jLabel1;
+        this.jLabel10 = jLabel10;
+        this.jLabel11 = jLabel11;
+        this.jLabel12 = jLabel12;
+        this.jLabel13 = jLabel13;
+        this.jLabel14 = jLabel14;
+        this.jLabel15 = jLabel15;
+        this.jLabel16 = jLabel16;
+        this.jLabel17 = jLabel17;
+        this.jLabel18 = jLabel18;
+        this.jLabel19 = jLabel19;
+        this.jLabel5 = jLabel5;
+        this.jLabel6 = jLabel6;
+        this.jLabel7 = jLabel7;
+        this.jLabel8 = jLabel8;
+        this.jLabel9 = jLabel9;
+        this.jPanel2 = jPanel2;
+        this.jPanel4 = jPanel4;
+        this.jScrollPane2 = jScrollPane2;
+        this.jTabbedPane2 = jTabbedPane2;
+        this.rdChatLieu = rdChatLieu;
+        this.rdLoai = rdLoai;
+        this.rdMau = rdMau;
+        this.rdSize = rdSize;
+        this.tblQLSP = tblQLSP;
+        this.txtChiTietSP = txtChiTietSP;
+        this.txtMoTa = txtMoTa;
+        this.txtSearchTenSP = txtSearchTenSP;
+        this.txtSoLuong = txtSoLuong;
+        this.txtTenSP = txtTenSP;
+        this.txtdDonGia = txtdDonGia;
+    }
 
     public QuanLySP() {
         initComponents();
         
         iQlspService=new QlspImpl();
         iSanPhamService=new SanPhamImpl();
-        
+        loaiHangServices=new LoaiHangIplm();
         dtm=(DefaultTableModel) tblQLSP.getModel();
-        dcmMaSP=(DefaultComboBoxModel) cbbMaSP.getModel();
+        
         
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtm.setColumnIdentifiers(hihi);
         
         loadCbbMaSp(iSanPhamService.getListMaSp());
-        
+        loadCbbLoaiHang(loaiHangServices.getListTenLoai());
         
         loadData(iQlspService.getAll());
     }
 
     private void loadCbbMaSp(ArrayList<String> list){
+        dcmMaSP=(DefaultComboBoxModel) cbbMaSP.getModel();
         dcmMaSP.removeAllElements();
         for (String s : list) {
             dcmMaSP.addElement(s);
         }
     }
     
+    void loadCbbLoaiHang(ArrayList<String> list){
+        dcmLoaiHang=(DefaultComboBoxModel) cbbLoai.getModel();
+        dcmLoaiHangSerch=(DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
+        dcmLoaiHang.removeAllElements();
+        dcmLoaiHangSerch.removeAllElements();
+        for (String s : list) {
+            dcmLoaiHang.addElement(s);
+            dcmLoaiHangSerch.addElement(s);
+        }
+    }
     
     private void loadData(ArrayList<Qlsp> list){
         dtm.setRowCount(0);

@@ -5,6 +5,7 @@
 package Service.Interface;
 
 import DomainModel.LoaiHangDomainModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,4 +21,6 @@ public interface LoaiHangServices {
     String update(LoaiHangDomainModel lh, String ma);
 
     String delete(String ma);
+
+    ArrayList<String> getListTenLoai();
 }

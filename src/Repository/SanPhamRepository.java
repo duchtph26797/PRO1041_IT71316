@@ -13,11 +13,11 @@ import java.sql.ResultSet;
  */
 public class SanPhamRepository {
     
-    final String get_all ="select masp from sanpham"; 
+    final String get_list_masp ="select masp from sanpham"; 
     public ArrayList<String> getListMaSp(){
         ArrayList<String> list=new ArrayList<>();
         try {
-            ResultSet rs=DBConnection.getDataFromQuery(get_all);
+            ResultSet rs=DBConnection.getDataFromQuery(get_list_masp);
             while (rs.next()) {                
                 list.add(rs.getString(1));
             }

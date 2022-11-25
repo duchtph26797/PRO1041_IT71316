@@ -7,6 +7,7 @@ package Service;
 import DomainModel.LoaiHangDomainModel;
 import Repository.LoaiHangRepository;
 import Service.Interface.LoaiHangServices;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -50,6 +51,11 @@ public class LoaiHangIplm implements LoaiHangServices {
         } else {
             return "Xoa thong tin loai hang that bai";
         }
+    }
+
+    @Override
+    public ArrayList<String> getListTenLoai() {
+        return rep.getListTenLoaiHang();
     }
 
 }
