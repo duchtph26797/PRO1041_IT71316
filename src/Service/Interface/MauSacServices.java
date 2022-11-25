@@ -5,6 +5,7 @@
 package Service.Interface;
 
 import DomainModel.MauSacDomainModel;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,9 +13,16 @@ import java.util.List;
  * @author DELL 5570
  */
 public interface MauSacServices {
+
     List<MauSacDomainModel> getAll();
+
     String add(MauSacDomainModel ms);
+
     String update(MauSacDomainModel ms, String ma);
+
     String delete(String ma);
+
     List<MauSacDomainModel> timkiem(String ten);
+
+    ArrayList<String> getMS();
 }
