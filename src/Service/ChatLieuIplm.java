@@ -31,7 +31,7 @@ public class ChatLieuIplm implements ChatLieuServices {
         }
         List<ChatLieuDomainModel>list = res.getAll();
         for (ChatLieuDomainModel x : list) {
-            if(x.getTenCL()== cl.getTenCL()){
+            if(x.getTenCL().equalsIgnoreCase(cl.getTenCL())){
                 return "trùng mã";
             }
         }

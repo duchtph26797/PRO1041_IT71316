@@ -32,7 +32,7 @@ public class MauSacIplm implements MauSacServices {
         }
         List<MauSacDomainModel> list = res.getAll();
         for (MauSacDomainModel x : list) {
-            if (x.getTenMau() == ms.getTenMau()) {
+            if (x.getTenMau().equalsIgnoreCase(ms.getTenMau())) {
                 return "trùng mã";
             }
         }

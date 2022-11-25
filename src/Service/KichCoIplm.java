@@ -35,7 +35,7 @@ public class KichCoIplm implements KichCoServices {
         }
          List<KichCoDomainModel>list = res.getAll();
          for (KichCoDomainModel x : list) {
-            if(x.getTenKC()==kc.getTenKC()){
+            if(x.getTenKC().equalsIgnoreCase(kc.getTenKC())){
                 return "trùng mã";
             }
         }
