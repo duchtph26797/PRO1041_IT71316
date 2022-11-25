@@ -5,13 +5,13 @@
 package Service;
 
 import DomainModel.ModelSanPham;
-import Repository.repositorySP;
+import Repository.QlspRepository;
 import Service.Interface.sanPhamService;
 import java.util.List;
 
 
 public class sanPhamServiceIplm implements sanPhamService{
-        private Repository.repositorySP rsp = new repositorySP();
+        private Repository.QlspRepository rsp = new QlspRepository();
     @Override
     public List<ModelSanPham> getAll() {
         return rsp.getAll();

@@ -155,7 +155,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         panel.removeAll();
-        Form_1 f = new Form_1();
+        QuanLySP f=new  QuanLySP();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();

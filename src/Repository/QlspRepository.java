@@ -9,7 +9,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class repositorySP {
+public class QlspRepository {
 
     public List<ModelSanPham> getAll() {
         String sql = "SELECT TOP (1000) [MaCTSP]\n"
@@ -112,6 +112,6 @@ public class repositorySP {
     }
     
     public static void main(String[] args) {
-        System.out.println(new repositorySP().delete("hh"));
+        System.out.println(new QlspRepository().delete("hh"));
     }
 }
