@@ -653,9 +653,12 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnThemNhanhClActionPerformed
 
     private void btnThemNhanhLhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhLhActionPerformed
-        String loai = JOptionPane.showInputDialog("Them loai hang moi:");
+        String loai = JOptionPane.showInputDialog(this,"Them loai hang moi:");
+        if(loai==null){
+            loai="";
+        }
         LoaiHangDomainModel lh = new LoaiHangDomainModel(loai);
-        JOptionPane.showMessageDialog(cbbLoai, loaiHangServices.add(lh));
+        JOptionPane.showMessageDialog(this, loaiHangServices.add(lh));
         loadCbbLoaiHang(loaiHangServices.getListTenLoai());
     }//GEN-LAST:event_btnThemNhanhLhActionPerformed
 
