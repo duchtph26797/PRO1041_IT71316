@@ -120,6 +120,11 @@ public class TrangChu extends javax.swing.JFrame {
         btnNhanVien.setBackground(new java.awt.Color(255, 153, 153));
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/User.png"))); // NOI18N
         btnNhanVien.setText("Nhân Viên");
+        btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNhanVienActionPerformed(evt);
+            }
+        });
         panelMenu.add(btnNhanVien);
 
         btnDangXuat1.setBackground(new java.awt.Color(255, 204, 255));
@@ -132,7 +137,6 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnDangXuat1);
 
-        btnDangXuat.setBackground(new java.awt.Color(255, 255, 255));
         btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
         btnDangXuat.setText("Đăng Xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -267,6 +271,16 @@ public class TrangChu extends javax.swing.JFrame {
     private void btnDangXuat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuat1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnDangXuat1ActionPerformed
+
+    private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
+        // TODO add your handling code here:
+                panel.removeAll();
+        FormQLNhanVien f = new FormQLNhanVien();
+        panel.add(f);
+        panel.setLayout(new FlowLayout());
+        this.pack();
+        f.setVisible(true);
+    }//GEN-LAST:event_btnNhanVienActionPerformed
 
     /**
      * @param args the command line arguments

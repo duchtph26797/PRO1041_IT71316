@@ -4,6 +4,7 @@
  */
 package View;
 
+import DomainModel.ChatLieuDomainModel;
 import DomainModel.KichCoDomainModel;
 import DomainModel.LoaiHangDomainModel;
 import DomainModel.MauSacDomainModel;
@@ -666,6 +667,13 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private void btnThemNhanhClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhClActionPerformed
         // TODO add your handling code here:
+                String Cl = JOptionPane.showInputDialog(this, "Them chat lieu moi(Fload) :");
+        if (Cl == null) {
+            Cl = "";
+        }
+        ChatLieuDomainModel ChatL = new ChatLieuDomainModel(Cl);
+        JOptionPane.showMessageDialog(this, chatLieuServices.add(ChatL));
+        loadCbbLoaiHang(chatLieuServices.getListTenCL());
     }//GEN-LAST:event_btnThemNhanhClActionPerformed
 
     private void btnThemNhanhLhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhLhActionPerformed
