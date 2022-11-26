@@ -773,7 +773,18 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_rdLoaiActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+        try {
+            Qlsp qlsp = getQlsp();
+            if (iQlspService.sua(qlsp)) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                loadData(iQlspService.getAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi sửa");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed

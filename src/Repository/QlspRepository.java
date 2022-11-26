@@ -124,6 +124,28 @@ public class QlspRepository {
         return true;
     }
 
+    final String sua_ctsp = "update chitietsp set mams=?,maloai=?,macl=?,makc=?,"
+            + "soluong=?,dongia=?,mota=? where mactsp=?";
+
+    public Boolean sua_ctsp(Ctsp ctsp) {
+        try {
+            if (DBConnection.ExcuteQuery(sua_ctsp,
+                    ctsp.getMs().getMaMau(),
+                    ctsp.getLoai().getMaLoai(),
+                    ctsp.getCl().getMaCL(),
+                    ctsp.getKc().getMaKC(),
+                    ctsp.getSoLuong(),
+                    ctsp.getDonGia(),
+                    ctsp.getMoTa(),
+                    ctsp.getMaCtsp()) == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+    
     public Boolean them_sp_ctsp(SanPham sp, Ctsp ctsp) {
         try {
             if (new SanPhamRepository().them_sp(sp) && them_ctsp(ctsp)) {
