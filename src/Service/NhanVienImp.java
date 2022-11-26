@@ -24,8 +24,8 @@ public class NhanVienImp implements NhanVienSer {
 
     @Override
 
-    public String delete(String ma) {
-        boolean delete = NvRepo.delete(ma);
+    public String delete(String Ten) {
+        boolean delete = NvRepo.delete(Ten);
         if (delete) {
             return "Delete thành công";
         } else {
@@ -48,8 +48,8 @@ public class NhanVienImp implements NhanVienSer {
     }
 
     @Override
-    public String Update(NhanVienModel Nv, String Ma) {
-        boolean update = NvRepo.Update(Nv, Ma);
+    public String Update(NhanVienModel Nv, String Ten) {
+        boolean update = NvRepo.Update(Nv, Ten);
         if (update) {
             return "Update Nv ✔️";
         } else {

@@ -19,5 +19,5 @@ public interface NhanVienSer {
     
     String add(NhanVienModel Nv);
     
-    String Update(NhanVienModel Nv, String Ma);
+    String Update(NhanVienModel Nv, String Ten);
 }

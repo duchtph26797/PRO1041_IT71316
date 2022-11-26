@@ -49,11 +49,10 @@ public class NhanVienRepo {
                 + "           (?,?,?,?)";
         int check = 0;
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
-            ps.setObject(1, Nv.getMaNV());
-            ps.setObject(2, Nv.getTenNV());
-            ps.setObject(3, Nv.getSdt());
-            ps.setObject(4, Nv.getUseName());
-            ps.setObject(5, Nv.getNgaySinh());
+            ps.setObject(1, Nv.getTenNV());
+            ps.setObject(2, Nv.getSdt());
+            ps.setObject(3, Nv.getUseName());
+            ps.setObject(4, Nv.getNgaySinh());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -61,12 +60,12 @@ public class NhanVienRepo {
         return check > 0;
     }
 
-    public boolean delete(String MaNV) {
+    public boolean delete(String TenNV) {
         int check = 0;
-        String query = "DELETE FROM [dbo].[NhanVien]\n"
-                + "      WHERE MaNV like ?";
+        String query = "DELETE FROM [dbo].[NHANVIEN]\n"
+                + "      WHERE TenNV = ?";
         try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
-            ps.setString(1, MaNV);
+            ps.setString(1, TenNV);
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);
@@ -80,7 +79,7 @@ public class NhanVienRepo {
                 + "      ,[SDT] = ?\n"
                 + "      ,[Username] = ?\n"
                 + "      ,[NgaySinh] = ?\n"
-                + " WHERE MaNV = ?";
+                + " WHERE TenNV = ?";
 
         int check = 0;
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
@@ -88,7 +87,7 @@ public class NhanVienRepo {
             ps.setObject(2, Nv.getSdt());
             ps.setObject(3, Nv.getUseName());
             ps.setObject(4, Nv.getNgaySinh());
-            ps.setObject(5, Nv.getMaNV());
+            ps.setObject(5, Nv.getTenNV());
             check = ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace(System.out);

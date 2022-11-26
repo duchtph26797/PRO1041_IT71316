@@ -20,6 +20,13 @@ public class NhanVienModel {
     public NhanVienModel() {
     }
 
+    public NhanVienModel(String TenNV, String Sdt, String UseName, String NgaySinh) {
+        this.TenNV = TenNV;
+        this.Sdt = Sdt;
+        this.UseName = UseName;
+        this.NgaySinh = NgaySinh;
+    }
+
     public int getMaNV() {
         return MaNV;
     }
