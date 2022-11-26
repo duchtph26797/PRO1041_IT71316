@@ -25,14 +25,6 @@ public class TrangChu extends javax.swing.JFrame {
     public TrangChu(TaiKhoanView tkv) {
         initComponents();
         setLocationRelativeTo(this);
-        if (tkv.getLoaiTk().equalsIgnoreCase("khachhang")) {
-            btnQLSP.setEnabled(false);
-            btnKhachHang.setEnabled(false);
-            btnHoaDon.setEnabled(false);
-            btnThongKe.setEnabled(false);
-            btnNhanVien.setEnabled(false);
-        }
-
         if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);

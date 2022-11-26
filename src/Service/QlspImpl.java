@@ -57,7 +57,8 @@ public class QlspImpl implements IQlspService {
                     ctsp.getLoai().getTenLoai(),
                     ctsp.getSoLuong(),
                     ctsp.getDonGia(),
-                    ctsp.getMoTa()
+                    ctsp.getMoTa(),
+                    ctsp.getTrangThai()
             ));
         }
         return listView;
@@ -84,7 +85,8 @@ public class QlspImpl implements IQlspService {
             ctsp.setSoLuong(qlsp.getSoLuong());
             ctsp.setDonGia(qlsp.getDonGia());
             ctsp.setMoTa(qlsp.getMoTa());
-            System.out.println(ctsp.toString());
+            ctsp.setTrangThai(qlsp.getTrangThai());
+            System.out.println("sv  "+ctsp.toString());
             if (qlspRepository.them_ctsp(ctsp)) {
                 return true;
             } else {
@@ -103,8 +105,8 @@ public class QlspImpl implements IQlspService {
             //
             if (sanPhamRepository.them_sp(sp)) {
                 SanPham sp2 = new SanPham();
-                sp2.setMaSp(sanPhamRepository.count_sp() + 1);
-                System.out.println("masp" + sp2.getMaSp());
+                sp2.setMaSp(sanPhamRepository.tim_idsp_by_ten(qlsp.getTenSp()));
+                System.out.println("masp sv " + sp2.getMaSp());
                 //
                 MauSacDomainModel ms = new MauSacDomainModel(mauSacRepository.tim_mams_by_ten(qlsp.getTenMs()), "");
                 ChatLieuDomainModel cl = new ChatLieuDomainModel(chatLieuRepository.tim_macl_by_ten(qlsp.getTenCl()), "");
@@ -119,6 +121,8 @@ public class QlspImpl implements IQlspService {
                 ctsp.setSoLuong(qlsp.getSoLuong());
                 ctsp.setDonGia(qlsp.getDonGia());
                 ctsp.setMoTa(qlsp.getMoTa());
+                ctsp.setTrangThai(qlsp.getTrangThai());
+                System.out.println("sv  "+ctsp.toString());
                 if (qlspRepository.them_ctsp(ctsp)) {
                     return true;
                 } else {
@@ -145,6 +149,7 @@ public class QlspImpl implements IQlspService {
         ctsp.setDonGia(qlsp.getDonGia());
         ctsp.setMoTa(qlsp.getMoTa());
         ctsp.setMaCtsp(qlsp.getMaCtsp());
+        ctsp.setTrangThai(qlsp.getTrangThai());
         return qlspRepository.sua_ctsp(ctsp);
     }
 
@@ -199,7 +204,8 @@ public class QlspImpl implements IQlspService {
                     ctsp.getLoai().getTenLoai(),
                     ctsp.getSoLuong(),
                     ctsp.getDonGia(),
-                    ctsp.getMoTa()
+                    ctsp.getMoTa(),
+                    ctsp.getTrangThai()
             ));
         }
         return listView;
