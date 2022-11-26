@@ -239,6 +239,7 @@ public class QuanLySP extends javax.swing.JPanel {
 
         jLabel19.setText("Chất liệu");
 
+        txtSearchMaSp.setEnabled(false);
         txtSearchMaSp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchMaSpActionPerformed(evt);
@@ -863,7 +864,12 @@ public class QuanLySP extends javax.swing.JPanel {
     }//GEN-LAST:event_btnSearchActionPerformed
 
     private void rdMaSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMaSpActionPerformed
-        // TODO add your handling code here:
+        if(rdMaSp.isSelected()){
+            txtSearchMaSp.setEnabled(true);
+        }
+        else{
+            txtSearchMaSp.setEnabled(false);
+        }
     }//GEN-LAST:event_rdMaSpActionPerformed
 
 
