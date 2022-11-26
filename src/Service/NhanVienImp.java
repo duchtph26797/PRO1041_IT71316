@@ -29,10 +29,10 @@ public class NhanVienImp implements NhanVienSer {
         if (delete) {
             return "Delete thành công";
         } else {
-            return"Delete Thất bại" ;
+            return "Delete Thất bại";
         }
-    
-}
+
+    }
 
     @Override
     public String add(NhanVienModel Nvv) {
@@ -42,8 +42,8 @@ public class NhanVienImp implements NhanVienSer {
         boolean add = NvRepo.add(Nvv);
         if (add) {
             return "Thêm NV thành công !";
-        }else{
-        return "Thêm NV thất bại Hoặc NV đã tồn tại !";
+        } else {
+            return "Thêm NV thất bại Hoặc NV đã tồn tại !";
         }
     }
 
@@ -56,4 +56,4 @@ public class NhanVienImp implements NhanVienSer {
             return "Update NV False !";
         }
     }
-    }
+}
