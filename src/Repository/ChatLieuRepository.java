@@ -76,11 +76,11 @@ public class ChatLieuRepository {
         }
         return check > 0;
     }
-    final String get_all = "select TenCL from CHATLIEU";
+    final String getListTenCl = "select TenCL from CHATLIEU";
     public ArrayList<String> getListTenCL(){
         ArrayList<String> list = new ArrayList<>();
         try {
-            ResultSet rs = DBConnection.getDataFromQuery(get_all);
+            ResultSet rs = DBConnection.getDataFromQuery(getListTenCl);
             while(rs.next()){
                 list.add(rs.getString(1));
             }
@@ -89,8 +89,21 @@ public class ChatLieuRepository {
         }
         return list;
     }
+    
+    final String tim_macl_by_ten = "select macl from chatlieu where tencl=?";
+    public int tim_macl_by_ten(String ten){
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(tim_macl_by_ten,ten);  
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     public static void main(String[] args) {
-        System.out.println(new ChatLieuRepository().getListTenCL());
+        System.out.println(new ChatLieuRepository().tim_macl_by_ten("x"));
     }
 
 }

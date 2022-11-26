@@ -91,7 +91,20 @@ public class LoaiHangRepository {
         return list;
     }
 
+    final String tim_malh_by_ten = "select maloai from loaihang where tenloai=?";
+    public int tim_malh_by_ten(String ten){
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(tim_malh_by_ten,ten);  
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
+    
     public static void main(String[] args) {
-        System.out.println(new LoaiHangRepository().getListTenLoaiHang());
+        System.out.println(new LoaiHangRepository().tim_malh_by_ten("a"));
     }
 }

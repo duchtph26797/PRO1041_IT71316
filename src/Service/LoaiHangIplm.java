@@ -30,7 +30,7 @@ public class LoaiHangIplm implements LoaiHangServices {
         }
         List<LoaiHangDomainModel>list = rep.getAll();
         for (LoaiHangDomainModel x : list) {
-            if(x.getTenLoai()==lh.getTenLoai()){
+            if(x.getTenLoai().equalsIgnoreCase(lh.getTenLoai())){
                 return "trùng mã";
             }
         }

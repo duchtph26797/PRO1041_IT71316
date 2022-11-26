@@ -75,11 +75,11 @@ public class KichCoRepository {
         }
         return check >0;
     }
-    final String get_all = "select TenKC from KICHCO";
+    final String getListTenKc = "select TenKC from KICHCO";
     public ArrayList<String> getListTenKC(){
         ArrayList<String>list = new ArrayList<>();
         try {
-            ResultSet rs = DBConnection.getDataFromQuery(get_all);
+            ResultSet rs = DBConnection.getDataFromQuery(getListTenKc);
             
             while(rs.next()){
                 list.add(rs.getString(1));
@@ -89,8 +89,21 @@ public class KichCoRepository {
         }
         return list;
     }
+    
+    final String tim_makc_by_ten = "select maKC from KICHCO where tenkc=?";
+    public int tim_makc_by_ten(String ten){
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(tim_makc_by_ten,ten);  
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
+    }
     public static void main(String[] args) {
-        System.out.println(new KichCoRepository().getListTenKC());
+        System.out.println(new KichCoRepository().tim_makc_by_ten("Xl"));
     }
 
 }

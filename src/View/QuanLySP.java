@@ -4,6 +4,10 @@
  */
 package View;
 
+import DomainModel.ChatLieuDomainModel;
+import DomainModel.KichCoDomainModel;
+import DomainModel.LoaiHangDomainModel;
+import DomainModel.MauSacDomainModel;
 import Service.ChatLieuIplm;
 import Service.Interface.ChatLieuServices;
 import Service.Interface.IQlspService;
@@ -23,6 +27,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JScrollPane;
@@ -39,34 +44,34 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private DefaultTableModel dtm;
     DefaultComboBoxModel dcmMaSP;
-    DefaultComboBoxModel dcmLoaiHang,dcmLoaiHangSerch;
-    DefaultComboBoxModel dcmChatLieu,dcmChatLieuSerch;
-    DefaultComboBoxModel dcmSize,dcmSizeSerch;
-    DefaultComboBoxModel dcmMau,dcmMauSerch;
-    
+    DefaultComboBoxModel dcmLoaiHang, dcmLoaiHangSerch;
+    DefaultComboBoxModel dcmChatLieu, dcmChatLieuSerch;
+    DefaultComboBoxModel dcmSize, dcmSizeSearch;
+    DefaultComboBoxModel dcmMau, dcmMauSerch;
+
     IQlspService iQlspService;
     ISanPhamService iSanPhamService;
     LoaiHangServices loaiHangServices;
     MauSacServices mauSacServices;
     ChatLieuServices chatLieuServices;
     KichCoServices kichCoServices;
-    
+    ArrayList<Qlsp> listClone;
+
     public QuanLySP() {
         initComponents();
-        
-        iQlspService=new QlspImpl();
-        iSanPhamService=new SanPhamImpl();
-        loaiHangServices=new LoaiHangIplm();
-        mauSacServices =new MauSacIplm();
-        chatLieuServices=new ChatLieuIplm();
-        kichCoServices=new KichCoIplm();
-        
-        dtm=(DefaultTableModel) tblQLSP.getModel();
-        
-        
+
+        iQlspService = new QlspImpl();
+        iSanPhamService = new SanPhamImpl();
+        loaiHangServices = new LoaiHangIplm();
+        mauSacServices = new MauSacIplm();
+        chatLieuServices = new ChatLieuIplm();
+        kichCoServices = new KichCoIplm();
+
+        dtm = (DefaultTableModel) tblQLSP.getModel();
+
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtm.setColumnIdentifiers(hihi);
-        
+
         loadCbbMaSp(iSanPhamService.getListMaSp());
         loadCbbLoaiHang(loaiHangServices.getListTenLoai());
         loadCbbChatLieu(chatLieuServices.getListTenCL());
@@ -75,17 +80,17 @@ public class QuanLySP extends javax.swing.JPanel {
         loadData(iQlspService.getAll());
     }
 
-    private void loadCbbMaSp(ArrayList<String> list){
-        dcmMaSP=(DefaultComboBoxModel) cbbMaSP.getModel();
+    private void loadCbbMaSp(ArrayList<String> list) {
+        dcmMaSP = (DefaultComboBoxModel) cbbMaSP.getModel();
         dcmMaSP.removeAllElements();
         for (String s : list) {
             dcmMaSP.addElement(s);
         }
     }
-    
-    void loadCbbLoaiHang(ArrayList<String> list){
-        dcmLoaiHang=(DefaultComboBoxModel) cbbLoai.getModel();
-        dcmLoaiHangSerch=(DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
+
+    void loadCbbLoaiHang(ArrayList<String> list) {
+        dcmLoaiHang = (DefaultComboBoxModel) cbbLoai.getModel();
+        dcmLoaiHangSerch = (DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
         dcmLoaiHang.removeAllElements();
         dcmLoaiHangSerch.removeAllElements();
         for (String s : list) {
@@ -93,45 +98,46 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmLoaiHangSerch.addElement(s);
         }
     }
-    
-    void loadCbbChatLieu(ArrayList<String> list){
-        dcmChatLieu=(DefaultComboBoxModel) cbbChatLieu.getModel();
-        dcmChatLieuSerch=(DefaultComboBoxModel) cbbSearchChatLieu.getModel();
+
+    void loadCbbChatLieu(ArrayList<String> list) {
+        dcmChatLieu = (DefaultComboBoxModel) cbbChatLieu.getModel();
+        dcmChatLieuSerch = (DefaultComboBoxModel) cbbSearchChatLieu.getModel();
         dcmChatLieu.removeAllElements();
         dcmChatLieuSerch.removeAllElements();
         for (String s : list) {
             dcmChatLieu.addElement(s);
             dcmChatLieuSerch.addElement(s);
         }
-        
+
     }
-    
-    void loadCbbSize(ArrayList<String> list){
-        dcmSize=(DefaultComboBoxModel) cbbChatLieu.getModel();
-        dcmSizeSerch=(DefaultComboBoxModel) cbbSearchSize.getModel();
+
+    void loadCbbSize(ArrayList<String> list) {
+        dcmSize = (DefaultComboBoxModel) cbbSize.getModel();
+        dcmSizeSearch = (DefaultComboBoxModel) cbbSearchSize.getModel();
         dcmSize.removeAllElements();
-        dcmSizeSerch.removeAllElements();
+        dcmSizeSearch.removeAllElements();
         for (String s : list) {
             dcmSize.addElement(s);
-            dcmSizeSerch.addElement(s);
+            dcmSizeSearch.addElement(s);
         }
-        
+
     }
-    
-    void loadCbbMauSac(ArrayList<String> list){
-        dcmMau=(DefaultComboBoxModel) cbbMauSac.getModel();
-        dcmMauSerch=(DefaultComboBoxModel) cbbSearchMauSP.getModel();
+
+    void loadCbbMauSac(ArrayList<String> list) {
+        dcmMau = (DefaultComboBoxModel) cbbMauSac.getModel();
+        dcmMauSerch = (DefaultComboBoxModel) cbbSearchMauSP.getModel();
         dcmMau.removeAllElements();
         dcmMauSerch.removeAllElements();
         for (String s : list) {
             dcmMau.addElement(s);
             dcmMauSerch.addElement(s);
         }
-        
+
     }
-    
-    private void loadData(ArrayList<Qlsp> list){
+
+    private void loadData(ArrayList<Qlsp> list) {
         dtm.setRowCount(0);
+        listClone = list;
         for (Qlsp qlsp : list) {
             dtm.addRow(new Object[]{
                 qlsp.getMaCtsp(),
@@ -145,12 +151,43 @@ public class QuanLySP extends javax.swing.JPanel {
             });
         }
     }
-    
+
+    Qlsp getQlsp() {
+        int mactsp = Integer.parseInt(txtChiTietSP.getText());
+        int masp = Integer.parseInt(cbbMaSP.getSelectedItem().toString());
+        String tensp = txtTenSP.getText();
+        String size = cbbSize.getSelectedItem().toString();
+        String ms = cbbMauSac.getSelectedItem().toString();
+        String cl = cbbChatLieu.getSelectedItem().toString();
+        String lh = cbbLoai.getSelectedItem().toString();
+        int sl = Integer.parseInt(txtSoLuong.getText());
+        float dg = Float.parseFloat(txtdDonGia.getText());
+        String mota = txtMoTa.getText();
+        Qlsp qlsp = new Qlsp(mactsp, masp, tensp, ms, cl, size, lh, sl, dg, mota);
+        return qlsp;
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
+        jPanel4 = new javax.swing.JPanel();
+        jLabel15 = new javax.swing.JLabel();
+        cbbSearchMau = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        txtSearchMaSp = new javax.swing.JTextField();
+        cbbSearchMauSP = new javax.swing.JComboBox<>();
+        cbbSearchLoaiSP = new javax.swing.JComboBox<>();
+        cbbSearchSize = new javax.swing.JComboBox<>();
+        cbbSearchChatLieu = new javax.swing.JComboBox<>();
+        btnSearch = new javax.swing.JButton();
+        rdMau = new javax.swing.JRadioButton();
+        rdSize = new javax.swing.JRadioButton();
+        rdChatLieu = new javax.swing.JRadioButton();
+        rdLoai = new javax.swing.JRadioButton();
         jTabbedPane2 = new javax.swing.JTabbedPane();
         jPanel2 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
@@ -184,26 +221,83 @@ public class QuanLySP extends javax.swing.JPanel {
         btnThemNhanhMau = new javax.swing.JButton();
         btnThemNhanhCl = new javax.swing.JButton();
         btnThemNhanhLh = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jLabel15 = new javax.swing.JLabel();
-        cbbSearchMau = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel19 = new javax.swing.JLabel();
-        txtSearchTenSP = new javax.swing.JTextField();
-        cbbSearchMauSP = new javax.swing.JComboBox<>();
-        cbbSearchLoaiSP = new javax.swing.JComboBox<>();
-        cbbSearchSize = new javax.swing.JComboBox<>();
-        cbbSearchChatLieu = new javax.swing.JComboBox<>();
-        btnSearch = new javax.swing.JButton();
-        rdMau = new javax.swing.JRadioButton();
-        rdSize = new javax.swing.JRadioButton();
-        rdChatLieu = new javax.swing.JRadioButton();
-        rdLoai = new javax.swing.JRadioButton();
+        rdMaSp = new javax.swing.JRadioButton();
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Actions-document-edit-icon-16.png"))); // NOI18N
         jLabel1.setText("Quản Lý Sản Phẩm");
+
+        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+
+        jLabel15.setText("Mã Sp");
+
+        cbbSearchMau.setText("Màu SP");
+
+        jLabel17.setText("Loại SP");
+
+        jLabel18.setText("Size");
+
+        jLabel19.setText("Chất liệu");
+
+        txtSearchMaSp.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchMaSpActionPerformed(evt);
+            }
+        });
+
+        cbbSearchMauSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSearchMauSP.setEnabled(false);
+        cbbSearchMauSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSearchMauSPActionPerformed(evt);
+            }
+        });
+
+        cbbSearchLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSearchLoaiSP.setEnabled(false);
+
+        cbbSearchSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSearchSize.setEnabled(false);
+        cbbSearchSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSearchSizeActionPerformed(evt);
+            }
+        });
+
+        cbbSearchChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSearchChatLieu.setEnabled(false);
+
+        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Search.png"))); // NOI18N
+        btnSearch.setText("search");
+        btnSearch.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSearchActionPerformed(evt);
+            }
+        });
+
+        rdMau.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdMauActionPerformed(evt);
+            }
+        });
+
+        rdSize.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdSizeActionPerformed(evt);
+            }
+        });
+
+        rdChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdChatLieuActionPerformed(evt);
+            }
+        });
+
+        rdLoai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rdLoaiActionPerformed(evt);
+            }
+        });
 
         jLabel5.setText("Mã SP");
 
@@ -252,6 +346,11 @@ public class QuanLySP extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblQLSP.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblQLSPMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblQLSP);
 
         jLabel11.setText("Mô tả");
@@ -320,10 +419,14 @@ public class QuanLySP extends javax.swing.JPanel {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(51, 51, 51))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(38, 38, 38)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -376,12 +479,10 @@ public class QuanLySP extends javax.swing.JPanel {
                                 .addComponent(btnSua)
                                 .addGap(18, 18, 18)
                                 .addComponent(btnClear)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(btnXoa)))
-                        .addGap(87, 87, 87))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 577, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(88, Short.MAX_VALUE))))
+                                .addGap(29, 29, 29)
+                                .addComponent(btnXoa)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(87, 87, 87))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -434,76 +535,16 @@ public class QuanLySP extends javax.swing.JPanel {
                     .addComponent(btnXoa)
                     .addComponent(btnLoadData)
                     .addComponent(btnClear))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 13, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 217, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane2.addTab("Quản Lý SP", jPanel2);
 
-        jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
-
-        jLabel15.setText("Tên SP");
-
-        cbbSearchMau.setText("Màu SP");
-
-        jLabel17.setText("Loại SP");
-
-        jLabel18.setText("Size");
-
-        jLabel19.setText("Chất liệu");
-
-        txtSearchTenSP.addActionListener(new java.awt.event.ActionListener() {
+        rdMaSp.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchTenSPActionPerformed(evt);
-            }
-        });
-
-        cbbSearchMauSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSearchMauSP.setEnabled(false);
-        cbbSearchMauSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbSearchMauSPActionPerformed(evt);
-            }
-        });
-
-        cbbSearchLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSearchLoaiSP.setEnabled(false);
-
-        cbbSearchSize.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSearchSize.setEnabled(false);
-        cbbSearchSize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbSearchSizeActionPerformed(evt);
-            }
-        });
-
-        cbbSearchChatLieu.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSearchChatLieu.setEnabled(false);
-
-        btnSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Search.png"))); // NOI18N
-        btnSearch.setText("search");
-
-        rdMau.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdMauActionPerformed(evt);
-            }
-        });
-
-        rdSize.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdSizeActionPerformed(evt);
-            }
-        });
-
-        rdChatLieu.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdChatLieuActionPerformed(evt);
-            }
-        });
-
-        rdLoai.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                rdLoaiActionPerformed(evt);
+                rdMaSpActionPerformed(evt);
             }
         });
 
@@ -513,25 +554,27 @@ public class QuanLySP extends javax.swing.JPanel {
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(rdLoai))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(rdMau)))
+                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel4Layout.createSequentialGroup()
+                            .addGap(10, 10, 10)
+                            .addComponent(rdLoai))
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(rdMau)))
+                    .addComponent(rdMaSp, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addComponent(jLabel17)
                         .addGap(18, 18, 18)
-                        .addComponent(cbbSearchLoaiSP, 0, 154, Short.MAX_VALUE))
+                        .addComponent(cbbSearchLoaiSP, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(cbbSearchMau)
                             .addComponent(jLabel15))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtSearchTenSP)
+                            .addComponent(txtSearchMaSp)
                             .addComponent(cbbSearchMauSP, 0, 154, Short.MAX_VALUE))))
                 .addGap(15, 15, 15)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -551,6 +594,9 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnSearch)
                 .addGap(38, 38, 38))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -565,11 +611,13 @@ public class QuanLySP extends javax.swing.JPanel {
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(rdSize)
-                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel15)
-                                        .addComponent(jLabel18)
-                                        .addComponent(txtSearchTenSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbbSearchSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(rdMaSp)
+                                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel15)
+                                            .addComponent(jLabel18)
+                                            .addComponent(txtSearchMaSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(cbbSearchSize, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -585,7 +633,9 @@ public class QuanLySP extends javax.swing.JPanel {
                         .addComponent(jLabel17)
                         .addComponent(cbbSearchLoaiSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(rdLoai))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE)
+                .addGap(14, 14, 14))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -593,15 +643,14 @@ public class QuanLySP extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jTabbedPane2)
-                    .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
-            .addGroup(layout.createSequentialGroup()
-                .addGap(245, 245, 245)
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(245, 245, 245)
+                        .addComponent(jLabel1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, 651, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -610,85 +659,147 @@ public class QuanLySP extends javax.swing.JPanel {
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 491, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
-        // TODO add your handling code here:
+        try {
+            Qlsp qlsp = getQlsp();
+            if (iQlspService.check_ton_tai_ctsp(qlsp)) {
+                JOptionPane.showMessageDialog(this, "sản phẩm đã tồn tại");
+                return;
+            } else {
+                System.out.println("view  " + qlsp.toString());
+                if (iQlspService.them(qlsp)) {
+                    JOptionPane.showMessageDialog(this, "Thêm thành công");
+                    loadData(iQlspService.getAll());
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi thêm");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnThemActionPerformed
+
 
     private void cbbSearchSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbSearchSizeActionPerformed
 
     private void btnLoadDataActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoadDataActionPerformed
-        // TODO add your handling code here:
+        loadData(iQlspService.getAll());
     }//GEN-LAST:event_btnLoadDataActionPerformed
 
-    private void txtSearchTenSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchTenSPActionPerformed
+    private void txtSearchMaSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchMaSpActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchTenSPActionPerformed
+    }//GEN-LAST:event_txtSearchMaSpActionPerformed
 
     private void btnThemNhanhSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhSizeActionPerformed
-        // TODO add your handling code here:
+        String kichCo = JOptionPane.showInputDialog("them size");
+        if (kichCo == null) {
+            kichCo = "";
+        }
+        KichCoDomainModel kc = new KichCoDomainModel();
+        kc.setTenKC(kichCo);
+        JOptionPane.showMessageDialog(this, kichCoServices.add(kc));
+        loadCbbSize((kichCoServices.getListTenKC()));
     }//GEN-LAST:event_btnThemNhanhSizeActionPerformed
 
     private void rdMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMauActionPerformed
-        if(rdMau.isSelected()){
+        if (rdMau.isSelected()) {
             cbbSearchMauSP.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchMauSP.setEnabled(false);
         }
     }//GEN-LAST:event_rdMauActionPerformed
 
     private void btnThemNhanhMauActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhMauActionPerformed
-        // TODO add your handling code here:
+        String mau = JOptionPane.showInputDialog("Them mau sac moi:");
+        if (mau == null) {
+            mau = "";
+        }
+        MauSacDomainModel ms = new MauSacDomainModel();
+        ms.setTenMau(mau);
+        JOptionPane.showMessageDialog(this, mauSacServices.add(ms));
+        loadCbbMauSac(mauSacServices.getTenMS());
     }//GEN-LAST:event_btnThemNhanhMauActionPerformed
 
     private void btnThemNhanhClActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhClActionPerformed
         // TODO add your handling code here:
+        String Cl = JOptionPane.showInputDialog(this, "Them chat lieu moi(Fload) :");
+        if (Cl == null) {
+            Cl = "";
+        }
+        ChatLieuDomainModel ChatL = new ChatLieuDomainModel(Cl);
+        JOptionPane.showMessageDialog(this, chatLieuServices.add(ChatL));
+        loadCbbLoaiHang(chatLieuServices.getListTenCL());
     }//GEN-LAST:event_btnThemNhanhClActionPerformed
 
     private void btnThemNhanhLhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemNhanhLhActionPerformed
-        // TODO add your handling code here:
+        String loai = JOptionPane.showInputDialog(this, "Them loai hang moi:");
+        if (loai == null) {
+            loai = "";
+        }
+        LoaiHangDomainModel lh = new LoaiHangDomainModel(loai);
+        JOptionPane.showMessageDialog(this, loaiHangServices.add(lh));
+        loadCbbLoaiHang(loaiHangServices.getListTenLoai());
     }//GEN-LAST:event_btnThemNhanhLhActionPerformed
 
     private void rdSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdSizeActionPerformed
-        if(rdSize.isSelected()){
+        if (rdSize.isSelected()) {
             cbbSearchSize.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchSize.setEnabled(false);
         }
     }//GEN-LAST:event_rdSizeActionPerformed
 
     private void rdChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdChatLieuActionPerformed
-        if(rdChatLieu.isSelected()){
+        if (rdChatLieu.isSelected()) {
             cbbSearchChatLieu.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchChatLieu.setEnabled(false);
         }
     }//GEN-LAST:event_rdChatLieuActionPerformed
 
     private void rdLoaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdLoaiActionPerformed
-        if(rdLoai.isSelected()){
+        if (rdLoai.isSelected()) {
             cbbSearchLoaiSP.setEnabled(true);
-        }
-        else{
+        } else {
             cbbSearchLoaiSP.setEnabled(false);
         }
     }//GEN-LAST:event_rdLoaiActionPerformed
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
-        // TODO add your handling code here:
+        try {
+            Qlsp qlsp = getQlsp();
+            if (iQlspService.sua(qlsp)) {
+                JOptionPane.showMessageDialog(this, "Sửa thành công");
+                loadData(iQlspService.getAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Sửa thất bại");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi sửa");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnSuaActionPerformed
 
     private void btnXoaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXoaActionPerformed
-        // TODO add your handling code here:
+        try {
+            Qlsp qlsp = getQlsp();
+            if (iQlspService.xoa(qlsp)) {
+                JOptionPane.showMessageDialog(this, "Xóa thành công");
+                loadData(iQlspService.getAll());
+            } else {
+                JOptionPane.showMessageDialog(this, "Xóa thất bại");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Lỗi xóa");
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_btnXoaActionPerformed
 
     private void cbbSearchMauSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchMauSPActionPerformed
@@ -702,6 +813,58 @@ public class QuanLySP extends javax.swing.JPanel {
         txtTenSP.setText("");
         txtdDonGia.setText("");
     }//GEN-LAST:event_btnClearActionPerformed
+
+    private void tblQLSPMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblQLSPMouseClicked
+        int i = tblQLSP.getSelectedRow();
+//        String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
+        txtTenSP.setText(tblQLSP.getValueAt(i, 1).toString());
+        cbbSize.setSelectedItem(tblQLSP.getValueAt(i, 5).toString());
+        cbbMauSac.setSelectedItem(tblQLSP.getValueAt(i, 2).toString());
+        cbbChatLieu.setSelectedItem(tblQLSP.getValueAt(i, 4).toString());
+        cbbLoai.setSelectedItem(tblQLSP.getValueAt(i, 3).toString());
+        txtSoLuong.setText(tblQLSP.getValueAt(i, 6).toString());
+        txtdDonGia.setText(tblQLSP.getValueAt(i, 7).toString());
+        txtMoTa.setText(listClone.get(i).getMoTa());
+        txtChiTietSP.setText(tblQLSP.getValueAt(i, 0).toString());
+        dcmMaSP.setSelectedItem(listClone.get(i).getMaSp());
+    }//GEN-LAST:event_tblQLSPMouseClicked
+
+    private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        ArrayList<String> list = new ArrayList<>();
+        if (!rdMaSp.isSelected() && !rdMau.isSelected()
+                && !rdLoai.isSelected() && !rdSize.isSelected()
+                && !rdChatLieu.isSelected()) {
+            JOptionPane.showMessageDialog(this, "Hãy chọn thông tin cần tìm");
+            return;
+        }
+
+        if (rdMaSp.isSelected()) {
+            list.add("sanpham.Masp=" + txtSearchMaSp.getText() + "");
+        }
+        if (rdMau.isSelected()) {
+            list.add(" Tenms=N'" + cbbSearchMauSP.getSelectedItem().toString() + "' ");
+        }
+        if (rdLoai.isSelected()) {
+            list.add(" tenloai=N'" + cbbSearchLoaiSP.getSelectedItem().toString() + "' ");
+        }
+        if (rdSize.isSelected()) {
+            list.add(" tenkc=N'" + cbbSearchSize.getSelectedItem().toString() + "' ");
+        }
+        if (rdChatLieu.isSelected()) {
+            list.add(" tencl=N'" + cbbSearchChatLieu.getSelectedItem().toString() + "' ");
+        }
+
+        if (iQlspService.boLoc(list).size() == 0) {
+            JOptionPane.showMessageDialog(this, "Thông tin cần tìm không có");
+            return;
+        } else {
+            loadData(iQlspService.boLoc(list));
+        }
+    }//GEN-LAST:event_btnSearchActionPerformed
+
+    private void rdMaSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rdMaSpActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rdMaSpActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -746,12 +909,13 @@ public class QuanLySP extends javax.swing.JPanel {
     private javax.swing.JTabbedPane jTabbedPane2;
     private javax.swing.JRadioButton rdChatLieu;
     private javax.swing.JRadioButton rdLoai;
+    private javax.swing.JRadioButton rdMaSp;
     private javax.swing.JRadioButton rdMau;
     private javax.swing.JRadioButton rdSize;
     private javax.swing.JTable tblQLSP;
     private javax.swing.JTextField txtChiTietSP;
     private javax.swing.JTextField txtMoTa;
-    private javax.swing.JTextField txtSearchTenSP;
+    private javax.swing.JTextField txtSearchMaSp;
     private javax.swing.JTextField txtSoLuong;
     private javax.swing.JTextField txtTenSP;
     private javax.swing.JTextField txtdDonGia;

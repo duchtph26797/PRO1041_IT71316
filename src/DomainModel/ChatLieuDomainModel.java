@@ -15,6 +15,10 @@ public class ChatLieuDomainModel {
     public ChatLieuDomainModel() {
     }
 
+    public ChatLieuDomainModel(String tenCL) {
+        this.tenCL = tenCL;
+    }
+
     public ChatLieuDomainModel(int maCL, String tenCL) {
         this.maCL = maCL;
         this.tenCL = tenCL;

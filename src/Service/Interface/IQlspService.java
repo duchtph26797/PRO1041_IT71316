@@ -13,4 +13,9 @@ import java.util.ArrayList;
  */
 public interface IQlspService {
     ArrayList<Qlsp> getAll();
+    Boolean them(Qlsp qlsp);
+    Boolean sua(Qlsp qlsp);
+    Boolean xoa(Qlsp qlsp);
+    Boolean check_ton_tai_ctsp(Qlsp qlsp);
+    ArrayList<Qlsp> boLoc(ArrayList<String> list);
 }
