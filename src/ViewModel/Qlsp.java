@@ -16,13 +16,29 @@ public class Qlsp {
     int soLuong;
     float donGia;
     String moTa;
+    int trangThai;
+
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
 
     @Override
     public String toString() {
-        return "Qlsp{" + "maCtsp=" + maCtsp + ", maSp=" + maSp + ", tenSp=" + tenSp + ", tenMs=" + tenMs + ", tenCl=" + tenCl + ", tenKc=" + tenKc + ", tenLoai=" + tenLoai + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
+        return "Qlsp{" + "maCtsp=" + maCtsp + ", maSp=" + maSp + ", tenSp=" + tenSp + ", tenMs=" + tenMs + ", tenCl=" + tenCl + ", tenKc=" + tenKc + ", tenLoai=" + tenLoai + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + ", trangThai=" + trangThai + '}';
     }
 
     public Qlsp() {
+    }
+
+    public String hienThiTrangThai() {
+        if (trangThai == 0) {
+            return "Vô hiệu hóa";
+        }
+        return "Đang bán";
     }
 
     public float getDonGia() {
@@ -33,7 +49,7 @@ public class Qlsp {
         this.donGia = donGia;
     }
 
-    public Qlsp(int maCtsp, int maSp, String tenSp, String tenMs, String tenCl, String tenKc, String tenLoai, int soLuong, float donGia, String moTa) {
+    public Qlsp(int maCtsp, int maSp, String tenSp, String tenMs, String tenCl, String tenKc, String tenLoai, int soLuong, float donGia, String moTa, int trangThai) {
         this.maCtsp = maCtsp;
         this.maSp = maSp;
         this.tenSp = tenSp;
@@ -44,6 +60,7 @@ public class Qlsp {
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.moTa = moTa;
+        this.trangThai = trangThai;
     }
 
     public int getMaCtsp() {

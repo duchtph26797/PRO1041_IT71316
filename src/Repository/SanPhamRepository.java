@@ -53,6 +53,7 @@ public class SanPhamRepository {
             if (DBConnection.ExcuteQuery(them_sp, sp.getTenSp(), sp.getLoaiHang().getMaLoai()) == 0) {
                 return false;
             }
+            System.out.println("repo sp"+sp.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }

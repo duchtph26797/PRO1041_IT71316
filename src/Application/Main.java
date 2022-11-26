@@ -4,12 +4,14 @@
  */
 package Application;
 
+import View.FormDangNhap;
+
 /**
  *
  * @author TRUNG DUC
  */
 public class Main {
     public static void main(String[] args) {
-        
+        new FormDangNhap().setVisible(true);
     }
 }

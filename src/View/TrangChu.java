@@ -25,18 +25,10 @@ public class TrangChu extends javax.swing.JFrame {
     public TrangChu(TaiKhoanView tkv) {
         initComponents();
         setLocationRelativeTo(this);
-        if(tkv.getLoaiTk().equalsIgnoreCase("khachhang")){
-            btnQLSP.setEnabled(false);
-            btnKhachHang.setEnabled(false);
-            btnHoaDon.setEnabled(false);
+        if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);
         }
-        
-        if(tkv.getLoaiTk().equalsIgnoreCase("nhanvien")){
-            btnThongKe.setEnabled(false);
-            btnNhanVien.setEnabled(false);
-        } 
     }
 
     @SuppressWarnings("unchecked")
@@ -230,7 +222,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
         panel.removeAll();
-        QuanLySP f=new QuanLySP();
+        QuanLySP f = new QuanLySP();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
@@ -265,7 +257,7 @@ public class TrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_crudSpActionPerformed
 
     private void crudLoaiHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudLoaiHangActionPerformed
-        // TODO add your handling code here:
+        new FormLoaiHang().setVisible(true);
     }//GEN-LAST:event_crudLoaiHangActionPerformed
 
     private void btnDangXuat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuat1ActionPerformed
@@ -274,7 +266,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
-                panel.removeAll();
+        panel.removeAll();
         FormQLNhanVien f = new FormQLNhanVien();
         panel.add(f);
         panel.setLayout(new FlowLayout());
@@ -313,7 +305,7 @@ public class TrangChu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                TaiKhoanView tkv=new TaiKhoanView();
+                TaiKhoanView tkv = new TaiKhoanView();
                 tkv.setLoaiTk("quanly");
                 new TrangChu(tkv).setVisible(true);
             }

@@ -18,11 +18,12 @@ public class Ctsp {
     int soLuong;
     float donGia;
     String moTa;
+    int trangThai;
 
     public Ctsp() {
     }
 
-    public Ctsp(int maCtsp, SanPham sp, MauSacDomainModel ms, LoaiHangDomainModel loai, ChatLieuDomainModel cl, KichCoDomainModel kc, int soLuong, float donGia, String moTa) {
+    public Ctsp(int maCtsp, SanPham sp, MauSacDomainModel ms, LoaiHangDomainModel loai, ChatLieuDomainModel cl, KichCoDomainModel kc, int soLuong, float donGia, String moTa, int trangThai) {
         this.maCtsp = maCtsp;
         this.sp = sp;
         this.ms = ms;
@@ -32,8 +33,24 @@ public class Ctsp {
         this.soLuong = soLuong;
         this.donGia = donGia;
         this.moTa = moTa;
+        this.trangThai = trangThai;
     }
 
+    public int getTrangThai() {
+        return trangThai;
+    }
+
+    public void setTrangThai(int trangThai) {
+        this.trangThai = trangThai;
+    }
+
+    public String hienThiTrangThai(){
+        if(trangThai==0){
+            return "Vô hiệu hóa";
+        }
+        return "Đang bán";
+    }
+    
     public int getMaCtsp() {
         return maCtsp;
     }

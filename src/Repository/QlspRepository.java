@@ -22,7 +22,7 @@ public class QlspRepository {
 
     SanPhamRepository sanPhamRepository = new SanPhamRepository();
 
-    final String get_all = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota from CHITIETSP \n"
+    final String get_all = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota,trangthai from CHITIETSP \n"
             + "	join SANPHAM on SANPHAM.MAsp = CHITIETSP.MaSP\n"
             + "	join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
             + "	join CHATLIEU on CHATLIEU.macl = CHITIETSP.Macl\n"
@@ -50,7 +50,8 @@ public class QlspRepository {
                         kc,
                         rs.getInt(8),
                         rs.getFloat(9),
-                        rs.getString(10)
+                        rs.getString(10),
+                        rs.getInt(11)
                 ));
             }
         } catch (Exception e) {
@@ -101,7 +102,7 @@ public class QlspRepository {
         return false;
     }
 
-    final String them_ctsp = "insert chitietsp values(?,?,?,?,?,?,?,?)";
+    final String them_ctsp = "insert chitietsp values(?,?,?,?,?,?,?,?,?)";
 
     public Boolean them_ctsp(Ctsp ctsp) {
         try {
@@ -113,11 +114,11 @@ public class QlspRepository {
                     ctsp.getKc().getMaKC(),
                     ctsp.getSoLuong(),
                     ctsp.getDonGia(),
-                    ctsp.getMoTa()) == 0) {
-
+                    ctsp.getMoTa(),
+                    ctsp.getTrangThai()) == 0) {
                 return false;
             }
-            System.out.println("repo  " + ctsp.toString());
+            System.out.println("repo ctsp " + ctsp.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -125,7 +126,7 @@ public class QlspRepository {
     }
 
     final String sua_ctsp = "update chitietsp set mams=?,maloai=?,macl=?,makc=?,"
-            + "soluong=?,dongia=?,mota=? where mactsp=?";
+            + "soluong=?,dongia=?,mota=?,trangthai=? where mactsp=?";
 
     public Boolean sua_ctsp(Ctsp ctsp) {
         try {
@@ -137,7 +138,8 @@ public class QlspRepository {
                     ctsp.getSoLuong(),
                     ctsp.getDonGia(),
                     ctsp.getMoTa(),
-                    ctsp.getMaCtsp()) == 0) {
+                    ctsp.getMaCtsp(),
+                    ctsp.getTrangThai()) == 0) {
                 return false;
             }
         } catch (Exception e) {
@@ -145,7 +147,7 @@ public class QlspRepository {
         }
         return true;
     }
-    
+
     public Boolean them_sp_ctsp(SanPham sp, Ctsp ctsp) {
         try {
             if (new SanPhamRepository().them_sp(sp) && them_ctsp(ctsp)) {
@@ -184,12 +186,12 @@ public class QlspRepository {
 
     public ArrayList<Ctsp> boLoc(ArrayList<String> list) {
         ArrayList<Ctsp> ctsps = new ArrayList<>();
-        String query = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota from CHITIETSP \n"
+        String query = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota,trangthai from CHITIETSP \n"
                 + "	join SANPHAM on SANPHAM.MAsp = CHITIETSP.MaSP\n"
                 + "	join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
                 + "	join CHATLIEU on CHATLIEU.macl = CHITIETSP.Macl\n"
                 + "	join KICHCO on KICHCO.MaKC = CHITIETSP.MaKC\n"
-                + "	join LOAIHANG on LOAIHANG.MaLoai = CHITIETSP.MaLoai where "+list.get(0);
+                + "	join LOAIHANG on LOAIHANG.MaLoai = CHITIETSP.MaLoai where " + list.get(0);
         if (list.size() > 1) {
             for (int i = 1; i < list.size(); i++) {
                 query += " and " + list.get(i);
@@ -197,7 +199,7 @@ public class QlspRepository {
         }
         System.out.println(query);
         try {
-            ResultSet rs=DBConnection.getDataFromQuery(query);
+            ResultSet rs = DBConnection.getDataFromQuery(query);
             while (rs.next()) {
                 SanPham sp = new SanPham();
                 sp.setMaSp(rs.getInt(2));
@@ -215,7 +217,8 @@ public class QlspRepository {
                         kc,
                         rs.getInt(8),
                         rs.getFloat(9),
-                        rs.getString(10)
+                        rs.getString(10),
+                        rs.getInt(11)
                 ));
             }
         } catch (Exception e) {
