@@ -4,6 +4,10 @@
  */
 package View;
 
+import Service.Interface.IQlspService;
+import Service.QlspImpl;
+import ViewModel.Qlsp;
+import java.util.List;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -11,9 +15,11 @@ import javax.swing.table.DefaultTableModel;
  * @author DELL 5570
  */
 public class GiaoDienBanHang extends javax.swing.JPanel {
+
     private DefaultTableModel dtmSp = new DefaultTableModel();
     private DefaultTableModel dtmGh = new DefaultTableModel();
     private DefaultTableModel dtmHd = new DefaultTableModel();
+    private IQlspService iQlspService = new QlspImpl();
 
     /**
      * Creates new form GiaoDienBanHang
@@ -21,14 +27,36 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     public GiaoDienBanHang() {
         initComponents();
         tbSanPham.setModel(dtmSp);
-        String []header ={"STT","Mã SP","Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá", "Mô Tả"};
-        dtmSp.setColumnIdentifiers(header); 
+        String[] header = {"STT", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá", "Trạng thái"};
+        dtmSp.setColumnIdentifiers(header);
         tblGh.setModel(dtmGh);
-        String []header1 = {"STT","Mã SP","Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
+        String[] header1 = {"STT", "Mã SP", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtmGh.setColumnIdentifiers(header1);
         tblHd.setModel(dtmHd);
-        String []header2 = {"STT", "Mã HĐ", "Ngày tạo", "Tên NV", "Tình trạng"};
+        String[] header2 = {"STT", "Mã HĐ", "Ngày tạo", "Tên NV", "Tình trạng"};
         dtmHd.setColumnIdentifiers(header2);
+
+        loadTBSanPham(iQlspService.getAll());
+    }
+
+    private void loadTBSanPham(List<Qlsp> list) {
+        dtmSp.setRowCount(0);
+        int i = 1;
+        for (Qlsp qlsp : list) {
+            dtmSp.addRow(new Object[]{
+                i,
+                qlsp.getMaCtsp(),
+                qlsp.getTenSp(),
+                qlsp.getTenMs(),
+                qlsp.getTenLoai(),
+                qlsp.getTenCl(),
+                qlsp.getTenKc(),
+                qlsp.getSoLuong(),
+                qlsp.getDonGia(),
+                qlsp.hienThiTrangThai()
+            });
+            i++;
+        }
     }
 
     /**
