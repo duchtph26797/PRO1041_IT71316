@@ -108,6 +108,7 @@ public class FormDangNhap extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu chưa đúng");
                 return;
             } else {
+                this.dispose();
                 new TrangChu(tkv).setVisible(true);
             }
         } catch (Exception e) {

@@ -125,7 +125,7 @@ public class Ctsp {
 
     @Override
     public String toString() {
-        return "Ctsp{" + "maCtsp=" + maCtsp + ", sp=" + sp + ", ms=" + ms + ", loai=" + loai + ", cl=" + cl + ", kc=" + kc + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
+        return "Ctsp{" + "maCtsp=" + maCtsp + ", sp=" + sp.getMaSp() + ", ms=" + ms + ", loai=" + loai + ", cl=" + cl + ", kc=" + kc + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
     }
     
 }
