@@ -138,8 +138,8 @@ public class QlspRepository {
                     ctsp.getSoLuong(),
                     ctsp.getDonGia(),
                     ctsp.getMoTa(),
-                    ctsp.getMaCtsp(),
-                    ctsp.getTrangThai()) == 0) {
+                    ctsp.getTrangThai(),
+                    ctsp.getMaCtsp()) == 0) {
                 return false;
             }
         } catch (Exception e) {

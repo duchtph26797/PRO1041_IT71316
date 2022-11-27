@@ -141,6 +141,9 @@ public class QlspImpl implements IQlspService {
         ChatLieuDomainModel cl = new ChatLieuDomainModel(chatLieuRepository.tim_macl_by_ten(qlsp.getTenCl()), "");
         KichCoDomainModel kc = new KichCoDomainModel(kichCoRepository.tim_makc_by_ten(qlsp.getTenKc()), "");
         LoaiHangDomainModel lh = new LoaiHangDomainModel(loaiHangRepository.tim_malh_by_ten(qlsp.getTenLoai()), "");
+        SanPham sp=new SanPham();
+        sp.setMaSp(qlsp.getMaSp());
+        ctsp.setSp(sp);
         ctsp.setMs(ms);
         ctsp.setCl(cl);
         ctsp.setKc(kc);

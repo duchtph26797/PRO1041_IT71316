@@ -754,6 +754,12 @@ public class QuanLySP extends javax.swing.JPanel {
         txtMoTa.setText(listClone.get(i).getMoTa());
         txtChiTietSP.setText(tblQLSP.getValueAt(i, 0).toString());
         dcmMaSP.setSelectedItem(listClone.get(i).getMaSp());
+        if(listClone.get(i).getTrangThai()==1){
+            cbbTrangThai.setSelectedItem("Đang bán");
+        }
+        if(listClone.get(i).getTrangThai()==0){
+            cbbTrangThai.setSelectedItem("Vô hiệu hóa");
+        }
     }//GEN-LAST:event_tblQLSPMouseClicked
 
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
