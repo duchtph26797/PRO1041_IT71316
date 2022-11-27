@@ -63,7 +63,7 @@ public class FormQLTaiKhoan extends javax.swing.JFrame {
 
         jLabel5.setText("Loại tài khoản");
 
-        cbLoaiTk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "khachhang", "nhanvien", "quanly" }));
+        cbLoaiTk.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "nhanvien", "quanly" }));
 
         jLabel1.setBackground(new java.awt.Color(0, 0, 0));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N

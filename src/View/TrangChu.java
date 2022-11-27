@@ -28,6 +28,11 @@ public class TrangChu extends javax.swing.JFrame {
         if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);
+            
+            crudChatLieu.setEnabled(false);
+            crudKichCo.setEnabled(false);
+            crudLoaiHang.setEnabled(false);
+            crudMauSac.setEnabled(false);
         }
     }
 
@@ -36,7 +41,6 @@ public class TrangChu extends javax.swing.JFrame {
     private void initComponents() {
 
         panelMenu = new javax.swing.JPanel();
-        btnXemSp = new javax.swing.JButton();
         btnQLSP = new javax.swing.JButton();
         btnKhachHang = new javax.swing.JButton();
         btnHoaDon = new javax.swing.JButton();
@@ -48,7 +52,6 @@ public class TrangChu extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        crudSp = new javax.swing.JMenuItem();
         crudChatLieu = new javax.swing.JMenuItem();
         crudKichCo = new javax.swing.JMenuItem();
         crudMauSac = new javax.swing.JMenuItem();
@@ -57,17 +60,7 @@ public class TrangChu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelMenu.setBackground(new java.awt.Color(255, 204, 204));
-        panelMenu.setLayout(new java.awt.GridLayout(8, 0));
-
-        btnXemSp.setBackground(new java.awt.Color(204, 204, 255));
-        btnXemSp.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Actions-help-about-icon-16.png"))); // NOI18N
-        btnXemSp.setText("Xem Sản phẩm");
-        btnXemSp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnXemSpActionPerformed(evt);
-            }
-        });
-        panelMenu.add(btnXemSp);
+        panelMenu.setLayout(new java.awt.GridLayout(7, 0));
 
         btnQLSP.setBackground(new java.awt.Color(153, 255, 204));
         btnQLSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/List.png"))); // NOI18N
@@ -145,25 +138,31 @@ public class TrangChu extends javax.swing.JFrame {
 
         jMenu1.setText("Quản lý");
 
-        crudSp.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_0, java.awt.event.InputEvent.CTRL_DOWN_MASK));
-        crudSp.setText("Quản lý sản phẩm");
-        crudSp.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                crudSpActionPerformed(evt);
-            }
-        });
-        jMenu1.add(crudSp);
-
         crudChatLieu.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_1, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         crudChatLieu.setText("Quản lý chất liệu");
+        crudChatLieu.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudChatLieuActionPerformed(evt);
+            }
+        });
         jMenu1.add(crudChatLieu);
 
         crudKichCo.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_2, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         crudKichCo.setText("Quản lý kích cỡ");
+        crudKichCo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudKichCoActionPerformed(evt);
+            }
+        });
         jMenu1.add(crudKichCo);
 
         crudMauSac.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_3, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         crudMauSac.setText("Quản lý màu sắc");
+        crudMauSac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudMauSacActionPerformed(evt);
+            }
+        });
         jMenu1.add(crudMauSac);
 
         crudLoaiHang.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_4, java.awt.event.InputEvent.CTRL_DOWN_MASK));
@@ -201,15 +200,6 @@ public class TrangChu extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void btnXemSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnXemSpActionPerformed
-        panel.removeAll();
-        Form_1 f = new Form_1();
-        panel.add(f);
-        panel.setLayout(new FlowLayout());
-        this.pack();
-        f.setVisible(true);
-    }//GEN-LAST:event_btnXemSpActionPerformed
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         panel.removeAll();
@@ -252,10 +242,6 @@ public class TrangChu extends javax.swing.JFrame {
         new FormDangNhap().setVisible(true);
     }//GEN-LAST:event_btnDangXuatActionPerformed
 
-    private void crudSpActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudSpActionPerformed
-
-    }//GEN-LAST:event_crudSpActionPerformed
-
     private void crudLoaiHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudLoaiHangActionPerformed
         new FormLoaiHang().setVisible(true);
     }//GEN-LAST:event_crudLoaiHangActionPerformed
@@ -273,6 +259,18 @@ public class TrangChu extends javax.swing.JFrame {
         this.pack();
         f.setVisible(true);
     }//GEN-LAST:event_btnNhanVienActionPerformed
+
+    private void crudMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudMauSacActionPerformed
+        new FormMauSac().setVisible(true);
+    }//GEN-LAST:event_crudMauSacActionPerformed
+
+    private void crudKichCoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudKichCoActionPerformed
+        new FormKichCo().setVisible(true);
+    }//GEN-LAST:event_crudKichCoActionPerformed
+
+    private void crudChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudChatLieuActionPerformed
+       new FormChatLieu().setVisible(true);
+    }//GEN-LAST:event_crudChatLieuActionPerformed
 
     /**
      * @param args the command line arguments
@@ -320,12 +318,10 @@ public class TrangChu extends javax.swing.JFrame {
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQLSP;
     private javax.swing.JButton btnThongKe;
-    private javax.swing.JButton btnXemSp;
     private javax.swing.JMenuItem crudChatLieu;
     private javax.swing.JMenuItem crudKichCo;
     private javax.swing.JMenuItem crudLoaiHang;
     private javax.swing.JMenuItem crudMauSac;
-    private javax.swing.JMenuItem crudSp;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
