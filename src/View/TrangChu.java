@@ -33,6 +33,7 @@ public class TrangChu extends javax.swing.JFrame {
             crudKichCo.setEnabled(false);
             crudLoaiHang.setEnabled(false);
             crudMauSac.setEnabled(false);
+            //
         }
     }
 
