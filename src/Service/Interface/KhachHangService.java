@@ -16,4 +16,5 @@ public interface KhachHangService {
     List<KhachHangDomainModel> getAll();
     
     String add(String ten, String dc, String sdt, String ngay);
+    List<KhachHangDomainModel> Search(String sdt);
 }

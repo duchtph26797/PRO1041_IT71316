@@ -80,4 +80,25 @@ public class KhuyenMaiRepository {
         }
         return true;
     }
+
+    
+    final String getListMucKm="select muckm from khuyenmai";
+    public ArrayList<String> getListMucKm() {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet rs=DBConnection.getDataFromQuery(getListMucKm);
+            while (rs.next()) {                
+                list.add(rs.getString(1));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
+    
+    public static void main(String[] args) {
+        for (String s : new KhuyenMaiRepository().getListMucKm()) {
+            System.out.println(s);
+        }
+    }
 }

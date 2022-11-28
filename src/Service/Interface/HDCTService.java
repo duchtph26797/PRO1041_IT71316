@@ -5,6 +5,8 @@
 package Service.Interface;
 
 import DomainModel.HDCTDomainModel;
+import ViewModel.HdctView;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,4 +18,7 @@ public interface HDCTService {
     String Add(HDCTDomainModel hdct);
     String update(HDCTDomainModel hdct, String maHd,String maCtsp);
     String delete(String maHD, String maCTSP);
+    ArrayList<HdctView> getAllHdctByMaHd(String mahd);
+    Boolean checkTonTaiHdct(String mahd,String mactsp);
+    float tongTienHd(String mahd);
 }

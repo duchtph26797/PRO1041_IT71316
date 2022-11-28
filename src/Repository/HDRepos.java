@@ -99,10 +99,10 @@ public class HDRepos {
                 nv.setTenNV(rs.getString(3));
                 KhuyenMai km = new KhuyenMai();
                 km.setMucKm(rs.getInt(5));
-                KhachHangDomainModel kh=new KhachHangDomainModel();
+                KhachHangDomainModel kh = new KhachHangDomainModel();
                 kh.setTenKH(rs.getString(4));
                 HoaDonModel2 hd = new HoaDonModel2(
-                        rs.getInt(1), rs.getDate(2), rs.getInt(6), nv,kh, km);
+                        rs.getInt(1), rs.getDate(2), rs.getInt(6), nv, kh, km);
                 list.add(hd);
             }
             return list;
@@ -111,7 +111,53 @@ public class HDRepos {
         }
         return list;
     }
-    
+
+    public boolean addByGdbh(HoaDonModel2 Hd) {
+        String query = "INSERT INTO HOADON values (?,?,?,?,?)";
+        int check = 0;
+        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
+            ps.setObject(1, new java.sql.Date(Hd.getNgayTao().getTime()));
+            ps.setObject(2, Hd.getTrangThai());
+            ps.setObject(3, Hd.getNv().getMaNV());
+            ps.setObject(4, Hd.getKh().getMaKH());
+            ps.setObject(5, Hd.getKm().getMaKm());
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
+    public boolean xoa(String mahd) {
+        String query = "delete hoadon where mahd=?";
+        int check = 0;
+        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
+            ps.setObject(1, mahd);
+            check = ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return check > 0;
+    }
+
+    final String sua_tt_hd = "UPDATE [dbo].[HOADON]\n"
+            + "   SET trangthai=? "
+            + " WHERE MaHD = ?";
+
+    public Boolean sua_tt_hd(String maHd) {
+        try {
+            if (DBConnection.ExcuteQuery(
+                    sua_tt_hd,
+                    1,
+                    maHd) == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
     public static void main(String[] args) {
         new HDRepos().getAllHdGdbh().forEach(s -> System.out.println(s.toString()));
     }
