@@ -5,8 +5,11 @@
 package Service;
 
 import DomainModel.HoaDonModel;
+import DomainModel.HoaDonModel2;
 import Repository.HDRepos;
 import Service.Interface.HDSer;
+import ViewModel.hdview;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,7 +29,7 @@ public class HDlmp implements HDSer {
     public String suaHD(HoaDonModel Hd, String ma) {
         boolean update = HDr.suaHD(Hd, ma);
         if (update) {
-         return "Update Nv ✔️";
+            return "Update Nv ✔️";
         } else {
             return "Update NV False !";
         }
@@ -43,6 +46,17 @@ public class HDlmp implements HDSer {
         } else {
             return "Thêm HD thất bại Hoặc mã HD đã tồn tại !";
         }
+    }
+
+    @Override
+    public ArrayList<hdview> getAllHdGdbh() {
+        ArrayList<hdview> listView = new ArrayList<>();
+        ArrayList<HoaDonModel2> list = HDr.getAllHdGdbh();
+
+        for (HoaDonModel2 hd : list) {
+            listView.add(new hdview(hd.getMaHD(), hd.getNgayTao(), hd.getTrangThai(), hd.getNv().getTenNV(),hd.getKh().getTenKH(), hd.getKm().getMucKm()));
+        }
+        return listView;
     }
 
 }

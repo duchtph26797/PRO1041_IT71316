@@ -5,6 +5,10 @@
 package Repository;
 
 import DomainModel.HoaDonModel;
+import DomainModel.HoaDonModel2;
+import DomainModel.KhachHangDomainModel;
+import DomainModel.KhuyenMai;
+import DomainModel.NhanVienModel;
 import Ulities.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,7 +86,33 @@ public class HDRepos {
         return true;
     }
 
+    public ArrayList<HoaDonModel2> getAllHdGdbh() {
+        String query = "select MaHD, NgayTao, TenNV, TenKH, MucKM, TrangThai from HOADON\n"
+                + "join KHACHHANG on HOADON.MaKH = KHACHHANG.MaKH\n"
+                + "join NHANVIEN on HOADON.MaNV = NHANVIEN.MaNV\n"
+                + "join KHUYENMAI on HOADON.MaKM = KHUYENMAI.MaKM where trangthai=0";
+        ArrayList<HoaDonModel2> list = new ArrayList<>();
+        try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                NhanVienModel nv = new NhanVienModel();
+                nv.setTenNV(rs.getString(3));
+                KhuyenMai km = new KhuyenMai();
+                km.setMucKm(rs.getInt(5));
+                KhachHangDomainModel kh=new KhachHangDomainModel();
+                kh.setTenKH(rs.getString(4));
+                HoaDonModel2 hd = new HoaDonModel2(
+                        rs.getInt(1), rs.getDate(2), rs.getInt(6), nv,kh, km);
+                list.add(hd);
+            }
+            return list;
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return list;
+    }
+    
     public static void main(String[] args) {
-        new HDRepos().getAll().forEach(s -> System.out.println(s.toString()));
+        new HDRepos().getAllHdGdbh().forEach(s -> System.out.println(s.toString()));
     }
 }
