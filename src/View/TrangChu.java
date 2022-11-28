@@ -231,7 +231,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         panel.removeAll();
-        Form_1 f = new Form_1();
+        HDForm f = new HDForm();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
