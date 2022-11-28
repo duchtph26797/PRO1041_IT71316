@@ -56,4 +56,9 @@ public class NhanVienImp implements NhanVienSer {
             return "Update NV False !";
         }
     }
+
+    @Override
+    public NhanVienModel timNvByUsername(String username) {
+        return NvRepo.timNvByUsername(username);
+    }
 }

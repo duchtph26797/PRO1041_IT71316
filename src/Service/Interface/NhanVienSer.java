@@ -20,4 +20,6 @@ public interface NhanVienSer {
     String add(NhanVienModel Nv);
     
     String Update(NhanVienModel Nv, String Ten);
+    
+    NhanVienModel timNvByUsername(String username);
 }

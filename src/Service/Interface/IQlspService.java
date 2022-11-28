@@ -19,4 +19,5 @@ public interface IQlspService {
     Boolean xoa(Qlsp qlsp);
     Boolean check_ton_tai_ctsp(Qlsp qlsp);
     ArrayList<Qlsp> boLoc(ArrayList<String> list);
+    Boolean sua_so_luong(int sl, String mactsp);
 }

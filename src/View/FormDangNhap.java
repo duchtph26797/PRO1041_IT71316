@@ -4,6 +4,9 @@
  */
 package View;
 
+import DomainModel.NhanVienModel;
+import Service.Interface.NhanVienSer;
+import Service.NhanVienImp;
 import Service.TaiKhoanService;
 import ViewModel.TaiKhoanView;
 import javax.swing.JOptionPane;
@@ -15,11 +18,12 @@ import javax.swing.JOptionPane;
 public class FormDangNhap extends javax.swing.JFrame {
 
     TaiKhoanService iTaiKhoanService;
-
+    NhanVienSer nhanVienSer;
     public FormDangNhap() {
         initComponents();
         setLocationRelativeTo(null);
         iTaiKhoanService = new TaiKhoanService();
+        nhanVienSer=new NhanVienImp();
     }
 
     @SuppressWarnings("unchecked")
@@ -109,7 +113,8 @@ public class FormDangNhap extends javax.swing.JFrame {
                 return;
             } else {
                 this.dispose();
-                new TrangChu(tkv).setVisible(true);
+                NhanVienModel nv=nhanVienSer.timNvByUsername(txtTaiKhoan.getText());
+                new TrangChu(tkv,nv).setVisible(true);
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Tài khoản hoặc mật khẩu chưa đúng");

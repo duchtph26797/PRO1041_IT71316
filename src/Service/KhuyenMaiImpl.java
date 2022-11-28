@@ -41,4 +41,9 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
         return khuyenMaiRepository.xoa(ma);
     }
 
+    @Override
+    public ArrayList<String> getListMucKm() {
+        return khuyenMaiRepository.getListMucKm();
+    }
+
 }

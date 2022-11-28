@@ -95,7 +95,21 @@ public class NhanVienRepo {
         return check > 0;
     }
 
+    public NhanVienModel timNvByUsername(String username) {
+        String query = "SELECT * from nhanvien where username=?";
+        try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
+            ps.setObject(1, username);
+            ResultSet rs = ps.executeQuery();
+            if(rs.next()){
+                return new NhanVienModel(rs.getInt(1), rs.getString(2), rs.getString(3), username, rs.getString(5));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return null;
+    }
+    
     public static void main(String[] args) {
-        new NhanVienRepo().getAll().forEach(s -> System.out.println(s.toString()));
+        System.out.println(new NhanVienRepo().timNvByUsername("phu").toString());
     }
 }

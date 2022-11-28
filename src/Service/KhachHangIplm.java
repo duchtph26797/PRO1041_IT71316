@@ -39,4 +39,9 @@ public class KhachHangIplm implements KhachHangService {
         }
     }
 
+    @Override
+    public List<KhachHangDomainModel> Search(String sdt) {
+        return rp.Search(sdt);
+    }
+
 }

@@ -226,14 +226,14 @@ public class QlspRepository {
         }
         return ctsps;
     }
-    
+
     final String get_allsp_gdbh = "select MaCTSP, CHITIETSP.MaSP, SANPHAM.TenSP, MAUSAC.TenMS, CHATLIEU.TenCL, KICHCO.TenKC, LOAIHANG.TenLoai, soluong, DonGia, MoTa, TrangThai from CHITIETSP\n"
             + " join SANPHAM on SANPHAM.MaSP = CHITIETSP.MaSP\n"
             + " join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
             + " join CHATLIEU on CHATLIEU.MaCL = CHITIETSP.MaCL\n"
             + " join KICHCO on KICHCO.MaKC = CHITIETSP.MaKC\n"
             + " join LOAIHANG on LOAIHANG.MaLoai = CHITIETSP.MaLoai "
-             + " where TrangThai=1";
+            + " where TrangThai=1";
 
     public ArrayList<Ctsp> getAllSpGdbh() {
         ArrayList<Ctsp> list = new ArrayList<>();
@@ -264,5 +264,19 @@ public class QlspRepository {
             e.printStackTrace();
         }
         return list;
+    }
+
+    final String sua_so_luong = "update chitietsp set soluong=soluong+? where mactsp=?";
+
+    public Boolean sua_so_luong(int sl, String mactsp) {
+        try {
+            if (DBConnection.ExcuteQuery(sua_so_luong, sl, mactsp) == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
     }
 }
