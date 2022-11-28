@@ -23,9 +23,9 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
     }
 
-    NhanVienModel nv=new NhanVienModel();
+    NhanVienModel nvHome=new NhanVienModel();
     
-    public TrangChu(TaiKhoanView tkv) {
+    public TrangChu(TaiKhoanView tkv,NhanVienModel nv) {
         initComponents();
         setLocationRelativeTo(this);
         if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
@@ -37,7 +37,7 @@ public class TrangChu extends javax.swing.JFrame {
             crudLoaiHang.setEnabled(false);
             crudMauSac.setEnabled(false);
             //
-            
+            nvHome=nv;
         }
     }
 
@@ -226,7 +226,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         panel.removeAll();
-        GiaoDienBanHang f=new GiaoDienBanHang();
+        GiaoDienBanHang f=new GiaoDienBanHang(nvHome);
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
@@ -312,7 +312,9 @@ public class TrangChu extends javax.swing.JFrame {
             public void run() {
                 TaiKhoanView tkv = new TaiKhoanView();
                 tkv.setLoaiTk("nhanvien");
-                new TrangChu(tkv).setVisible(true);
+                NhanVienModel nv=new NhanVienModel();
+                nv.setMaNV(1);
+                new TrangChu(tkv,nv).setVisible(true);
             }
         });
     }

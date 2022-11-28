@@ -19,4 +19,6 @@ public interface IKhuyenMaiService {
     Boolean sua(KhuyenMai km,String ma);
     
     Boolean xoa(String ma);
+    
+    ArrayList<String> getListMucKm();
 }
