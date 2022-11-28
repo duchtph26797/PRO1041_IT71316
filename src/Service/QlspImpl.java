@@ -214,4 +214,26 @@ public class QlspImpl implements IQlspService {
         return listView;
     }
 
+    
+    @Override
+    public ArrayList<Qlsp> getAllSpGdbh() {
+        ArrayList<Qlsp> listView = new ArrayList<>();
+        ArrayList<Ctsp> list = qlspRepository.getAllSpGdbh();
+        for (Ctsp ctsp : list) {
+            listView.add(new Qlsp(
+                    ctsp.getMaCtsp(),
+                    ctsp.getSp().getMaSp(),
+                    ctsp.getSp().getTenSp(),
+                    ctsp.getMs().getTenMau(),
+                    ctsp.getCl().getTenCL(),
+                    ctsp.getKc().getTenKC(),
+                    ctsp.getLoai().getTenLoai(),
+                    ctsp.getSoLuong(),
+                    ctsp.getDonGia(),
+                    ctsp.getMoTa(),
+                    ctsp.getTrangThai()
+            ));
+        }
+        return listView;
+    }
 }
