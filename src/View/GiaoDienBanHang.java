@@ -27,7 +27,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     public GiaoDienBanHang() {
         initComponents();
         tbSanPham.setModel(dtmSp);
-        String[] header = {"STT", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá", "Trạng thái"};
+        String[] header = {"STT","Mã SP", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtmSp.setColumnIdentifiers(header);
         tblGh.setModel(dtmGh);
         String[] header1 = {"STT", "Mã SP", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
@@ -36,7 +36,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         String[] header2 = {"STT", "Mã HĐ", "Ngày tạo", "Tên NV", "Tình trạng"};
         dtmHd.setColumnIdentifiers(header2);
 
-        loadTBSanPham(iQlspService.getAll());
+        loadTBSanPham(iQlspService.getAllSpGdbh());
     }
 
     private void loadTBSanPham(List<Qlsp> list) {
@@ -53,7 +53,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 qlsp.getTenKc(),
                 qlsp.getSoLuong(),
                 qlsp.getDonGia(),
-                qlsp.hienThiTrangThai()
             });
             i++;
         }

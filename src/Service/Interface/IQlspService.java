@@ -12,10 +12,18 @@ import java.util.ArrayList;
  * @author TRUNG DUC
  */
 public interface IQlspService {
+
     ArrayList<Qlsp> getAll();
+
+    ArrayList<Qlsp> getAllSpGdbh();
+
     Boolean them(Qlsp qlsp);
+
     Boolean sua(Qlsp qlsp);
+
     Boolean xoa(Qlsp qlsp);
+
     Boolean check_ton_tai_ctsp(Qlsp qlsp);
+
     ArrayList<Qlsp> boLoc(ArrayList<String> list);
 }
