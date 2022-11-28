@@ -226,4 +226,43 @@ public class QlspRepository {
         }
         return ctsps;
     }
+    
+    final String get_allsp_gdbh = "select MaCTSP, CHITIETSP.MaSP, SANPHAM.TenSP, MAUSAC.TenMS, CHATLIEU.TenCL, KICHCO.TenKC, LOAIHANG.TenLoai, soluong, DonGia, MoTa, TrangThai from CHITIETSP\n"
+            + " join SANPHAM on SANPHAM.MaSP = CHITIETSP.MaSP\n"
+            + " join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
+            + " join CHATLIEU on CHATLIEU.MaCL = CHITIETSP.MaCL\n"
+            + " join KICHCO on KICHCO.MaKC = CHITIETSP.MaKC\n"
+            + " join LOAIHANG on LOAIHANG.MaLoai = CHITIETSP.MaLoai "
+             + " where TrangThai=1";
+
+    public ArrayList<Ctsp> getAllSpGdbh() {
+        ArrayList<Ctsp> list = new ArrayList<>();
+        try {
+            ResultSet rs = DBConnection.getDataFromQuery(get_allsp_gdbh);
+            while (rs.next()) {
+                SanPham sp = new SanPham();
+                sp.setMaSp(rs.getInt(2));
+                sp.setTenSp(rs.getString(3));
+                MauSacDomainModel ms = new MauSacDomainModel(0, rs.getString(4));
+                ChatLieuDomainModel cl = new ChatLieuDomainModel(0, rs.getString(5));
+                KichCoDomainModel kc = new KichCoDomainModel(0, rs.getString(6));
+                LoaiHangDomainModel lh = new LoaiHangDomainModel(0, rs.getString(7));
+                list.add(new Ctsp(
+                        rs.getInt(1),
+                        sp,
+                        ms,
+                        lh,
+                        cl,
+                        kc,
+                        rs.getInt(8),
+                        rs.getFloat(9),
+                        rs.getString(10),
+                        rs.getInt(11)
+                ));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return list;
+    }
 }

@@ -13,6 +13,7 @@ import java.util.ArrayList;
  */
 public interface IQlspService {
     ArrayList<Qlsp> getAll();
+    ArrayList<Qlsp> getAllSpGdbh();
     Boolean them(Qlsp qlsp);
     Boolean sua(Qlsp qlsp);
     Boolean xoa(Qlsp qlsp);
