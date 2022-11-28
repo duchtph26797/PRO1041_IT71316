@@ -95,4 +95,10 @@ public class KhuyenMaiRepository {
         }
         return list;
     }
+    
+    public static void main(String[] args) {
+        for (String s : new KhuyenMaiRepository().getListMucKm()) {
+            System.out.println(s);
+        }
+    }
 }

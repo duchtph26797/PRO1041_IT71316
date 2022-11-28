@@ -110,6 +110,6 @@ public class NhanVienRepo {
     }
     
     public static void main(String[] args) {
-        new NhanVienRepo().getAll().forEach(s -> System.out.println(s.toString()));
+        System.out.println(new NhanVienRepo().timNvByUsername("phu").toString());
     }
 }
