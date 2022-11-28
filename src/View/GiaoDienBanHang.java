@@ -4,9 +4,16 @@
  */
 package View;
 
+import DomainModel.HDCTDomainModel;
+import DomainModel.HoaDonModel;
+import Service.HDCTIplm;
+import Service.HDlmp;
+import Service.Interface.HDCTService;
+import Service.Interface.HDSer;
 import Service.Interface.IQlspService;
 import Service.QlspImpl;
 import ViewModel.Qlsp;
+import ViewModel.hdview;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 
@@ -20,6 +27,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private DefaultTableModel dtmGh = new DefaultTableModel();
     private DefaultTableModel dtmHd = new DefaultTableModel();
     private IQlspService iQlspService = new QlspImpl();
+    private HDSer HD = new HDlmp();
 
     /**
      * Creates new form GiaoDienBanHang
@@ -33,10 +41,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         String[] header1 = {"STT", "Mã SP", "Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá"};
         dtmGh.setColumnIdentifiers(header1);
         tblHd.setModel(dtmHd);
-        String[] header2 = {"STT", "Mã HĐ", "Ngày tạo", "Tên NV", "Tình trạng"};
+        String[] header2 = {"STT","Mã HD", "Ngày tạo", "Tình trạng", "Tên NV", "Tên KH", "Mã KM"};
         dtmHd.setColumnIdentifiers(header2);
         
         loadTBSanPham(iQlspService.getAllSpGdbh());
+        loadTBHoadon(HD.getAll());
     }
 
     private void loadTBSanPham(ArrayList<Qlsp> list) {
@@ -59,6 +68,22 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             i++;
         }
     }
+   private void loadTBHoadon(ArrayList<hdview>list){
+        dtmHd.setRowCount(0);
+        int i=1;
+        for (hdview hdv:list) {
+            dtmHd.addRow(new Object[]{
+                i++,
+                hdv.getMaHD(),
+                hdv.getNgayTao(),
+                hdv.hienTt(),
+                hdv.getTenNv(),
+                "kh",
+                hdv.getMucKm()
+            });
+        }
+//   {"STT","Mã HD", "Ngày tạo", "Tình trạng", "Tên NV", "Tên KH", "Mã KM"};
+   }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

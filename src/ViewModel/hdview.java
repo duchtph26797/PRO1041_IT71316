@@ -2,39 +2,36 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package DomainModel;
+package ViewModel;
 
 import java.util.Date;
-import javax.xml.datatype.DatatypeFactory;
 
 /**
  *
- * @author admin
+ * @author Admin
  */
-public class HoaDonModel {
+public class hdview {
     private int MaHD;
     private Date NgayTao;
     private int TrangThai;
-    private NhanVienModel nv;
+    private String tenNv;
 //    private ;
-    private KhuyenMai km;
-    
-
-
-    public HoaDonModel() {
-    }
+    private int mucKm;
 
     @Override
     public String toString() {
-        return "HoaDonModel{" + "MaHD=" + MaHD + ", NgayTao=" + NgayTao + ", TrangThai=" + TrangThai + ", nv=" + nv + ", km=" + km + '}';
+        return "hdview{" + "MaHD=" + MaHD + ", NgayTao=" + NgayTao + ", TrangThai=" + TrangThai + ", tenNv=" + tenNv + ", mucKm=" + mucKm + '}';
     }
 
-    public HoaDonModel(int MaHD, Date NgayTao, int TrangThai, NhanVienModel nv, KhuyenMai km) {
+    public hdview() {
+    }
+
+    public hdview(int MaHD, Date NgayTao, int TrangThai, String tenNv, int mucKm) {
         this.MaHD = MaHD;
         this.NgayTao = NgayTao;
         this.TrangThai = TrangThai;
-        this.nv = nv;
-        this.km = km;
+        this.tenNv = tenNv;
+        this.mucKm = mucKm;
     }
 
     public int getMaHD() {
@@ -61,20 +58,26 @@ public class HoaDonModel {
         this.TrangThai = TrangThai;
     }
 
-    public NhanVienModel getNv() {
-        return nv;
+    public String getTenNv() {
+        return tenNv;
     }
 
-    public void setNv(NhanVienModel nv) {
-        this.nv = nv;
+    public void setTenNv(String tenNv) {
+        this.tenNv = tenNv;
     }
 
-    public KhuyenMai getKm() {
-        return km;
+    public int getMucKm() {
+        return mucKm;
     }
 
-    public void setKm(KhuyenMai km) {
-        this.km = km;
+    public void setMucKm(int mucKm) {
+        this.mucKm = mucKm;
     }
-    
+    public String hienTt(){
+        if(TrangThai == 0){
+            return "Đang chờ";
+        }
+        return "Đã thanh toán";
+            }
+
 }

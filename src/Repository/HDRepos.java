@@ -5,6 +5,8 @@
 package Repository;
 
 import DomainModel.HoaDonModel;
+import DomainModel.KhuyenMai;
+import DomainModel.NhanVienModel;
 import Ulities.DBConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -19,70 +21,89 @@ import java.util.List;
  */
 public class HDRepos {
 
-    public List<HoaDonModel> getAll() {
-        String query = "SELECT [MaHD]\n"
-                + "      ,[NgayTao]\n"
-                + "      ,[TrangThai]\n"
-                + "      ,[MaNV]\n"
-                + "      ,[MaKH]\n"
-                + "      ,[MaKM]\n"
-                + "  FROM [dbo].[HOADON]";
+    public ArrayList<HoaDonModel> getAllHdGdbh() {
+        String query = "select MaHD, NgayTao, TenNV, TenKH, MucKM, TrangThai from HOADON\n"
+                + "join KHACHHANG on HOADON.MaKH = KHACHHANG.MaKH\n"
+                + "join NHANVIEN on HOADON.MaNV = NHANVIEN.MaNV\n"
+                + "join KHUYENMAI on HOADON.MaKM = KHUYENMAI.MaKM where trangthai=0";
+        ArrayList<HoaDonModel> list = new ArrayList<>();
         try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
             ResultSet rs = ps.executeQuery();
-            List<HoaDonModel> list = new ArrayList<>();
             while (rs.next()) {
-                list.add(new HoaDonModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+                NhanVienModel nv = new NhanVienModel();
+                nv.setTenNV(rs.getString(3));
+                KhuyenMai km = new KhuyenMai();
+                km.setMucKm(rs.getInt(5));
+                HoaDonModel hd = new HoaDonModel(
+                        rs.getInt(1), rs.getDate(2), rs.getInt(6), nv, km);
+                list.add(hd);
             }
             return list;
         } catch (SQLException e) {
             e.printStackTrace(System.out);
         }
-        return null;
+        return list;
     }
 
-    public boolean add(HoaDonModel Hd) {
-        String query = "INSERT INTO HOADON values (?,?,?,?,?)";
-        int check = 0;
-        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
-            ps.setObject(1, Hd.getNgayTao());
-            ps.setObject(2, Hd.getTrangThai());
-            ps.setObject(3, Hd.getMaNV());
-            ps.setObject(4, Hd.getMaKH());
-            ps.setObject(5, Hd.getMaKM());
-            check = ps.executeUpdate();
-        } catch (SQLException e) {
-            e.printStackTrace(System.out);
-        }
-        return check > 0;
-    }
-    final String suaHD = "UPDATE [dbo].[HOADON]\n"
-            + "   SET [NgayTao] = ?\n"
-            + "      ,[TrangThai] = ?\n"
-            + "      ,[MaNV] = ?\n"
-            + "      ,[MaKH] = ?\n"
-            + "      ,[MaKM] = ?\n"
-            + " WHERE MaHD = ?";
-
-    public Boolean suaHD(HoaDonModel Hd, String ma) {
-        try {
-            if (DBConnection.ExcuteQuery(
-                    suaHD,
-                    Hd.getMaHD(),
-                    Hd.getNgayTao(),
-                    Hd.getTrangThai(),
-                    Hd.getMaNV(),
-                    Hd.getMaKH(),
-                    Hd.getMaKM(),
-                    ma) == 0) {
-                return false;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return true;
-    }
-
+//    public List<HoaDonModel> getAllHD() {
+//        String query = "select MaHD, NgayTao, TenNV, TenKH, MucKM, TrangThai from HOADON\n"
+//                + "join KHACHHANG on HOADON.MaKH = KHACHHANG.MaKH\n"
+//                + "join NHANVIEN on HOADON.MaNV = NHANVIEN.MaNV\n"
+//                + "join KHUYENMAI on HOADON.MaKM = KHUYENMAI.MaKM";
+//        try ( Connection cn = DBConnection.openDbConnection();  PreparedStatement ps = cn.prepareStatement(query)) {
+//            ResultSet rs = ps.executeQuery();
+//            List<HoaDonModel> list = new ArrayList<>();
+//            while (rs.next()) {
+//                list.add(new HoaDonModel(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getInt(4), rs.getInt(5), rs.getInt(6)));
+//            }
+//            return list;
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.out);
+//        }
+//        return null;
+//    }
+//    public boolean add(HoaDonModel Hd) {
+//        String query = "INSERT INTO HOADON values (?,?,?,?,?)";
+//        int check = 0;
+//        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query);) {
+//            ps.setObject(1, Hd.getNgayTao());
+//            ps.setObject(2, Hd.getTrangThai());
+//            ps.setObject(3, Hd.getMaNV());
+//            ps.setObject(4, Hd.getMaKH());
+//            ps.setObject(5, Hd.getMaKM());
+//            check = ps.executeUpdate();
+//        } catch (SQLException e) {
+//            e.printStackTrace(System.out);
+//        }
+//        return check > 0;
+//    }
+//    final String suaHD = "UPDATE [dbo].[HOADON]\n"
+//            + "   SET [NgayTao] = ?\n"
+//            + "      ,[TrangThai] = ?\n"
+//            + "      ,[MaNV] = ?\n"
+//            + "      ,[MaKH] = ?\n"
+//            + "      ,[MaKM] = ?\n"
+//            + " WHERE MaHD = ?";
+//
+//    public Boolean suaHD(HoaDonModel Hd, String ma) {
+//        try {
+//            if (DBConnection.ExcuteQuery(
+//                    suaHD,
+//                    Hd.getMaHD(),
+//                    Hd.getNgayTao(),
+//                    Hd.getTrangThai(),
+//                    Hd.getMaNV(),
+//                    Hd.getMaKH(),
+//                    Hd.getMaKM(),
+//                    ma) == 0) {
+//                return false;
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//        return true;
+//    }
     public static void main(String[] args) {
-        new HDRepos().getAll().forEach(s -> System.out.println(s.toString()));
+        new HDRepos().getAllHdGdbh().forEach(s -> System.out.println(s.toString()));
     }
 }
