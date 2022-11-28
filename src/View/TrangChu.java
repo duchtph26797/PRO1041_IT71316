@@ -4,6 +4,7 @@
  */
 package View;
 
+import DomainModel.NhanVienModel;
 import DomainModel.TaiKhoan;
 import ViewModel.TaiKhoanView;
 import java.awt.BorderLayout;
@@ -22,6 +23,8 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
     }
 
+    NhanVienModel nv=new NhanVienModel();
+    
     public TrangChu(TaiKhoanView tkv) {
         initComponents();
         setLocationRelativeTo(this);
@@ -34,6 +37,7 @@ public class TrangChu extends javax.swing.JFrame {
             crudLoaiHang.setEnabled(false);
             crudMauSac.setEnabled(false);
             //
+            
         }
     }
 
@@ -204,7 +208,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnKhachHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnKhachHangActionPerformed
         panel.removeAll();
-        Form_1 f = new Form_1();
+        FormQLKH f = new FormQLKH();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
@@ -300,12 +304,14 @@ public class TrangChu extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TaiKhoanView tkv = new TaiKhoanView();
-                tkv.setLoaiTk("quanly");
+                tkv.setLoaiTk("nhanvien");
                 new TrangChu(tkv).setVisible(true);
             }
         });

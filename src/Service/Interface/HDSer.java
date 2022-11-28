@@ -5,6 +5,8 @@
 package Service.Interface;
 
 import DomainModel.HoaDonModel;
+import ViewModel.hdview;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +14,12 @@ import java.util.List;
  * @author admin
  */
 public interface HDSer {
-        List<HoaDonModel> getAll();
-        String suaHD(HoaDonModel Hd, String ma);
-        String add(HoaDonModel Hd);
+
+    List<HoaDonModel> getAll();
+
+    String suaHD(HoaDonModel Hd, String ma);
+
+    String add(HoaDonModel Hd);
+    
+    ArrayList<hdview> getAllHdGdbh();
 }
