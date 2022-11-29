@@ -69,4 +69,9 @@ public class HDlmp implements HDSer {
         return HDr.xoa(mahd);
     }
 
+    @Override
+    public Boolean sua_tt_hd(String maHd) {
+        return HDr.sua_tt_hd(maHd);
+    }
+
 }

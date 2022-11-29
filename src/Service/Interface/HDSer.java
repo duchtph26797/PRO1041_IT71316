@@ -21,10 +21,12 @@ public interface HDSer {
     String suaHD(HoaDonModel Hd, String ma);
 
     String add(HoaDonModel Hd);
-    
+
     ArrayList<hdview> getAllHdGdbh();
-    
+
     boolean addByGdbh(HoaDonModel2 Hd);
-    
+
     Boolean xoa(String mahd);
+
+    Boolean sua_tt_hd(String maHd);
 }

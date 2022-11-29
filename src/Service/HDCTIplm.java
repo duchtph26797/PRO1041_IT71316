@@ -7,17 +7,20 @@ package Service;
 import DomainModel.HDCTDomainModel;
 import Repository.HDCTRepository;
 import Service.Interface.HDCTService;
+import ViewModel.HdctView;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  *
  * @author DELL 5570
  */
-public class HDCTIplm implements HDCTService{
-    HDCTRepository res ;
+public class HDCTIplm implements HDCTService {
+
+    HDCTRepository res;
 
     public HDCTIplm() {
-        res= new HDCTRepository();
+        res = new HDCTRepository();
     }
 
     @Override
@@ -28,19 +31,19 @@ public class HDCTIplm implements HDCTService{
     @Override
     public String Add(HDCTDomainModel hdct) {
         boolean add = res.Add(hdct);
-        if(add){
+        if (add) {
             return "add thành công";
-        }else{
+        } else {
             return "add thất bại";
         }
     }
 
     @Override
-    public String update(HDCTDomainModel hdct, String maHd,String maCtsp) {
-        boolean update = res.update(hdct, maHd,maCtsp);
-        if(update){
+    public String update(HDCTDomainModel hdct, String maHd, String maCtsp) {
+        boolean update = res.update(hdct, maHd, maCtsp);
+        if (update) {
             return "update thành công";
-        }else{
+        } else {
             return "update thất bại";
         }
     }
@@ -48,11 +51,31 @@ public class HDCTIplm implements HDCTService{
     @Override
     public String delete(String maHD, String maCTSP) {
         boolean delete = res.delete(maHD, maCTSP);
-        if(delete){
+        if (delete) {
             return "delete thành công";
-        }else{
+        } else {
             return "delete thất bại";
         }
     }
-    
+
+    @Override
+    public ArrayList<HdctView> getAllHdctByMaHd(String mahd) {
+        return res.getAllHdctByMaHd(mahd);
+    }
+
+    @Override
+    public Boolean checkTonTaiHdct(String mahd, String mactsp) {
+        return res.checkTonTaiHdct(mahd, mactsp);
+    }
+
+    @Override
+    public float tongTienHd(String mahd) {
+        return res.tongTienHd(mahd);
+    }
+
+    @Override
+    public boolean update_so_luong(String sl, String maHd, String maCtsp) {
+        return res.update_so_luong(sl, maHd, maCtsp);
+    }
+
 }
