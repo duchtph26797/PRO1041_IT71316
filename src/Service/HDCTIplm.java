@@ -73,4 +73,9 @@ public class HDCTIplm implements HDCTService {
         return res.tongTienHd(mahd);
     }
 
+    @Override
+    public boolean update_so_luong(String sl, String maHd, String maCtsp) {
+        return res.update_so_luong(sl, maHd, maCtsp);
+    }
+
 }

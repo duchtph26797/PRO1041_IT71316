@@ -150,13 +150,13 @@ public class HDCTRepository {
         return -1;
     }
 
-    public boolean update_so_luong(HDCTDomainModel hdct, String maHd, String maCtsp) {
+    public boolean update_so_luong(String sl, String maHd, String maCtsp) {
         int check = 0;
         String query = "UPDATE [dbo].[HDCT]\n"
                 + "   SET [SoLuong] = ?"
                 + " WHERE MaHD = ? and mactsp=?";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-            ps.setObject(1, hdct.getSoLuong());
+            ps.setObject(1, sl);
             ps.setObject(2, maHd);
             ps.setObject(3, maCtsp);
             check = ps.executeUpdate();
