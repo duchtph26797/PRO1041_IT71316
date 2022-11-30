@@ -22,11 +22,14 @@ import Service.QlspImpl;
 import ViewModel.HdctView;
 import ViewModel.Qlsp;
 import ViewModel.hdview;
+import java.awt.Frame;
+import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -415,6 +418,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
         jLabel12.setText("Tổng tiền");
 
+        txtMaHd.setEnabled(false);
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
@@ -479,6 +484,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
         jLabel14.setText("Mã KH");
 
+        txtMaKh2.setEnabled(false);
         txtMaKh2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtMaKh2ActionPerformed(evt);
@@ -755,9 +761,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             hd.setNv(nvGdbh);
             //
             KhuyenMai km = new KhuyenMai();
-//            km.setMaKm(cbMucKm.getSelectedIndex());
-            km.setMaKm(1);//tạm thời fix cứng
-            System.out.println(cbMucKm.getSelectedIndex());
+            System.out.println(cbMucKm.getSelectedIndex() + 1);
+            km.setMaKm(cbMucKm.getSelectedIndex() + 1);
+
+//            km.setMaKm(1);//tạm thời fix cứng
             hd.setKm(km);
             //
             if (HD.addByGdbh(hd)) {
@@ -804,10 +811,28 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         // TODO add your handling code here:
-        String tenKH = txtTenKh2.getText();
-        String diaChi = txtDiaChi2.getText();
-        String sdt = txtSdt2.getText();
-        String ngaySinh = txtNgaySinh2.getText();
+        String tenKH = txtTenKh2.getText().trim();
+        String diaChi = txtDiaChi2.getText().trim();
+        String sdt = txtSdt2.getText().trim();
+        Date ngaySinhClone;
+        if (tenKH.isEmpty() || diaChi.isEmpty() || sdt.isEmpty() || txtNgaySinh2.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Thông tin không được để trống");
+            return;
+        }
+
+        if (!sdt.matches("0+[0-9]{9}")) {
+            JOptionPane.showMessageDialog(this, "Sdt phải có 10 chữ số bắt đầu từ 0");
+            return;
+        }
+
+        try {
+            ngaySinhClone = new SimpleDateFormat("yyyy-mm-dd").parse(txtNgaySinh2.getText().trim());
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Ngày sinh phải có định dạng: yyyy-mm-dd");
+            return;
+        }
+        DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+        String ngaySinh = df.format(ngaySinhClone);
         KhachHangDomainModel kh = new KhachHangDomainModel(tenKH, diaChi, sdt, ngaySinh);
         JOptionPane.showMessageDialog(this, serviceKH.add(tenKH, sdt, sdt, ngaySinh));
     }//GEN-LAST:event_btnThemActionPerformed
@@ -818,12 +843,28 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Chọn hóa đơn cần hủy");
                 return;
             }
-            if (HD.xoa(txtMaHd.getText())) {
-                JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công");
-                loadTBHoadon(HD.getAllHdGdbh());
-                clearForm();
+            int rowHd = tblHd.getSelectedRow();
+            String maHd = tblHd.getValueAt(rowHd, 1).toString();
+            if (hDCTService.demHdctByMaHd(tblHd.getValueAt(rowHd, 1).toString()) == 0) {
+                if (HD.xoa(txtMaHd.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công");
+                    loadTBHoadon(HD.getAllHdGdbh());
+                    clearForm();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Xóa hóa đơn thất bại");
+                }
             } else {
-                JOptionPane.showMessageDialog(this, "Xóa hóa đơn thất bại");
+                for (HdctView hdctView : hDCTService.getAllHdctByMaHd(maHd)) {
+                    iQlspService.sua_so_luong(hdctView.getSoLuong(), String.valueOf(hdctView.getMactsp()));
+                    hDCTService.delete(String.valueOf(hdctView.getMahd()), String.valueOf(hdctView.getMactsp()));
+                }
+                if (HD.xoa(txtMaHd.getText())) {
+                    JOptionPane.showMessageDialog(this, "Xóa hóa đơn thành công");
+                    loadTBHoadon(HD.getAllHdGdbh());
+                    loadTBGioHang(hDCTService.getAllHdctByMaHd(maHd));
+                    loadTBSanPham(iQlspService.getAllSpGdbh());
+                    clearForm();
+                }
             }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Lỗi");
@@ -849,38 +890,57 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chọn hóa đơn cần thêm sản phẩm");
             return;
         }
-        int sl;
-        try {
-            sl = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập số lượng mua"));
-            if (sl <= 0) {
-                JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
-                return;
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
-            return;
-        }
-        HDCTDomainModel hd = new HDCTDomainModel(
-                Integer.parseInt(tblHd.getValueAt(rowHd, 1).toString()),
-                Integer.parseInt(tbSanPham.getValueAt(rowSp, 2).toString()),
-                //                new SimpleDateFormat("yyyy-mm-dd").parse(tblHd.getValueAt(2, rowHd).toString()),
-                null,
-                sl,
-                tbSanPham.getValueAt(rowSp, 9).toString()
-        );
 
-        if (hDCTService.checkTonTaiHdct(String.valueOf(hd.getMaHD()), String.valueOf(hd.getMaCTSP()))) {
+        int maHd = Integer.parseInt(tblHd.getValueAt(rowHd, 1).toString());
+        int maCtsp = Integer.parseInt(tbSanPham.getValueAt(rowSp, 2).toString());
+        String donGia = tbSanPham.getValueAt(rowSp, 9).toString();
+
+        if (hDCTService.checkTonTaiHdct(String.valueOf(maHd), String.valueOf(maCtsp))) {
             JOptionPane.showMessageDialog(this, "Đã có sản phẩm trong giỏ hàng");
             return;
         }
-        try {
-            JOptionPane.showMessageDialog(this, hDCTService.Add(hd));
-            iQlspService.sua_so_luong(-sl, tbSanPham.getValueAt(rowSp, 2).toString());
-        } catch (Exception e) {
+
+        Qlsp qlsp = getQlsp();
+        if (JOptionPane.showConfirmDialog(this, "---Thông tin sản phẩm---\n"
+                + "\nMã Sp: " + qlsp.getMaSp()
+                + "\nMã ctsp: " + qlsp.getMaCtsp()
+                + "\nTên sp: " + qlsp.getTenSp()
+                + "\nMàu:" + qlsp.getTenMs()
+                + "\nLoại hàng: " + qlsp.getTenLoai()
+                + "\nChất liệu:" + qlsp.getTenCl()
+                + "\nSize: " + qlsp.getTenKc()
+                + "\nĐơn giá:" + qlsp.getDonGia()
+                + "\nMô tả:" + qlsp.getMoTa(), "Bạn chắc chắn mua sản phẩm", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION) {
+
+            int sl;
+            try {
+                sl = Integer.parseInt(JOptionPane.showInputDialog(this, "Nhập số lượng mua"));
+                if (sl <= 0) {
+                    JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
+                    return;
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
+                return;
+            }
+            HDCTDomainModel hd = new HDCTDomainModel(
+                    maHd,
+                    maCtsp,
+                    //                new SimpleDateFormat("yyyy-mm-dd").parse(tblHd.getValueAt(2, rowHd).toString()),
+                    null,
+                    sl,
+                    donGia
+            );
+
+            try {
+                JOptionPane.showMessageDialog(this, hDCTService.Add(hd));
+                iQlspService.sua_so_luong(-sl, String.valueOf(maCtsp));
+            } catch (Exception e) {
+            }
+            loadTBGioHang(hDCTService.getAllHdctByMaHd(String.valueOf(maHd)));
+            loadTBSanPham(iQlspService.getAllSpGdbh());
+            txtTongTien.setText(String.valueOf(hDCTService.tongTienHd(String.valueOf(maHd))));
         }
-        loadTBGioHang(hDCTService.getAllHdctByMaHd(tblHd.getValueAt(rowHd, 1).toString()));
-        loadTBSanPham(iQlspService.getAllSpGdbh());
-        txtTongTien.setText(String.valueOf(hDCTService.tongTienHd(tblHd.getValueAt(rowHd, 1).toString())));
     }//GEN-LAST:event_tbSanPhamMouseClicked
 
     void clearForm() {
@@ -889,6 +949,22 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         txtTenNv.setText("");
         txtTenKh.setText("");
         txtTongTien.setText("");
+    }
+
+    Qlsp getQlsp() {
+        int rowSp = tbSanPham.getSelectedRow();
+        Qlsp qlsp = new Qlsp();
+        qlsp.setMaSp(Integer.parseInt(tbSanPham.getValueAt(rowSp, 1).toString()));
+        qlsp.setMaCtsp(Integer.parseInt(tbSanPham.getValueAt(rowSp, 2).toString()));
+        qlsp.setTenSp(tbSanPham.getValueAt(rowSp, 3).toString());
+        qlsp.setTenMs(tbSanPham.getValueAt(rowSp, 4).toString());
+        qlsp.setTenLoai(tbSanPham.getValueAt(rowSp, 5).toString());
+        qlsp.setTenCl(tbSanPham.getValueAt(rowSp, 6).toString());
+        qlsp.setTenKc(tbSanPham.getValueAt(rowSp, 7).toString());
+        qlsp.setSoLuong(Integer.parseInt(tbSanPham.getValueAt(rowSp, 8).toString()));
+        qlsp.setDonGia(Float.parseFloat(tbSanPham.getValueAt(rowSp, 9).toString()));
+        qlsp.setMoTa(tbSanPham.getValueAt(rowSp, 10).toString());
+        return qlsp;
     }
 
     private void buttonThanhToanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buttonThanhToanActionPerformed
@@ -984,7 +1060,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Không có sản phẩm cần tìm");
             return;
         } else {
-            loadTBSanPham(iQlspService.boLoc(list));      
+            loadTBSanPham(iQlspService.boLoc(list));
         }    }//GEN-LAST:event_btnSearchSpActionPerformed
 
     private void tblGhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGhMouseClicked
