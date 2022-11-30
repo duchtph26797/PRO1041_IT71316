@@ -279,4 +279,20 @@ public class QlspRepository {
 
         return true;
     }
+    
+    
+    final String dem_sl_ctsp = "select soluong  from CHITIETSP where mactsp=?";
+
+    public int dem_sl_ctsp(String mactsp) {
+        try {
+            ResultSet rs=DBConnection.getDataFromQuery(dem_sl_ctsp,mactsp);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1;
+    }
 }
