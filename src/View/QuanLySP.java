@@ -252,11 +252,6 @@ public class QuanLySP extends javax.swing.JPanel {
         });
 
         cbbSearchMauSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSearchMauSP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbSearchMauSPActionPerformed(evt);
-            }
-        });
 
         cbbSearchLoaiSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -739,10 +734,6 @@ public class QuanLySP extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnXoaActionPerformed
-
-    private void cbbSearchMauSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchMauSPActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbSearchMauSPActionPerformed
 
     private void btnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClearActionPerformed
         txtChiTietSP.setText("");
