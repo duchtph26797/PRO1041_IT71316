@@ -262,13 +262,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel1))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jLabel1)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(11, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(64, 64, 64)
@@ -351,6 +348,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblGh.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                tblGhMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(tblGh);
 
         buttonCapNhat.setText("Cập nhật số lượng");
@@ -947,6 +949,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
                 return;
             }
+//            if(slMoi>){
+//                
+//            }
         } catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
             return;
@@ -981,6 +986,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         } else {
             loadTBSanPham(iQlspService.boLoc(list));      
         }    }//GEN-LAST:event_btnSearchSpActionPerformed
+
+    private void tblGhMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblGhMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tblGhMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
