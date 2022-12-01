@@ -1335,6 +1335,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                         txtTb.setText("Tiền khách đưa phải là nguyên dương");
                     } else if (tien < canTt) {
                         txtTb.setText("Chưa đủ");
+                        txtTienThua.setText("");
                     } else {
                         txtTienThua.setText(String.valueOf(tien - canTt));
                         txtTb.setText("Xin mời thanh toán");
