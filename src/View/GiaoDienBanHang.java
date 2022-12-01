@@ -970,8 +970,12 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     }
 
     private void btnSerachKhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerachKhActionPerformed
-        List<KhachHangDomainModel> listKH = new ArrayList<>();
         String sdt = txtSearchKh.getText().trim();
+        if(sdt.isEmpty()){
+            JOptionPane.showMessageDialog(this, "Nhập sdt khách hàng cần tìm");
+            return;
+        }
+        List<KhachHangDomainModel> listKH = new ArrayList<>();      
         listKH = serviceKH.Search(sdt);
         if (listKH.size() == 0) {
             JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại");
