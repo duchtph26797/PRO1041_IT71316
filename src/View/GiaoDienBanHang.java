@@ -1124,7 +1124,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 + "\nChất liệu:" + qlsp.getTenCl()
                 + "\nSize: " + qlsp.getTenKc()
                 + "\nĐơn giá:" + qlsp.getDonGia()
-                + "\nMô tả:" + qlsp.getMoTa(), "Bạn chắc chắn mua sản phẩm", JOptionPane.YES_NO_CANCEL_OPTION) == JOptionPane.YES_OPTION) {
+                + "\nMô tả:" + qlsp.getMoTa(), "Bạn chắc chắn mua sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
 
             int sl;
             try {
@@ -1196,16 +1196,21 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chọn hóa đơn cần thanh toán");
             return;
         }
-        try {
-            if (HD.sua_tt_hd(tblHd.getValueAt(rowHd, 1).toString())) {
-                JOptionPane.showMessageDialog(this, "Thanh toán thành công");
-                loadTBHoadon(HD.getAllHdGdbh());
-                clearForm();
-            } else {
-                JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
+        if (JOptionPane.showConfirmDialog(this, 
+                "Bạn chắc chắn thanh toán không?",
+                "Bạn chắc chắn thanh toán không?", JOptionPane.YES_NO_OPTION)
+                == JOptionPane.YES_OPTION) {
+            try {
+                if (HD.sua_tt_hd(tblHd.getValueAt(rowHd, 1).toString())) {
+                    JOptionPane.showMessageDialog(this, "Thanh toán thành công");
+                    loadTBHoadon(HD.getAllHdGdbh());
+                    clearForm();
+                } else {
+                    JOptionPane.showMessageDialog(this, "Thanh toán thất bại");
+                }
+            } catch (Exception e) {
+                JOptionPane.showMessageDialog(this, "Lỗi thanh toán");
             }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Lỗi thanh toán");
         }
     }//GEN-LAST:event_buttonThanhToanActionPerformed
 
@@ -1307,7 +1312,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         if (!cbbSearchChatLieu.getSelectedItem().toString().equalsIgnoreCase("All")) {
             list.add(" tencl=N'" + cbbSearchChatLieu.getSelectedItem().toString() + "' ");
         }
-        ArrayList<Qlsp> listRs=iQlspService.boLoc(list);
+        ArrayList<Qlsp> listRs = iQlspService.boLoc(list);
         if (listRs.size() == 0) {
             JOptionPane.showMessageDialog(this, "Thông tin cần tìm không có");
             return;
