@@ -11,6 +11,7 @@ import java.util.Date;
  * @author Admin
  */
 public class hdview {
+
     private int MaHD;
     private Date NgayTao;
     private int TrangThai;
@@ -42,8 +43,6 @@ public class hdview {
     public void setTenKh(String tenKh) {
         this.tenKh = tenKh;
     }
-
-    
 
     public int getMaHD() {
         return MaHD;
@@ -84,11 +83,12 @@ public class hdview {
     public void setMucKm(int mucKm) {
         this.mucKm = mucKm;
     }
-    public String hienTt(){
-        if(TrangThai == 0){
+
+    public String hienTt() {
+        if (TrangThai == 0) {
             return "Đang chờ";
         }
         return "Đã thanh toán";
-            }
+    }
 
 }

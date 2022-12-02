@@ -4,7 +4,17 @@
  */
 package View;
 
+import DomainModel.HoaDonModel;
+import DomainModel.HoaDonModel2;
+import Service.HDlmp;
+import Service.Interface.HDSer;
+import Service.Interface.IQlspService;
+import Service.QlspImpl;
+import ViewModel.Qlsp;
+import ViewModel.hdview;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
@@ -13,28 +23,44 @@ import javax.swing.table.DefaultTableModel;
  * @author TRUNG DUC
  */
 public class ThongKe extends javax.swing.JPanel {
-
+    
     private DefaultTableModel dtm = new DefaultTableModel();
     private DefaultComboBoxModel dcbmNgay = new DefaultComboBoxModel();
     private DefaultComboBoxModel dcbmThang = new DefaultComboBoxModel();
     private DefaultComboBoxModel dcbmNam = new DefaultComboBoxModel();
     private DefaultComboBoxModel dcbmSort = new DefaultComboBoxModel();
+    private HDSer hds = new HDlmp();
 
     /**
      * Creates new form ThongKe
      */
     public ThongKe() {
         initComponents();
-
+        
         String[] headers = {"Mã HD", "Ngày tạo", "Tên NV", "Tên KH", "Mức khuyến mãi", "Trạng thái"};
         jTable1.setModel(dtm);
         dtm.setColumnIdentifiers(headers);
-
+        
         loadCBBNam();
         loadCBBThang();
         loadCBBNgay();
+        
+        loadData(hds.getAllHdGdbh());
     }
-
+    
+    private void loadData(ArrayList<hdview> list) {
+        dtm.setRowCount(0);
+        for (hdview x : list) {
+            dtm.addRow(new Object[]{
+                x.getMaHD(),
+                x.getNgayTao(),
+                x.getTenNv(),
+                x.getTenKh(),
+                x.getMucKm() + "%",
+                x.hienTt()});
+        }
+    }
+    
     private void loadCBBNgay() {
         cbbNgay.setModel(dcbmNgay);
         dcbmNgay.removeAllElements();
@@ -52,7 +78,7 @@ public class ThongKe extends javax.swing.JPanel {
             }
         }
     }
-
+    
     private boolean ktraNamNhuan(int year) {
         boolean isLeapYear = false;
         if (year % 4 == 0) {
@@ -66,7 +92,7 @@ public class ThongKe extends javax.swing.JPanel {
         }
         return isLeapYear;
     }
-
+    
     private void loadCBBThang() {
         cbbThang.setModel(dcbmThang);
         dcbmThang.removeAllElements();
@@ -74,7 +100,7 @@ public class ThongKe extends javax.swing.JPanel {
             dcbmThang.addElement(i);
         }
     }
-
+    
     private void loadCBBNam() {
         cbbNam.setModel(dcbmNam);
         dcbmNam.removeAllElements();

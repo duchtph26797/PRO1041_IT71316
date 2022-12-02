@@ -141,7 +141,6 @@ public class QuanLySP extends javax.swing.JPanel {
     
     private void loadData(ArrayList<Qlsp> list) {
         dtm.setRowCount(0);
-        listClone = list;
         for (Qlsp qlsp : list) {
             dtm.addRow(new Object[]{
                 qlsp.getMaCtsp(),
