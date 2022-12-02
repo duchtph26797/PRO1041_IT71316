@@ -240,4 +240,9 @@ public class QlspImpl implements IQlspService {
     public Boolean sua_so_luong(int sl, String mactsp) {
         return qlspRepository.sua_so_luong(sl, mactsp);
     }
+
+    @Override
+    public int dem_sl_ctsp(String mactsp) {
+        return qlspRepository.dem_sl_ctsp(mactsp);
+    }
 }

@@ -22,4 +22,5 @@ public interface HDCTService {
     Boolean checkTonTaiHdct(String mahd,String mactsp);
     float tongTienHd(String mahd);
     boolean update_so_luong(String sl, String maHd, String maCtsp);
+    int demHdctByMaHd(String maHd);
 }

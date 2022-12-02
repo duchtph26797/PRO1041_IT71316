@@ -78,4 +78,9 @@ public class HDCTIplm implements HDCTService {
         return res.update_so_luong(sl, maHd, maCtsp);
     }
 
+    @Override
+    public int demHdctByMaHd(String maHd) {
+        return res.demHdctByMaHd(maHd);
+    }
+
 }

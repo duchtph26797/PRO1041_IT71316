@@ -97,7 +97,7 @@ public class HDCTRepository {
 
     public ArrayList<HdctView> getAllHdctByMaHd(String mahd) {
         ArrayList<HdctView> list = new ArrayList<>();
-        String query = "SELECT hdct.MaCTSP,tensp,tenms,tenloai,tencl,tenkc,hdct.[SoLuong],hdct.[DonGia]\n"
+        String query = "SELECT hdct.MaCTSP,tensp,tenms,tenloai,tencl,tenkc,hdct.[SoLuong],hdct.[DonGia],mahd\n"
                 + "                  FROM hdct \n"
                 + "				  join CHITIETSP on hdct.MaCTSP = chitietsp.MaCTSP \n"
                 + "				  join sanpham on sanpham.masp=CHITIETSP.MaSP\n"
@@ -112,7 +112,7 @@ public class HDCTRepository {
             while (rs.next()) {
                 list.add(new HdctView(
                         rs.getInt(1), rs.getString(2), rs.getString(3),
-                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getFloat(8)));
+                        rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getFloat(8),rs.getInt(9)));
             }
             return list;
         } catch (SQLException e) {
@@ -164,5 +164,19 @@ public class HDCTRepository {
             e.printStackTrace(System.out);
         }
         return check > 0;
+    }
+    
+    public int demHdctByMaHd(String maHd) {
+        String query = "select count(mahd) from hdct where mahd=?";
+        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setObject(1, maHd);
+            ResultSet rs=ps.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace(System.out);
+        }
+        return -1;
     }
 }

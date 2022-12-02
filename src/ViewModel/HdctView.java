@@ -13,13 +13,33 @@ public class HdctView {
     String tenSp,tenMs,tenLoai,tenCl,tenKc;
     int soLuong;
     float donGia;
-
+int mahd;
     public HdctView() {
+    }
+
+    public int getMahd() {
+        return mahd;
+    }
+
+    public void setMahd(int mahd) {
+        this.mahd = mahd;
     }
 
     @Override
     public String toString() {
         return "HdctView{" + "mactsp=" + mactsp + ", tenSp=" + tenSp + ", tenMs=" + tenMs + ", tenLoai=" + tenLoai + ", tenKc=" + tenKc + ", soLuong=" + soLuong + ", donGia=" + donGia + '}';
+    }
+
+    public HdctView(int mactsp, String tenSp, String tenMs, String tenLoai, String tenCl, String tenKc, int soLuong, float donGia, int mahd) {
+        this.mactsp = mactsp;
+        this.tenSp = tenSp;
+        this.tenMs = tenMs;
+        this.tenLoai = tenLoai;
+        this.tenCl = tenCl;
+        this.tenKc = tenKc;
+        this.soLuong = soLuong;
+        this.donGia = donGia;
+        this.mahd = mahd;
     }
 
     public HdctView(int mactsp, String tenSp, String tenMs, String tenLoai, String tenCl, String tenKc, int soLuong, float donGia) {
