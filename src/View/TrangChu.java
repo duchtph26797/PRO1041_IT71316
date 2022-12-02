@@ -51,7 +51,6 @@ public class TrangChu extends javax.swing.JFrame {
         btnHoaDon = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         btnNhanVien = new javax.swing.JButton();
-        btnDangXuat1 = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
         panel = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -61,6 +60,7 @@ public class TrangChu extends javax.swing.JFrame {
         crudKichCo = new javax.swing.JMenuItem();
         crudMauSac = new javax.swing.JMenuItem();
         crudLoaiHang = new javax.swing.JMenuItem();
+        crudKhuyenMai = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -117,16 +117,6 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnNhanVien);
 
-        btnDangXuat1.setBackground(new java.awt.Color(255, 204, 255));
-        btnDangXuat1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/new-icon-16.png"))); // NOI18N
-        btnDangXuat1.setText("Khuyến mãi");
-        btnDangXuat1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnDangXuat1ActionPerformed(evt);
-            }
-        });
-        panelMenu.add(btnDangXuat1);
-
         btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
         btnDangXuat.setText("Đăng Xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -178,6 +168,15 @@ public class TrangChu extends javax.swing.JFrame {
             }
         });
         jMenu1.add(crudLoaiHang);
+
+        crudKhuyenMai.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_5, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudKhuyenMai.setText("Quản lý khuyến mãi");
+        crudKhuyenMai.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudKhuyenMaiActionPerformed(evt);
+            }
+        });
+        jMenu1.add(crudKhuyenMai);
 
         jMenuBar1.add(jMenu1);
 
@@ -243,6 +242,7 @@ public class TrangChu extends javax.swing.JFrame {
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_btnThongKeActionPerformed
 
     private void btnDangXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuatActionPerformed
@@ -253,10 +253,6 @@ public class TrangChu extends javax.swing.JFrame {
     private void crudLoaiHangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudLoaiHangActionPerformed
         new FormLoaiHang().setVisible(true);
     }//GEN-LAST:event_crudLoaiHangActionPerformed
-
-    private void btnDangXuat1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDangXuat1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_btnDangXuat1ActionPerformed
 
     private void btnNhanVienActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNhanVienActionPerformed
         // TODO add your handling code here:
@@ -279,6 +275,10 @@ public class TrangChu extends javax.swing.JFrame {
     private void crudChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudChatLieuActionPerformed
         new FormChatLieu().setVisible(true);
     }//GEN-LAST:event_crudChatLieuActionPerformed
+
+    private void crudKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudKhuyenMaiActionPerformed
+        new FormKhuyenMai().setVisible(true);
+    }//GEN-LAST:event_crudKhuyenMaiActionPerformed
 
     /**
      * @param args the command line arguments
@@ -317,6 +317,7 @@ public class TrangChu extends javax.swing.JFrame {
                 tkv.setLoaiTk("nhanvien");
                 NhanVienModel nv = new NhanVienModel();
                 nv.setMaNV(1);
+                nv.setTenNV("Ngọc Văn");
                 new TrangChu(tkv, nv).setVisible(true);
             }
         });
@@ -324,13 +325,13 @@ public class TrangChu extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDangXuat;
-    private javax.swing.JButton btnDangXuat1;
     private javax.swing.JButton btnHoaDon;
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQLSP;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JMenuItem crudChatLieu;
+    private javax.swing.JMenuItem crudKhuyenMai;
     private javax.swing.JMenuItem crudKichCo;
     private javax.swing.JMenuItem crudLoaiHang;
     private javax.swing.JMenuItem crudMauSac;

@@ -64,7 +64,7 @@ public class FormKhuyenMai extends javax.swing.JFrame {
         btnSua = new javax.swing.JButton();
         btnXoa = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -198,8 +198,8 @@ public class FormKhuyenMai extends javax.swing.JFrame {
     private KhuyenMai getKhuyenMai() throws ParseException {
         int makm = Integer.parseInt(txtMaKm.getText());
         int muckm = Integer.parseInt(txtMucKm.getText());
-        Date ngayBatDau = new SimpleDateFormat("yyyy-mm-dd").parse(txtNgayBatDau.getText());
-        Date ngayKetThuc = new SimpleDateFormat("yyyy-mm-dd").parse(txtNgayKetThuc.getText());
+        Date ngayBatDau = new SimpleDateFormat("yyyy-MM-dd").parse(txtNgayBatDau.getText());
+        Date ngayKetThuc = new SimpleDateFormat("yyyy-MM-dd").parse(txtNgayKetThuc.getText());
         return new KhuyenMai(makm, muckm, ngayBatDau, ngayKetThuc);
     }
 

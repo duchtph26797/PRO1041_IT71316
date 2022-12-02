@@ -118,7 +118,6 @@ public class QlspRepository {
                     ctsp.getTrangThai()) == 0) {
                 return false;
             }
-            System.out.println("repo ctsp " + ctsp.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
