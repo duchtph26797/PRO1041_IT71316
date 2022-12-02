@@ -46,4 +46,9 @@ public class KhuyenMaiImpl implements IKhuyenMaiService {
         return khuyenMaiRepository.getListMucKm();
     }
 
+    @Override
+    public int tim_makm_by_muckm(String muckm) {
+        return khuyenMaiRepository.tim_makm_by_muckm(muckm);
+    }
+
 }

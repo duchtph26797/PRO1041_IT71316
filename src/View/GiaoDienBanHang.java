@@ -61,8 +61,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     MauSacServices mauSacServices = new MauSacIplm();
     ChatLieuServices chatLieuServices = new ChatLieuIplm();
     KichCoServices kichCoServices = new KichCoIplm();
-    ;
-
     private IQlspService iQlspService = new QlspImpl();
     private HDSer HD = new HDlmp();
     KhachHangService serviceKH = new KhachHangIplm();
@@ -936,10 +934,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             hd.setNv(nvGdbh);
             //
             KhuyenMai km = new KhuyenMai();
-            System.out.println(cbMucKm.getSelectedIndex() + 1);
-            km.setMaKm(cbMucKm.getSelectedIndex() + 1);
+            int makm=Integer.parseInt(iKhuyenMaiService.getListMucKm().get(cbMucKm.getSelectedIndex()).split("-")[0]);
+            km.setMaKm(makm);
+            System.out.println(makm);
 
-//            km.setMaKm(1);//tạm thời fix cứng
             hd.setKm(km);
             //
             if (HD.addByGdbh(hd)) {
@@ -956,7 +954,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     public void loadMucKm(ArrayList<String> list) {
         dcmMucKm.removeAllElements();
         for (String s : list) {
-            dcmMucKm.addElement(s);
+            dcmMucKm.addElement(s.split("-")[1]);
         }
     }
 

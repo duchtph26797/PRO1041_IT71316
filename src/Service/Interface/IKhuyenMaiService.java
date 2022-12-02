@@ -12,13 +12,16 @@ import java.util.ArrayList;
  * @author TRUNG DUC
  */
 public interface IKhuyenMaiService {
+
     ArrayList<KhuyenMai> getAll();
-    
+
     Boolean them(KhuyenMai km);
-    
-    Boolean sua(KhuyenMai km,String ma);
-    
+
+    Boolean sua(KhuyenMai km, String ma);
+
     Boolean xoa(String ma);
-    
+
     ArrayList<String> getListMucKm();
+
+    int tim_makm_by_muckm(String muckm);
 }

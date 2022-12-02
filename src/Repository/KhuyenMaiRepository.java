@@ -82,18 +82,32 @@ public class KhuyenMaiRepository {
     }
 
     
-    final String getListMucKm="select muckm from khuyenmai where GETDATE() <= ngayketthuc and GETDATE() >=ngaybatdau";
+    final String getListMucKm="select makm,muckm from khuyenmai where GETDATE() <= ngayketthuc and GETDATE() >=ngaybatdau";
     public ArrayList<String> getListMucKm() {
         ArrayList<String> list = new ArrayList<>();
         try {
             ResultSet rs=DBConnection.getDataFromQuery(getListMucKm);
             while (rs.next()) {                
-                list.add(rs.getString(1));
+                list.add(rs.getString(1)+"-"+rs.getString(2));
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return list;
+    }
+    
+    final String tim_makm_by_muckm="select makm from khuyenmai where muckm=?";
+    public int tim_makm_by_muckm(String muckm) {
+        ArrayList<String> list = new ArrayList<>();
+        try {
+            ResultSet rs=DBConnection.getDataFromQuery(tim_makm_by_muckm,muckm);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return -1;
     }
     
     public static void main(String[] args) {
