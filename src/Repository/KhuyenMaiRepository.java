@@ -82,7 +82,7 @@ public class KhuyenMaiRepository {
     }
 
     
-    final String getListMucKm="select muckm from khuyenmai";
+    final String getListMucKm="select muckm from khuyenmai where GETDATE() <= ngayketthuc and GETDATE() >=ngaybatdau";
     public ArrayList<String> getListMucKm() {
         ArrayList<String> list = new ArrayList<>();
         try {

@@ -23,21 +23,21 @@ public class TrangChu extends javax.swing.JFrame {
         initComponents();
     }
 
-    NhanVienModel nvHome=new NhanVienModel();
-    
-    public TrangChu(TaiKhoanView tkv,NhanVienModel nv) {
+    NhanVienModel nvHome = new NhanVienModel();
+
+    public TrangChu(TaiKhoanView tkv, NhanVienModel nv) {
         initComponents();
-        setLocationRelativeTo(this);
+        setLocationRelativeTo(null);
         if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);
-            
+
             crudChatLieu.setEnabled(false);
             crudKichCo.setEnabled(false);
             crudLoaiHang.setEnabled(false);
             crudMauSac.setEnabled(false);
             //
-            nvHome=nv;
+            nvHome = nv;
         }
     }
 
@@ -65,7 +65,7 @@ public class TrangChu extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         panelMenu.setBackground(new java.awt.Color(255, 204, 204));
-        panelMenu.setLayout(new java.awt.GridLayout(7, 0));
+        panelMenu.setLayout(new java.awt.GridLayout(8, 0));
 
         btnQLSP.setBackground(new java.awt.Color(153, 255, 204));
         btnQLSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/List.png"))); // NOI18N
@@ -213,6 +213,7 @@ public class TrangChu extends javax.swing.JFrame {
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_btnKhachHangActionPerformed
 
     private void btnQLSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQLSPActionPerformed
@@ -222,15 +223,17 @@ public class TrangChu extends javax.swing.JFrame {
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_btnQLSPActionPerformed
 
     private void btnHoaDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHoaDonActionPerformed
         panel.removeAll();
-        GiaoDienBanHang f=new GiaoDienBanHang(nvHome);
+        GiaoDienBanHang f = new GiaoDienBanHang(nvHome);
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_btnHoaDonActionPerformed
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
@@ -274,7 +277,7 @@ public class TrangChu extends javax.swing.JFrame {
     }//GEN-LAST:event_crudKichCoActionPerformed
 
     private void crudChatLieuActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudChatLieuActionPerformed
-       new FormChatLieu().setVisible(true);
+        new FormChatLieu().setVisible(true);
     }//GEN-LAST:event_crudChatLieuActionPerformed
 
     /**
@@ -312,9 +315,9 @@ public class TrangChu extends javax.swing.JFrame {
             public void run() {
                 TaiKhoanView tkv = new TaiKhoanView();
                 tkv.setLoaiTk("nhanvien");
-                NhanVienModel nv=new NhanVienModel();
+                NhanVienModel nv = new NhanVienModel();
                 nv.setMaNV(1);
-                new TrangChu(tkv,nv).setVisible(true);
+                new TrangChu(tkv, nv).setVisible(true);
             }
         });
     }

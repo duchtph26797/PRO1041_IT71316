@@ -186,10 +186,10 @@ public class QlspRepository {
 
     public ArrayList<Ctsp> boLoc(ArrayList<String> list) {
         ArrayList<Ctsp> ctsps = new ArrayList<>();
-        String query = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota,trangthai from CHITIETSP \n"
-                + "	join SANPHAM on SANPHAM.MAsp = CHITIETSP.MaSP\n"
+        String query = "select MaCTSP, CHITIETSP.MaSP, SANPHAM.TenSP, MAUSAC.TenMS, CHATLIEU.TenCL, KICHCO.TenKC, LOAIHANG.TenLoai, SoLuong, DonGia, MoTa, TrangThai from CHITIETSP \n"
+                + "	join SANPHAM on SANPHAM.MaSP = CHITIETSP.MaSP\n"
                 + "	join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
-                + "	join CHATLIEU on CHATLIEU.macl = CHITIETSP.Macl\n"
+                + "	join CHATLIEU on CHATLIEU.MaCL = CHITIETSP.MaCL\n"
                 + "	join KICHCO on KICHCO.MaKC = CHITIETSP.MaKC\n"
                 + "	join LOAIHANG on LOAIHANG.MaLoai = CHITIETSP.MaLoai where " + list.get(0);
         if (list.size() > 1) {
@@ -278,5 +278,21 @@ public class QlspRepository {
         }
 
         return true;
+    }
+    
+    
+    final String dem_sl_ctsp = "select soluong  from CHITIETSP where mactsp=?";
+
+    public int dem_sl_ctsp(String mactsp) {
+        try {
+            ResultSet rs=DBConnection.getDataFromQuery(dem_sl_ctsp,mactsp);
+            if(rs.next()){
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return -1;
     }
 }
