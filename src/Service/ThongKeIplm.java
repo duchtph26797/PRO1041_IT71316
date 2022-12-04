@@ -4,6 +4,7 @@
  */
 package Service;
 
+import DomainModel.SanPham;
 import Repository.ThongKeRepository;
 import Service.Interface.ThongKeService;
 import ViewModel.DoanhThuView;
@@ -19,6 +20,11 @@ public class ThongKeIplm implements ThongKeService{
     @Override
     public DoanhThuView getThongKe(String conditions) {
         return rp.getThongKe(conditions);
+    }
+
+    @Override
+    public List<SanPham> getSanPham() {
+        return rp.getSanPham();
     }
     
 }

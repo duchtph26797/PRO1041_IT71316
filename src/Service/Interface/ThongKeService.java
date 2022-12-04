@@ -4,6 +4,7 @@
  */
 package Service.Interface;
 
+import DomainModel.SanPham;
 import ViewModel.DoanhThuView;
 import java.util.List;
 
@@ -13,4 +14,6 @@ import java.util.List;
  */
 public interface ThongKeService {
     DoanhThuView getThongKe(String conditions);
+    
+    List<SanPham> getSanPham();
 }
