@@ -29,4 +29,8 @@ public interface HDSer {
     Boolean xoa(String mahd);
 
     Boolean sua_tt_hd(String maHd);
+
+    ArrayList<hdview> getAllQlhd();
+
+    ArrayList<hdview> locHd(ArrayList<String> listdk);
 }

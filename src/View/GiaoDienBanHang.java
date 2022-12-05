@@ -251,16 +251,16 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        txtMaHd = new javax.swing.JTextField();
-        txtNgayTao = new javax.swing.JTextField();
-        txtTenNv = new javax.swing.JTextField();
-        txtTenKh = new javax.swing.JTextField();
-        txtTongTien = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         txtTienKhachDua = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
-        txtTienThua = new javax.swing.JTextField();
         txtTb = new javax.swing.JLabel();
+        txtMaHd = new javax.swing.JLabel();
+        txtNgayTao = new javax.swing.JLabel();
+        txtTenNv = new javax.swing.JLabel();
+        txtTenKh = new javax.swing.JLabel();
+        txtTienThua = new javax.swing.JLabel();
+        txtTongTien = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
         txtSearchKh = new javax.swing.JTextField();
@@ -545,17 +545,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
         jLabel12.setText("Tổng tiền");
 
-        txtMaHd.setEnabled(false);
-
-        txtNgayTao.setEnabled(false);
-
-        txtTenNv.setEnabled(false);
-
-        txtTenKh.setEnabled(false);
-
-        txtTongTien.setText("0");
-        txtTongTien.setEnabled(false);
-
         jLabel2.setText("Tiền khách đưa");
 
         txtTienKhachDua.setEnabled(false);
@@ -569,8 +558,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         });
 
         jLabel10.setText("Tiền thừa");
-
-        txtTienThua.setEnabled(false);
 
         txtTb.setForeground(new java.awt.Color(255, 0, 51));
         txtTb.setText("Chọn hóa đơn và nhập tiền khách trả!");
@@ -591,50 +578,50 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                     .addComponent(jLabel10))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenKh, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTenNv, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtMaHd, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTienThua, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtTb, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTb, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtMaHd)
+                    .addComponent(txtNgayTao)
+                    .addComponent(txtTenNv)
+                    .addComponent(txtTenKh)
+                    .addComponent(txtTienThua)
+                    .addComponent(txtTongTien))
                 .addGap(16, 16, 16))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(txtMaHd, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtMaHd))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(txtNgayTao, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtNgayTao))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
-                    .addComponent(txtTenNv, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtTenNv))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
-                    .addComponent(txtTenKh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                    .addComponent(txtTenKh))
+                .addGap(29, 29, 29)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtTienKhachDua, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(txtTb)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtTienThua, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel10)
+                    .addComponent(txtTienThua))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(txtTongTien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(19, 19, 19))
+                    .addComponent(txtTongTien))
+                .addGap(22, 22, 22))
         );
 
         jTabbedPane1.addTab("Hóa đơn", jPanel5);
@@ -1064,7 +1051,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
     void tbNhapTien() {
         try {
-
+            btnThanhToan.setEnabled(false);
             if (tblHd.getSelectedRow() == -1) {
                 txtTienKhachDua.setEnabled(false);
             } else {
@@ -1082,6 +1069,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                     } else {
                         txtTienThua.setText(String.valueOf(tien - canTt));
                         txtTb.setText("Xin mời thanh toán");
+                        btnThanhToan.setEnabled(true);
                     }
                 }
             }
@@ -1317,38 +1305,6 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_tblGhMouseClicked
 
-    private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
-        try {
-
-            if (tblHd.getSelectedRow() == -1) {
-                txtTienKhachDua.setEnabled(false);
-            } else {
-                txtTienKhachDua.setEnabled(true);
-                if (txtTienKhachDua.getText().trim().isEmpty()) {
-                    txtTb.setText("Nhập tiền khách trả");
-                } else {
-                    int tien = Integer.parseInt(txtTienKhachDua.getText());
-                    float canTt = Float.parseFloat(txtTongTien.getText());
-                    if (tien <= 0) {
-                        txtTb.setText("Tiền khách đưa phải là nguyên dương");
-                    } else if (tien < canTt) {
-                        txtTb.setText("Chưa đủ");
-                        txtTienThua.setText("");
-                    } else {
-                        txtTienThua.setText(String.valueOf(tien - canTt));
-                        txtTb.setText("Xin mời thanh toán");
-                    }
-                }
-            }
-        } catch (Exception e) {
-            txtTb.setText("Tiền khách đưa phải là số nguyên dương");
-        }
-    }//GEN-LAST:event_txtTienKhachDuaKeyReleased
-
-    private void txtTienKhachDuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyPressed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtTienKhachDuaKeyPressed
-
     private void cbbSearchMauSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchMauSPActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbSearchMauSPActionPerformed
@@ -1356,6 +1312,14 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private void cbbSearchSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchSizeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbbSearchSizeActionPerformed
+
+    private void txtTienKhachDuaKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyReleased
+        tbNhapTien();
+    }//GEN-LAST:event_txtTienKhachDuaKeyReleased
+
+    private void txtTienKhachDuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyPressed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTienKhachDuaKeyPressed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1410,20 +1374,20 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private javax.swing.JTable tblHd;
     private javax.swing.JLabel txtChao;
     private javax.swing.JTextField txtDiaChi2;
-    private javax.swing.JTextField txtMaHd;
+    private javax.swing.JLabel txtMaHd;
     private javax.swing.JTextField txtMaKh2;
     private javax.swing.JTextField txtMaKhThemHd;
     private javax.swing.JTextField txtNgaySinh2;
-    private javax.swing.JTextField txtNgayTao;
+    private javax.swing.JLabel txtNgayTao;
     private javax.swing.JTextField txtSdt2;
     private javax.swing.JTextField txtSearchKh;
     private javax.swing.JTextField txtSerachSp;
     private javax.swing.JLabel txtTb;
-    private javax.swing.JTextField txtTenKh;
+    private javax.swing.JLabel txtTenKh;
     private javax.swing.JTextField txtTenKh2;
-    private javax.swing.JTextField txtTenNv;
+    private javax.swing.JLabel txtTenNv;
     private javax.swing.JTextField txtTienKhachDua;
-    private javax.swing.JTextField txtTienThua;
-    private javax.swing.JTextField txtTongTien;
+    private javax.swing.JLabel txtTienThua;
+    private javax.swing.JLabel txtTongTien;
     // End of variables declaration//GEN-END:variables
 }

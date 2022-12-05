@@ -36,7 +36,8 @@ public class FormQLTaiKhoan extends javax.swing.JFrame {
         for (TaiKhoanView taiKhoanView : list) {
             dtm.addRow(new Object[]{
                 taiKhoanView.getUserName(),
-                taiKhoanView.getPassword(),
+//                taiKhoanView.getPassword(),
+                "Không được xem",
                 taiKhoanView.getLoaiTk()
             });
         }
@@ -103,6 +104,7 @@ public class FormQLTaiKhoan extends javax.swing.JFrame {
         });
 
         btnXoa.setText("Xóa");
+        btnXoa.setEnabled(false);
         btnXoa.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnXoaActionPerformed(evt);
