@@ -4,9 +4,11 @@
  */
 package Service;
 
+import DomainModel.SanPham;
 import Repository.SanPhamRepository;
 import Service.Interface.ISanPhamService;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -22,7 +24,32 @@ public class SanPhamImpl implements ISanPhamService {
     }
 
     public static void main(String[] args) {
-        ISanPhamService sv=new SanPhamImpl();
+        ISanPhamService sv = new SanPhamImpl();
         System.out.println(sv.getListMaSp());
+    }
+
+    @Override
+    public List<SanPham> getAll() {
+        return sanPhamRepository.getAll();
+    }
+
+    @Override
+    public String them_sp(SanPham sp) {
+        boolean add = sanPhamRepository.them_sp(sp);
+        if (add) {
+            return "Add thành công";
+        } else {
+            return "Add thất bại";
+        }
+    }
+
+    @Override
+    public String sua_sp(SanPham sp) {
+        boolean sua = sanPhamRepository.sua_sp(sp);
+        if (sua) {
+            return "Sửa thành công";
+        } else {
+            return "Sửa thất bại";
+        }
     }
 }

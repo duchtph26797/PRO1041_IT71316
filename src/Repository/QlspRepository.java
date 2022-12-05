@@ -11,8 +11,11 @@ import DomainModel.LoaiHangDomainModel;
 import DomainModel.MauSacDomainModel;
 import DomainModel.SanPham;
 import Ulities.DBConnection;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.util.List;
 
 /**
  *
@@ -293,5 +296,50 @@ public class QlspRepository {
         }
 
         return -1;
+    }
+    
+    public List<Ctsp> getAllload() {
+        List<Ctsp> listct = new ArrayList<>();
+        String query = "SELECT [MaCTSP]\n"
+                + "      ,[MaSP]\n"
+                + "      ,[MaMS]\n"
+                + "      ,[MaLoai]\n"
+                + "      ,[MaCL]\n"
+                + "      ,[MaKC]\n"
+                + "      ,[SoLuong]\n"
+                + "      ,[DonGia]\n"
+                + "      ,[MoTa]\n"
+                + "      ,[TrangThai]\n"
+                + "  FROM [dbo].[CHITIETSP]";
+        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Ctsp ct = new Ctsp();
+                ct.setMaCtsp(rs.getInt(1));
+                SanPham sp = new SanPham();
+                sp.setMaSp(rs.getInt(2));
+                ct.setSp(sp);
+                LoaiHangDomainModel loai = new LoaiHangDomainModel();
+                loai.setMaLoai(rs.getInt(4));
+                ct.setLoai(loai);
+                MauSacDomainModel ms = new MauSacDomainModel();
+                ms.setMaMau(rs.getInt(3));
+                ct.setMs(ms);
+                ChatLieuDomainModel cl = new ChatLieuDomainModel();
+                cl.setMaCL(rs.getInt(5));
+                ct.setCl(cl);
+                KichCoDomainModel kc = new KichCoDomainModel();
+                kc.setMaKC(rs.getInt(6));
+                ct.setKc(kc);
+                ct.setSoLuong(rs.getInt(7));
+                ct.setDonGia(rs.getFloat(8));
+                ct.setMoTa(rs.getString(9));
+                ct.setTrangThai(rs.getInt(10));
+                listct.add(ct);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listct;
     }
 }
