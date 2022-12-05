@@ -127,7 +127,5 @@ public class Ctsp {
     public String toString() {
         return "Ctsp{" + "maCtsp=" + maCtsp + ", sp=" + sp.getMaSp() + ", ms=" + ms + ", loai=" + loai + ", cl=" + cl + ", kc=" + kc + ", soLuong=" + soLuong + ", donGia=" + donGia + ", moTa=" + moTa + '}';
     }
-    public Object[] showdata(){
-        return new Object[]{maCtsp,sp.getMaSp(),loai.getMaLoai(),ms.getMaMau(),cl.getMaCL(),kc.getMaKC(),soLuong,donGia,moTa,trangThai};
-    }
+    
 }

@@ -4,12 +4,16 @@
  */
 package Service.Interface;
 
-import java.util.ArrayList;
+import DomainModel.SanPham;
+import ViewModel.DoanhThuView;
+import java.util.List;
 
 /**
  *
- * @author TRUNG DUC
+ * @author nhatc
  */
-public interface ISanPhamService {
-    ArrayList<String> getListMaSp();
+public interface ThongKeService {
+    DoanhThuView getThongKe(String conditions);
+    
+    List<SanPham> getSanPham(String conditions);
 }

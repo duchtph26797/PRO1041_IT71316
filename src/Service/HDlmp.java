@@ -52,7 +52,6 @@ public class HDlmp implements HDSer {
     public ArrayList<hdview> getAllHdGdbh() {
         ArrayList<hdview> listView = new ArrayList<>();
         ArrayList<HoaDonModel2> list = HDr.getAllHdGdbh();
-
         for (HoaDonModel2 hd : list) {
             listView.add(new hdview(hd.getMaHD(), hd.getNgayTao(), hd.getTrangThai(), hd.getNv().getTenNV(), hd.getKh().getTenKH(), hd.getKm().getMucKm()));
         }
