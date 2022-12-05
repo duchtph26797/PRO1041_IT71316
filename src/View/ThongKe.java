@@ -20,6 +20,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -298,9 +299,18 @@ public class ThongKe extends javax.swing.JPanel {
     }//GEN-LAST:event_cbbSortTKActionPerformed
 
     private void btnTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKActionPerformed
-        String first = "'" + txtFirstDate.getText() + "'";
-        String last = "'" + txtLastDate.getText() + "'";
-        loadDT(tks.getThongKe(" and (hd.NgayTao >= " + first + " and hd.NgayTao <= " + last));
+        if (txtFirstDate.getText().isBlank() || txtLastDate.getText().isBlank()) {
+            JOptionPane.showMessageDialog(this, "Ko dc de trong ngay");
+            return;
+        }
+        if (txtFirstDate.getText().matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$") || txtLastDate.getText().matches("^\\d{4}\\-(0?[1-9]|1[012])\\-(0?[1-9]|[12][0-9]|3[01])$")) {
+            String first = "'" + txtFirstDate.getText() + "'";
+            String last = "'" + txtLastDate.getText() + "')";
+            loadDT(tks.getThongKe(" and (hd.NgayTao >= " + first + " and hd.NgayTao <= " + last));
+        } else {
+            JOptionPane.showMessageDialog(this, "Ngay nhap vao phai theo dinh dang YYYY-MM-DD");
+            return;
+        }
     }//GEN-LAST:event_btnTKActionPerformed
 
     private void cbbSortSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortSPActionPerformed
