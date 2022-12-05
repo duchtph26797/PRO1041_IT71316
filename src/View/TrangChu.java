@@ -237,7 +237,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnThongKeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThongKeActionPerformed
         panel.removeAll();
-        ThongKe f=new ThongKe();
+        HDForm f=new HDForm();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
@@ -314,7 +314,7 @@ public class TrangChu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TaiKhoanView tkv = new TaiKhoanView();
-                tkv.setLoaiTk("nhanvien");
+                tkv.setLoaiTk("quanly");
                 NhanVienModel nv = new NhanVienModel();
                 nv.setMaNV(1);
                 nv.setTenNV("Ngọc Văn");
