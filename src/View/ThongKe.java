@@ -269,22 +269,22 @@ public class ThongKe extends javax.swing.JPanel {
             loadDT(tks.getThongKe(""));
         }
         if (cbbSortTK.getSelectedItem().equals("Trong ngày")) {
-            loadDT(tks.getThongKe(" and hd.NgayTao = GETDATE()"));
+            loadDT(tks.getThongKe(" and hd.NgayTao = GETDATE()\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Trong tuần")) {
-            loadDT(tks.getThongKe(" and DATEPART(WEEK, hd.NgayTao) = DATEPART(WEEK, GETDATE())"));
+            loadDT(tks.getThongKe(" and DATEPART(WEEK, hd.NgayTao) = DATEPART(WEEK, GETDATE())\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Tuần vừa qua")) {
-            loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -8, GETDATE()) and hd.NgayTao <= GETDATE())"));
+            loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -8, GETDATE()) and hd.NgayTao <= GETDATE())\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Trong tháng")) {
-            loadDT(tks.getThongKe(" and MONTH(hd.NgayTao) = (MONTH(GETDATE()))"));
+            loadDT(tks.getThongKe(" and MONTH(hd.NgayTao) = (MONTH(GETDATE()))\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Tháng vừa qua")) {
-            loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -31, GETDATE()) and hd.NgayTao <= GETDATE())"));
+            loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -31, GETDATE()) and hd.NgayTao <= GETDATE())\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Cả năm")) {
-            loadDT(tks.getThongKe(" and YEAR(hd.NgayTao) = (YEAR(GETDATE()))"));
+            loadDT(tks.getThongKe(" and YEAR(hd.NgayTao) = (YEAR(GETDATE()))\n"));
         }
         if (cbbSortTK.getSelectedItem().equals("Khoảng thời gian cụ thể")) {
             txtFirstDate.setVisible(true);

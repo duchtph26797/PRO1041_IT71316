@@ -22,19 +22,23 @@ public class ThongKeRepository {
 
     public DoanhThuView getThongKe(String conditions) {
         DoanhThuView dt = new DoanhThuView();
-        String query = "select sum(((SoLuong*DonGia) - (SoLuong*DonGia)*MucKM/100)) as 'Tong doanh thu',\n"
-                + "sum(SoLuong) as 'Tong so sp da ban',\n"
-                + "count(hd.MaHD) as 'So hoa don da thanh toan'\n"
+        String q1 = "select sum(((SoLuong*DonGia) - (SoLuong*DonGia)*MucKM/100)) as 'Tong doanh thu',\n"
+                + "sum(SoLuong) as 'Tong so sp da ban'\n"
                 + "from HDCT hdct\n"
                 + "join HOADON hd on hdct.MaHD = hd.MaHD\n"
                 + "join KHUYENMAI km on hd.MaKM = km.MaKM\n"
                 + "where hd.TrangThai = 1" + conditions;
-        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                dt.setTongDoanhThu(rs.getInt(1));
-                dt.setTongSanPham(rs.getInt(2));
-                dt.setSoHoaDon(rs.getInt(3));
+        String q2 = "select count(hd.MaHD) as 'So hoa don da thanh toan'\n"
+                + "from HOADON hd where hd.TrangThai = 1" + conditions;
+        try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps1 = con.prepareStatement(q1);  PreparedStatement ps2 = con.prepareStatement(q2)) {
+            ResultSet rs1 = ps1.executeQuery();
+            while (rs1.next()) {
+                dt.setTongDoanhThu(rs1.getInt(1));
+                dt.setTongSanPham(rs1.getInt(2));
+            }
+            ResultSet rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+                dt.setSoHoaDon(rs2.getInt(1));
             }
             return dt;
         } catch (SQLException e) {
