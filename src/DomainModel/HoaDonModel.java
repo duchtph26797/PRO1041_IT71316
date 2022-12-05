@@ -93,6 +93,6 @@ public class HoaDonModel {
     
     public Object[] toDataRow(){
     
-    return new Object[]{MaHD,NgayTao,TrangThai,MaNV,MaKH,MaKM};
+    return new Object[]{MaHD,NgayTao,TrangThai==1 ? "Da Thanh Toan" : "Chua thanh toan",MaNV==1 ? "Phú" : "NV2",MaKH==1 ? "KH1" : "KH2",MaKM==1 ? "10%" : "50%"};
     }
 }

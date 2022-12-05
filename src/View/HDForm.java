@@ -4,10 +4,13 @@
  */
 package View;
 
+import DomainModel.HDCTDomainModel;
 import DomainModel.HoaDonModel;
 import Service.HDCTIplm;
 import Service.HDlmp;
+import Service.Interface.HDCTService;
 import Service.Interface.HDSer;
+import ViewModel.HdctView;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -20,14 +23,23 @@ import javax.swing.table.DefaultTableModel;
 public class HDForm extends javax.swing.JPanel {
 
     private DefaultTableModel dtm = new DefaultTableModel();
+    private DefaultTableModel dtmCTHD = new DefaultTableModel();
     private HDSer HDser = new HDlmp();
     private List<HoaDonModel> ListHD = new ArrayList<>();
+    private List<HDCTDomainModel> ListCTHD = new ArrayList<>();
+    private HDCTService CTHDSer = new HDCTIplm();
 
     /**
      * Creates new form HDForm
      */
     public HDForm() {
         initComponents();
+        TBbangCTHD.setModel(dtmCTHD);
+        String[] headersCTHD = {"Mã HD", "Mã CTSP", "Ngày Tạo", "Số Lượng", "Đơn Giá"};
+        dtmCTHD.setColumnIdentifiers(headersCTHD);
+        ListCTHD = CTHDSer.getAll();
+        LoadDataCTHD(ListCTHD);
+
         TBbangHD.setModel(dtm);
         String[] headers = {"Mã HD", "Ngày Tạo", "Trạng Thái", "Mã NV", "Mã KH", "Mã KM"};
         dtm.setColumnIdentifiers(headers);
@@ -42,6 +54,13 @@ public class HDForm extends javax.swing.JPanel {
         }
     }
 
+    private void LoadDataCTHD(List<HDCTDomainModel> ListCTHD) {
+        dtmCTHD.setRowCount(0);
+        for (HDCTDomainModel CTHD : ListCTHD) {
+            dtmCTHD.addRow(CTHD.toRowDataHDCT());
+        }
+    }
+
     private void showData(HoaDonModel Hd) {
         txtTrangThai.setText(String.valueOf(Hd.getTrangThai()));
         txtNgayTao.setText(Hd.getNgayTao());
@@ -50,12 +69,21 @@ public class HDForm extends javax.swing.JPanel {
         txtMaKM.setText(String.valueOf(Hd.getMaKM()));
     }
 
-    public void ResetForm() {
-        txtTrangThai.setText("");
-        txtNgayTao.setText("");
-        txtmaNV.setText("");
-        txtMaKH.setText("");
-        txtMaKM.setText("");
+    private void showDataHDCT(ArrayList<HdctView> list) {
+        dtmCTHD.setRowCount(0);
+        int i = 1;
+        for (HdctView hd : list) {
+            dtmCTHD.addRow(new Object[]{
+                i++,
+                hd.getMactsp(),
+                hd.getTenSp(),
+                hd.getTenMs(),
+                hd.getTenLoai(),
+                hd.getTenCl(),
+                hd.getTenKc(),
+                hd.getSoLuong(),
+                hd.getDonGia(),});
+        }
     }
 
     /**
@@ -67,6 +95,8 @@ public class HDForm extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
         jScrollPane1 = new javax.swing.JScrollPane();
         TBbangHD = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
@@ -80,10 +110,27 @@ public class HDForm extends javax.swing.JPanel {
         txtmaNV = new javax.swing.JTextField();
         txtMaKH = new javax.swing.JTextField();
         txtMaKM = new javax.swing.JTextField();
-        BtUpdate = new javax.swing.JButton();
-        BtReset = new javax.swing.JButton();
-        BtCTHD = new javax.swing.JButton();
-        BtAdd = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TBbangCTHD = new javax.swing.JTable();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtSearchmaNV = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        txtSearchmaKH = new javax.swing.JTextField();
+        BtSearch = new javax.swing.JButton();
+
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
 
         TBbangHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -107,14 +154,19 @@ public class HDForm extends javax.swing.JPanel {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Numbered list.png"))); // NOI18N
         jLabel1.setText("HÓA ĐƠN");
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel2.setText("Ngày Tạo :");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel3.setText("Trạng Thái :");
 
+        jLabel4.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel4.setText("Mã NV :");
 
+        jLabel5.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel5.setText("Mã KH :");
 
+        jLabel6.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
         jLabel6.setText("Mã KM :");
 
         txtNgayTao.addActionListener(new java.awt.event.ActionListener() {
@@ -123,35 +175,40 @@ public class HDForm extends javax.swing.JPanel {
             }
         });
 
-        BtUpdate.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Create.png"))); // NOI18N
-        BtUpdate.setText("Update");
-        BtUpdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtUpdateActionPerformed(evt);
+        TBbangCTHD.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane3.setViewportView(TBbangCTHD);
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Notes.png"))); // NOI18N
+        jLabel7.setText("CHI TIẾT HÓA ĐƠN");
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jLabel8.setText("Tìm Kiếm HD theo mã NV :");
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI Semibold", 0, 12)); // NOI18N
+        jLabel9.setText("Tìm Kiếm HD theo mã KH :");
+
+        BtSearch.setFont(new java.awt.Font("Segoe UI Black", 0, 14)); // NOI18N
+        BtSearch.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Search.png"))); // NOI18N
+        BtSearch.setText("Search");
+        BtSearch.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BtSearchMouseClicked(evt);
             }
         });
-
-        BtReset.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Refresh.png"))); // NOI18N
-        BtReset.setText("Reset");
-        BtReset.addActionListener(new java.awt.event.ActionListener() {
+        BtSearch.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtResetActionPerformed(evt);
-            }
-        });
-
-        BtCTHD.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Notes.png"))); // NOI18N
-        BtCTHD.setText("Chi tiết hóa đơn");
-        BtCTHD.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtCTHDActionPerformed(evt);
-            }
-        });
-
-        BtAdd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Accept.png"))); // NOI18N
-        BtAdd.setText("Add");
-        BtAdd.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtAddActionPerformed(evt);
+                BtSearchActionPerformed(evt);
             }
         });
 
@@ -160,60 +217,83 @@ public class HDForm extends javax.swing.JPanel {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel4)
-                                    .addComponent(jLabel5)
-                                    .addComponent(jLabel6))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtNgayTao)
-                                    .addComponent(txtmaNV)
-                                    .addComponent(txtMaKH)
-                                    .addComponent(txtMaKM)))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(BtReset)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(BtUpdate))))
+                        .addComponent(jLabel7)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(52, 52, 52)
-                                .addComponent(BtAdd))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 724, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel1)
-                                .addGap(12, 12, 12)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtCTHD))
-                .addContainerGap(23, Short.MAX_VALUE))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel2)
+                                                    .addComponent(jLabel4)
+                                                    .addComponent(jLabel5)
+                                                    .addComponent(jLabel6))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(txtNgayTao)
+                                                    .addComponent(txtmaNV)
+                                                    .addComponent(txtMaKH)
+                                                    .addComponent(txtMaKM)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel3)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(0, 20, Short.MAX_VALUE)))
+                                        .addGap(18, 18, 18))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(22, 22, 22)
+                                        .addComponent(jLabel1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 539, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel8)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtSearchmaNV))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addComponent(jLabel9)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(txtSearchmaKH, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(BtSearch)))))
+                        .addContainerGap(22, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addContainerGap(35, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel9)
+                                    .addComponent(txtSearchmaKH, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel8)
+                                    .addComponent(txtSearchmaNV, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(BtSearch)
+                                .addGap(15, 15, 15)))
+                        .addGap(13, 13, 13)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(BtCTHD))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addGap(40, 40, 40)
                         .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel3)
                             .addComponent(txtTrangThai, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -233,13 +313,11 @@ public class HDForm extends javax.swing.JPanel {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(txtMaKM, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(BtUpdate)
-                            .addComponent(BtReset))
-                        .addGap(18, 18, 18)
-                        .addComponent(BtAdd)))
-                .addContainerGap(120, Short.MAX_VALUE))
+                        .addGap(83, 83, 83)))
+                .addComponent(jLabel7)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 302, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(30, 30, 30))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -247,55 +325,41 @@ public class HDForm extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNgayTaoActionPerformed
 
-    private void BtResetActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtResetActionPerformed
-        // TODO add your handling code here:
-        ResetForm();
-        JOptionPane.showMessageDialog(this, "Reset");
-    }//GEN-LAST:event_BtResetActionPerformed
-
-    private void BtUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtUpdateActionPerformed
-                HoaDonModel HD = ListHD.get(TBbangHD.getSelectedRow());
-        String NgayTao = txtNgayTao.getText();
-        String TrangThai = txtTrangThai.getText();
-        String MaNV = txtmaNV.getText();
-        String MaKH = txtMaKH.getText();
-        String MaKM = txtMaKM.getText();
-        HoaDonModel Hd = new HoaDonModel(NgayTao, Integer.valueOf(TrangThai), Integer.valueOf(MaNV), Integer.valueOf(MaKH), Integer.valueOf(MaKM));
-        JOptionPane.showMessageDialog(this, HDser.suaHD(Hd, HD.getNgayTao()));
-        ListHD = HDser.getAll();
-        LoadData(ListHD);
-    }//GEN-LAST:event_BtUpdateActionPerformed
-
-    private void BtAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtAddActionPerformed
-        // TODO add your handling code here:
-        String NgayTao = txtNgayTao.getText();
-        String Trangthai = txtTrangThai.getText();
-        String MaNV = txtmaNV.getText();
-        String MaKH = txtMaKH.getText();
-        String MaKM = txtMaKM.getText();
-        HoaDonModel Hd = new HoaDonModel(NgayTao, Integer.valueOf(Trangthai), Integer.valueOf(MaNV), Integer.valueOf(MaKH), Integer.valueOf(MaKM));
-        JOptionPane.showMessageDialog(this, HDser.add(Hd));
-        ListHD = HDser.getAll();
-        LoadData(ListHD);
-    }//GEN-LAST:event_BtAddActionPerformed
-
     private void TBbangHDMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TBbangHDMouseClicked
         // TODO add your handling code here:
         HoaDonModel Hdm = ListHD.get(TBbangHD.getSelectedRow());
-        showData(Hdm);
+        showData(Hdm);   
     }//GEN-LAST:event_TBbangHDMouseClicked
 
-    private void BtCTHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtCTHDActionPerformed
+    private void BtSearchMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BtSearchMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(this, "Show Chi tiết hóa Đơn !");
-    }//GEN-LAST:event_BtCTHDActionPerformed
+    }//GEN-LAST:event_BtSearchMouseClicked
+
+    private void BtSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtSearchActionPerformed
+
+        String SearchmaKH = txtSearchmaKH.getText();
+        String SearchmaNV = txtSearchmaNV.getText();
+        
+        List<HoaDonModel> listSearch = new ArrayList<>();
+
+        for (HoaDonModel Hd : ListHD) {
+            if(String.valueOf(Hd.getMaKH()).contains(SearchmaKH)) {
+                //Khi tim Thây add vao liSt moi
+                listSearch.add(Hd);
+            }else{
+                JOptionPane.showMessageDialog(this, "HD khong ton Tai");
+                return;
+            }
+        }
+        //Show list Vừa tìm được
+        LoadData(listSearch);
+        JOptionPane.showMessageDialog(jScrollPane1, "HD vua tim kiem !");
+    }//GEN-LAST:event_BtSearchActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtAdd;
-    private javax.swing.JButton BtCTHD;
-    private javax.swing.JButton BtReset;
-    private javax.swing.JButton BtUpdate;
+    private javax.swing.JButton BtSearch;
+    private javax.swing.JTable TBbangCTHD;
     private javax.swing.JTable TBbangHD;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -303,10 +367,18 @@ public class HDForm extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTable jTable1;
     private javax.swing.JTextField txtMaKH;
     private javax.swing.JTextField txtMaKM;
     private javax.swing.JTextField txtNgayTao;
+    private javax.swing.JTextField txtSearchmaKH;
+    private javax.swing.JTextField txtSearchmaNV;
     private javax.swing.JTextField txtTrangThai;
     private javax.swing.JTextField txtmaNV;
     // End of variables declaration//GEN-END:variables

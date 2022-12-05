@@ -22,7 +22,7 @@ public class QlspRepository {
 
     SanPhamRepository sanPhamRepository = new SanPhamRepository();
 
-    final String get_all = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,dongia,mota,trangthai from CHITIETSP \n"
+    final String get_all = "select mactsp,chitietsp.masp,SANPHAM.TenSP,mausac.TenMS,CHATLIEU.TenCL,KICHCO.TenKC,LOAIHANG.TenLoai,soluong,DonGia,mota,trangthai from CHITIETSP \n"
             + "	join SANPHAM on SANPHAM.MAsp = CHITIETSP.MaSP\n"
             + "	join MAUSAC on MAUSAC.MaMS = CHITIETSP.MaMS\n"
             + "	join CHATLIEU on CHATLIEU.macl = CHITIETSP.Macl\n"
