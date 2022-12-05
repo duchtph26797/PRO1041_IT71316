@@ -111,7 +111,7 @@ public class FormQLNhanVien extends javax.swing.JPanel {
 
         txtNgaySinh.setBackground(new java.awt.Color(198, 216, 224));
 
-        BtHuy.setBackground(new java.awt.Color(255, 255, 204));
+        BtHuy.setBackground(new java.awt.Color(204, 255, 255));
         BtHuy.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Actions-edit-delete-icon-16.png"))); // NOI18N
         BtHuy.setText("Hủy");
         BtHuy.addActionListener(new java.awt.event.ActionListener() {
@@ -122,7 +122,7 @@ public class FormQLNhanVien extends javax.swing.JPanel {
 
         jLabel9.setText("Use Name :");
 
-        BtSua.setBackground(new java.awt.Color(255, 204, 255));
+        BtSua.setBackground(new java.awt.Color(204, 255, 255));
         BtSua.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Task list.png"))); // NOI18N
         BtSua.setText("Sửa");
         BtSua.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +133,7 @@ public class FormQLNhanVien extends javax.swing.JPanel {
 
         TxtUseName.setBackground(new java.awt.Color(204, 204, 255));
 
-        BtXoa.setBackground(new java.awt.Color(255, 102, 102));
+        BtXoa.setBackground(new java.awt.Color(204, 255, 255));
         BtXoa.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Button-Close-icon-16.png"))); // NOI18N
         BtXoa.setText("Xóa");
         BtXoa.addActionListener(new java.awt.event.ActionListener() {
@@ -142,7 +142,7 @@ public class FormQLNhanVien extends javax.swing.JPanel {
             }
         });
 
-        BtLuu.setBackground(new java.awt.Color(153, 255, 204));
+        BtLuu.setBackground(new java.awt.Color(204, 255, 255));
         BtLuu.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Accept.png"))); // NOI18N
         BtLuu.setText("Lưu NV");
         BtLuu.addActionListener(new java.awt.event.ActionListener() {
@@ -179,7 +179,7 @@ public class FormQLNhanVien extends javax.swing.JPanel {
             }
         });
 
-        jButton1.setBackground(new java.awt.Color(0, 204, 204));
+        jButton1.setBackground(new java.awt.Color(204, 255, 255));
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconset4/Login-icon-16.png"))); // NOI18N
         jButton1.setText("Thoát");
         jButton1.addActionListener(new java.awt.event.ActionListener() {

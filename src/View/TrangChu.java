@@ -120,7 +120,7 @@ public class TrangChu extends javax.swing.JFrame {
 
         btnNhanVien.setBackground(new java.awt.Color(204, 255, 255));
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/User.png"))); // NOI18N
-        btnNhanVien.setText("Nhân Viên");
+        btnNhanVien.setText("Quản lý nhân viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnNhanVienActionPerformed(evt);
