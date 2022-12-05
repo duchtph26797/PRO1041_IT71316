@@ -141,4 +141,7 @@ public class SanPham {
     public Object[] toRowData() {
         return new Object[]{maSp, tenSp, tenLoai, ms, kc, cl, donGia, daBan, conLai, tongDoanhThu};
     }
+    public Object[] showdata(){
+        return new Object[]{maSp,tenSp,loaiHang.getMaLoai()};
+    }
 }

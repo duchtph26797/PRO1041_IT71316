@@ -4,8 +4,10 @@
  */
 package Service.Interface;
 
+import DomainModel.Ctsp;
 import ViewModel.Qlsp;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -21,4 +23,7 @@ public interface IQlspService {
     ArrayList<Qlsp> boLoc(ArrayList<String> list);
     Boolean sua_so_luong(int sl, String mactsp);
     int dem_sl_ctsp(String mactsp);
+    List<Ctsp>getAllload();
+    String them_ctsp(Ctsp ctsp);
+    String sua_ctsp(Ctsp ctsp);
 }
