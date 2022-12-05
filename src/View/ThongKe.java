@@ -27,10 +27,12 @@ import javax.swing.table.DefaultTableModel;
  * @author TRUNG DUC
  */
 public class ThongKe extends javax.swing.JPanel {
-
+    
     private DefaultTableModel dtmHD = new DefaultTableModel();
     private DefaultTableModel dtmSP = new DefaultTableModel();
-    private DefaultComboBoxModel dcbmSort = new DefaultComboBoxModel();
+    private DefaultComboBoxModel dcbmSortTK = new DefaultComboBoxModel();
+    private DefaultComboBoxModel dcbmSortHD = new DefaultComboBoxModel();
+    private DefaultComboBoxModel dcbmSortSP = new DefaultComboBoxModel();
     private HDSer hds = new HDlmp();
     private ThongKeService tks = new ThongKeIplm();
 
@@ -39,61 +41,107 @@ public class ThongKe extends javax.swing.JPanel {
      */
     public ThongKe() {
         initComponents();
-
-        loadCBB();
+        
+        loadCbbSortTK();
         txtFirstDate.setVisible(false);
         lbTo.setVisible(false);
         txtLastDate.setVisible(false);
         btnTK.setVisible(false);
+        loadCbbSortHD();
+        loadCbbSortSP();
         
         loadDT(tks.getThongKe(""));
-        
-        loadTBHD();
-        loadTBSP();
+        loadTBHD("All");
+        loadTBSP("order by [Tong doanh thu] desc");
     }
-
-    private void loadTBHD() {
+    
+    private void loadTBHD(String conditions) {
         String[] headers = {"Mã HD", "Ngày tạo", "Tên NV", "Tên KH", "Mức khuyến mãi", "Trạng thái"};
         tbHD.setModel(dtmHD);
         dtmHD.setColumnIdentifiers(headers);
         dtmHD.setRowCount(0);
-        for (hdview x : hds.getAllHdGdbh()) {
-            dtmHD.addRow(new Object[]{
-                x.getMaHD(),
-                x.getNgayTao(),
-                x.getTenNv(),
-                x.getTenKh(),
-                x.getMucKm() + "%",
-                x.hienTt()});
+        if (conditions.equals("All")) {
+            for (hdview x : hds.getAllHdGdbh()) {
+                dtmHD.addRow(new Object[]{
+                    x.getMaHD(),
+                    x.getNgayTao(),
+                    x.getTenNv(),
+                    x.getTenKh(),
+                    x.getMucKm() + "%",
+                    x.hienTt()});
+            }
+        }
+        if (conditions.equals("Đang chờ")) {
+            for (hdview x : hds.getAllHdGdbh()) {
+                if (x.getTrangThai() == 0) {
+                    dtmHD.addRow(new Object[]{
+                        x.getMaHD(),
+                        x.getNgayTao(),
+                        x.getTenNv(),
+                        x.getTenKh(),
+                        x.getMucKm() + "%",
+                        x.hienTt()});
+                }
+            }
+        }
+        if (conditions.equals("Đã thanh toán")) {
+            for (hdview x : hds.getAllHdGdbh()) {
+                if (x.getTrangThai() == 1) {
+                    dtmHD.addRow(new Object[]{
+                        x.getMaHD(),
+                        x.getNgayTao(),
+                        x.getTenNv(),
+                        x.getTenKh(),
+                        x.getMucKm() + "%",
+                        x.hienTt()});
+                }
+            }
         }
     }
-
-    private void loadTBSP() {
-        String[] headers = {"Mã SP", "Tên SP", "Loại hàng", "Màu sắc", "Kích cỡ", "Chất liệu", "Đơn giá", "Số lượng đã bán", "Số lượng còn lại"};
+    
+    private void loadTBSP(String conditions) {
+        String[] headers = {"Mã SP", "Tên SP", "Loại hàng", "Màu sắc", "Kích cỡ", "Chất liệu", "Đơn giá", "Đã bán", "Còn tồn", "Tổng doanh thu"};
         tbSP.setModel(dtmSP);
         dtmSP.setColumnIdentifiers(headers);
         dtmSP.setRowCount(0);
-        for (SanPham x : tks.getSanPham()) {
+        for (SanPham x : tks.getSanPham(conditions)) {
             dtmSP.addRow(x.toRowData());
         }
     }
-
-    private void loadCBB() {
-        cbbSort.setModel(dcbmSort);
-        dcbmSort.addElement("Moi thoi diem");
-        dcbmSort.addElement("Trong ngay");
-        dcbmSort.addElement("Trong tuan");
-        dcbmSort.addElement("Tuan vua qua");
-        dcbmSort.addElement("Trong thang");
-        dcbmSort.addElement("Thang vua qua");
-        dcbmSort.addElement("Ca nam");
-        dcbmSort.addElement("Khoang thoi gian cu the");
+    
+    private void loadCbbSortTK() {
+        cbbSortTK.setModel(dcbmSortTK);
+        dcbmSortTK.addElement("Mọi thời điểm");
+        dcbmSortTK.addElement("Trong ngày");
+        dcbmSortTK.addElement("Trong tuần");
+        dcbmSortTK.addElement("Tuần vừa qua");
+        dcbmSortTK.addElement("Trong tháng");
+        dcbmSortTK.addElement("Tháng vừa qua");
+        dcbmSortTK.addElement("Cả năm");
+        dcbmSortTK.addElement("Khoảng thời gian cụ thể");
     }
-
+    
     private void loadDT(DoanhThuView dt) {
         txtDT.setText(String.valueOf(dt.getTongDoanhThu()));
         txtSP.setText(String.valueOf(dt.getTongSanPham()));
         txtHD.setText(String.valueOf(dt.getSoHoaDon()));
+    }
+    
+    private void loadCbbSortHD() {
+        cbbSortHD.setModel(dcbmSortHD);
+        dcbmSortHD.addElement("All");
+        dcbmSortHD.addElement("Đã thanh toán");
+        dcbmSortHD.addElement("Đang chờ");
+    }
+    
+    private void loadCbbSortSP() {
+        cbbSortSP.setModel(dcbmSortSP);
+        dcbmSortSP.addElement("Doanh thu cao nhất");
+        dcbmSortSP.addElement("Doanh thu thấp nhất");
+        dcbmSortSP.addElement("Được mua nhiều nhất");
+        dcbmSortSP.addElement("Được mua ít nhất");
+        dcbmSortSP.addElement("Còn tồn nhiều nhất");
+        dcbmSortSP.addElement("Còn tồn ít nhất");
     }
 
     /**
@@ -112,7 +160,7 @@ public class ThongKe extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        cbbSort = new javax.swing.JComboBox<>();
+        cbbSortTK = new javax.swing.JComboBox<>();
         txtDT = new javax.swing.JLabel();
         txtSP = new javax.swing.JLabel();
         txtHD = new javax.swing.JLabel();
@@ -123,6 +171,8 @@ public class ThongKe extends javax.swing.JPanel {
         jScrollPane2 = new javax.swing.JScrollPane();
         tbSP = new javax.swing.JTable();
         jLabel6 = new javax.swing.JLabel();
+        cbbSortHD = new javax.swing.JComboBox<>();
+        cbbSortSP = new javax.swing.JComboBox<>();
 
         tbHD.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -150,10 +200,10 @@ public class ThongKe extends javax.swing.JPanel {
 
         jLabel4.setText("Số hóa đơn đã thanh toán");
 
-        cbbSort.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-        cbbSort.addActionListener(new java.awt.event.ActionListener() {
+        cbbSortTK.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSortTK.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbSortActionPerformed(evt);
+                cbbSortTKActionPerformed(evt);
             }
         });
 
@@ -187,6 +237,20 @@ public class ThongKe extends javax.swing.JPanel {
 
         jLabel6.setText("Danh sach sản phẩm đã được bán");
 
+        cbbSortHD.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSortHD.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSortHDActionPerformed(evt);
+            }
+        });
+
+        cbbSortSP.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbbSortSP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbSortSPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -209,7 +273,7 @@ public class ThongKe extends javax.swing.JPanel {
                                     .addComponent(txtHD)
                                     .addComponent(txtSP)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(cbbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cbbSortTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(31, 31, 31)
                                 .addComponent(txtFirstDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(8, 8, 8)
@@ -217,27 +281,28 @@ public class ThongKe extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(txtLastDate, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
                         .addGap(65, 65, 65)
-                        .addComponent(btnTK))
+                        .addComponent(btnTK)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel6)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbbSortSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap())
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane1)
-                        .addContainerGap())
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jLabel1)
-                        .addGap(10, 853, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jScrollPane2)
-                        .addContainerGap())))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbbSortHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jScrollPane1)
+                    .addComponent(jScrollPane2))
+                .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
+                .addContainerGap(456, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(398, 398, 398))
+                .addGap(434, 434, 434))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -246,7 +311,7 @@ public class ThongKe extends javax.swing.JPanel {
                 .addComponent(jLabel5)
                 .addGap(29, 29, 29)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cbbSort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbbSortTK, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFirstDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtLastDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lbTo)
@@ -263,20 +328,24 @@ public class ThongKe extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
                     .addComponent(txtHD))
-                .addGap(36, 36, 36)
-                .addComponent(jLabel1)
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(cbbSortHD, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(jLabel6)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbbSortSP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 296, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void cbbSortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortActionPerformed
-        if (cbbSort.getSelectedItem().equals("Khoang thoi gian cu the")) {
+    private void cbbSortTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortTKActionPerformed
+        if (cbbSortTK.getSelectedItem().equals("Khoảng thời gian cụ thể")) {
             txtFirstDate.setVisible(true);
             lbTo.setVisible(true);
             txtLastDate.setVisible(true);
@@ -289,28 +358,28 @@ public class ThongKe extends javax.swing.JPanel {
             txtLastDate.setVisible(false);
             btnTK.setVisible(false);
         }
-        if (cbbSort.getSelectedItem().equals("Moi thoi diem")) {
+        if (cbbSortTK.getSelectedItem().equals("Mọi thời điểm")) {
             loadDT(tks.getThongKe(""));
         }
-        if (cbbSort.getSelectedItem().equals("Trong ngay")) {
+        if (cbbSortTK.getSelectedItem().equals("Trong ngày")) {
             loadDT(tks.getThongKe(" and hd.NgayTao = GETDATE()"));
         }
-        if (cbbSort.getSelectedItem().equals("Trong tuan")) {
+        if (cbbSortTK.getSelectedItem().equals("Trong tuần")) {
             loadDT(tks.getThongKe(" and DATEPART(WEEK, hd.NgayTao) = DATEPART(WEEK, GETDATE())"));
         }
-        if (cbbSort.getSelectedItem().equals("Tuan vua qua")) {
+        if (cbbSortTK.getSelectedItem().equals("Tuần vừa qua")) {
             loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -8, GETDATE()) and hd.NgayTao <= GETDATE())"));
         }
-        if (cbbSort.getSelectedItem().equals("Trong thang")) {
+        if (cbbSortTK.getSelectedItem().equals("Trong tháng")) {
             loadDT(tks.getThongKe(" and MONTH(hd.NgayTao) = (MONTH(GETDATE()))"));
         }
-        if (cbbSort.getSelectedItem().equals("Thang vua qua")) {
+        if (cbbSortTK.getSelectedItem().equals("Tháng vừa qua")) {
             loadDT(tks.getThongKe(" and (hd.NgayTao > DATEADD(DAY, -31, GETDATE()) and hd.NgayTao <= GETDATE())"));
         }
-        if (cbbSort.getSelectedItem().equals("Ca nam")) {
+        if (cbbSortTK.getSelectedItem().equals("Cả năm")) {
             loadDT(tks.getThongKe(" and YEAR(hd.NgayTao) = (YEAR(GETDATE()))"));
         }
-        if (cbbSort.getSelectedItem().equals("Khoang thoi gian cu the")) {
+        if (cbbSortTK.getSelectedItem().equals("Khoảng thời gian cụ thể")) {
             txtFirstDate.setVisible(true);
             txtLastDate.setVisible(true);
         } else {
@@ -319,7 +388,7 @@ public class ThongKe extends javax.swing.JPanel {
             txtFirstDate.setText("");
             txtLastDate.setText("");
         }
-    }//GEN-LAST:event_cbbSortActionPerformed
+    }//GEN-LAST:event_cbbSortTKActionPerformed
 
     private void btnTKActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnTKActionPerformed
         String first = "'" + txtFirstDate.getText() + "'";
@@ -327,10 +396,37 @@ public class ThongKe extends javax.swing.JPanel {
         loadDT(tks.getThongKe(" and (hd.NgayTao >= " + first + " and hd.NgayTao <= " + last));
     }//GEN-LAST:event_btnTKActionPerformed
 
+    private void cbbSortSPActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortSPActionPerformed
+        if (cbbSortSP.getSelectedItem().equals("Doanh thu cao nhất")) {
+            loadTBSP("order by [Tong doanh thu] desc");
+        }
+        if (cbbSortSP.getSelectedItem().equals("Doanh thu thấp nhất")) {
+            loadTBSP("order by [Tong doanh thu] asc");
+        }
+        if (cbbSortSP.getSelectedItem().equals("Được mua nhiều nhất")) {
+            loadTBSP("order by SUM(hdct.SoLuong) desc");
+        }
+        if (cbbSortSP.getSelectedItem().equals("Được mua ít nhất")) {
+            loadTBSP("order by SUM(hdct.SoLuong) asc");
+        }
+        if (cbbSortSP.getSelectedItem().equals("Còn tồn nhiều nhất")) {
+            loadTBSP("order by ctsp.SoLuong desc");
+        }
+        if (cbbSortSP.getSelectedItem().equals("Còn tồn ít nhất")) {
+            loadTBSP("order by ctsp.SoLuong asc");
+        }
+    }//GEN-LAST:event_cbbSortSPActionPerformed
+
+    private void cbbSortHDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSortHDActionPerformed
+        loadTBHD(cbbSortHD.getSelectedItem().toString());
+    }//GEN-LAST:event_cbbSortHDActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnTK;
-    private javax.swing.JComboBox<String> cbbSort;
+    private javax.swing.JComboBox<String> cbbSortHD;
+    private javax.swing.JComboBox<String> cbbSortSP;
+    private javax.swing.JComboBox<String> cbbSortTK;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

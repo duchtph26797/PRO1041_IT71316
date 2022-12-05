@@ -21,6 +21,7 @@ public class SanPham {
     private int donGia;
     private int daBan;
     private int conLai;
+    private int tongDoanhThu;
 
     public SanPham() {
     }
@@ -31,7 +32,7 @@ public class SanPham {
         this.loaiHang = loaiHang;
     }
 
-    public SanPham(int maSp, String tenSp, String tenLoai, String ms, String kc, String cl, int donGia, int daBan, int conLai) {
+    public SanPham(int maSp, String tenSp, String tenLoai, String ms, String kc, String cl, int donGia, int daBan, int conLai, int tongDoanhThu) {
         this.maSp = maSp;
         this.tenSp = tenSp;
         this.tenLoai = tenLoai;
@@ -41,6 +42,7 @@ public class SanPham {
         this.donGia = donGia;
         this.daBan = daBan;
         this.conLai = conLai;
+        this.tongDoanhThu = tongDoanhThu;
     }
 
     public int getMaSp() {
@@ -123,12 +125,20 @@ public class SanPham {
         this.conLai = conLai;
     }
 
+    public int getTongDoanhThu() {
+        return tongDoanhThu;
+    }
+
+    public void setTongDoanhThu(int tongDoanhThu) {
+        this.tongDoanhThu = tongDoanhThu;
+    }
+
     @Override
     public String toString() {
-        return "SanPham{" + "maSp=" + maSp + ", tenSp=" + tenSp + ", loaiHang=" + loaiHang + '}';
+        return "SanPham{" + "maSp=" + maSp + ", tenSp=" + tenSp + ", loaiHang=" + loaiHang + ", tenLoai=" + tenLoai + ", ms=" + ms + ", kc=" + kc + ", cl=" + cl + ", donGia=" + donGia + ", daBan=" + daBan + ", conLai=" + conLai + ", tongDoanhThu=" + tongDoanhThu + '}';
     }
 
     public Object[] toRowData() {
-        return new Object[]{maSp, tenSp, tenLoai, ms, kc, cl, donGia, daBan, conLai};
+        return new Object[]{maSp, tenSp, tenLoai, ms, kc, cl, donGia, daBan, conLai, tongDoanhThu};
     }
 }

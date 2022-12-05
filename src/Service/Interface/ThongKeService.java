@@ -15,5 +15,5 @@ import java.util.List;
 public interface ThongKeService {
     DoanhThuView getThongKe(String conditions);
     
-    List<SanPham> getSanPham();
+    List<SanPham> getSanPham(String conditions);
 }

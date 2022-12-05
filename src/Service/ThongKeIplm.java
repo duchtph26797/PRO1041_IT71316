@@ -23,8 +23,8 @@ public class ThongKeIplm implements ThongKeService{
     }
 
     @Override
-    public List<SanPham> getSanPham() {
-        return rp.getSanPham();
+    public List<SanPham> getSanPham(String conditions) {
+        return rp.getSanPham(conditions);
     }
     
 }
