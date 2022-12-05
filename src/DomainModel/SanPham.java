@@ -50,5 +50,7 @@ public class SanPham {
     public String toString() {
         return "SanPham{" + "maSp=" + maSp + ", tenSp=" + tenSp + ", loaiHang=" + loaiHang + '}';
     }
-    
+    public Object[] showdata(){
+        return new Object[]{maSp,tenSp,loaiHang.getMaLoai()};
+    }
 }

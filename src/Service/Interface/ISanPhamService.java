@@ -4,7 +4,9 @@
  */
 package Service.Interface;
 
+import DomainModel.SanPham;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -12,4 +14,7 @@ import java.util.ArrayList;
  */
 public interface ISanPhamService {
     ArrayList<String> getListMaSp();
+    List<SanPham>getAll();
+    String them_sp(SanPham sp);
+    String sua_sp(SanPham sp);
 }
