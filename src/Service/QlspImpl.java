@@ -19,6 +19,7 @@ import Repository.SanPhamRepository;
 import Service.Interface.IQlspService;
 import ViewModel.Qlsp;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -244,5 +245,32 @@ public class QlspImpl implements IQlspService {
     @Override
     public int dem_sl_ctsp(String mactsp) {
         return qlspRepository.dem_sl_ctsp(mactsp);
+    }
+
+    @Override
+    public List<Ctsp> getAllload() {
+        return qlspRepository.getAllload();
+    }
+
+    @Override
+    public String them_ctsp(Ctsp ctsp) {
+       boolean i= qlspRepository.them_ctsp(ctsp);
+       if(i){
+           return "Thêm thành công";
+       }
+       else{
+           return "Thêm thất bại";
+       }
+    }
+
+    @Override
+    public String sua_ctsp(Ctsp ctsp) {
+         boolean i= qlspRepository.sua_ctsp(ctsp);
+       if(i){
+           return "sửa thành công";
+       }
+       else{
+           return "sửa thất bại";
+       }
     }
 }

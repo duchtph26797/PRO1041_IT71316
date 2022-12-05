@@ -4,12 +4,16 @@
  */
 package Repository;
 
+import DomainModel.ChatLieuDomainModel;
 import DomainModel.Ctsp;
 import DomainModel.LoaiHangDomainModel;
 import DomainModel.SanPham;
 import Ulities.DBConnection;
 import java.util.ArrayList;
 import java.sql.ResultSet;
+import java.util.List;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -53,7 +57,7 @@ public class SanPhamRepository {
             if (DBConnection.ExcuteQuery(them_sp, sp.getTenSp(), sp.getLoaiHang().getMaLoai()) == 0) {
                 return false;
             }
-            System.out.println("repo sp"+sp.toString());
+            System.out.println("repo sp" + sp.toString());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -101,6 +105,38 @@ public class SanPhamRepository {
         return -1;
     }
 
+    public List<SanPham> getAll() {
+        List<SanPham> listsp = new ArrayList<>();
+        String query = "SELECT [MaSP]\n"
+                + "      ,[TenSP]\n"
+                + "      ,[MALOAI]\n"
+                + "  FROM [dbo].[SANPHAM]";
+        try(Connection con = DBConnection.openDbConnection();PreparedStatement ps = con.prepareStatement(query) ) {
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                LoaiHangDomainModel lh = new LoaiHangDomainModel();
+                lh.setMaLoai(rs.getInt(3));
+                listsp.add(new SanPham(rs.getInt(1), rs.getString(2), lh));
+            }
+            
+        } catch (Exception e) {
+            
+        }
+        return listsp;
+    }
+
+     final String sua_sanpham = "update SanPham set TenSP =?,MaLoai = ? where MaSP = ?";
+
+    public Boolean sua_sp(SanPham sp) {
+        try {
+            if (DBConnection.ExcuteQuery(sua_sanpham, sp.getTenSp(),sp.getLoaiHang().getMaLoai(),sp.getMaSp()) == 0) {
+                return false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
     public static void main(String[] args) {
         SanPhamRepository sp = new SanPhamRepository();
         ArrayList<String> list = sp.getListMaSp();
