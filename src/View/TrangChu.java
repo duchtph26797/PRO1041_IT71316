@@ -49,6 +49,7 @@ public class TrangChu extends javax.swing.JFrame {
         btnQLSP = new javax.swing.JButton();
         btnKhachHang = new javax.swing.JButton();
         btnHoaDon = new javax.swing.JButton();
+        btnQlhd = new javax.swing.JButton();
         btnThongKe = new javax.swing.JButton();
         btnNhanVien = new javax.swing.JButton();
         btnDangXuat = new javax.swing.JButton();
@@ -64,10 +65,10 @@ public class TrangChu extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        panelMenu.setBackground(new java.awt.Color(255, 204, 204));
+        panelMenu.setBackground(new java.awt.Color(255, 255, 255));
         panelMenu.setLayout(new java.awt.GridLayout(8, 0));
 
-        btnQLSP.setBackground(new java.awt.Color(153, 255, 204));
+        btnQLSP.setBackground(new java.awt.Color(204, 255, 255));
         btnQLSP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/List.png"))); // NOI18N
         btnQLSP.setText("Quản lý sản phẩm");
         btnQLSP.addActionListener(new java.awt.event.ActionListener() {
@@ -77,9 +78,9 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnQLSP);
 
-        btnKhachHang.setBackground(new java.awt.Color(204, 255, 204));
+        btnKhachHang.setBackground(new java.awt.Color(204, 255, 255));
         btnKhachHang.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Users.png"))); // NOI18N
-        btnKhachHang.setText("Khách hàng");
+        btnKhachHang.setText("Quản lý khách hàng");
         btnKhachHang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnKhachHangActionPerformed(evt);
@@ -89,7 +90,7 @@ public class TrangChu extends javax.swing.JFrame {
 
         btnHoaDon.setBackground(new java.awt.Color(204, 255, 255));
         btnHoaDon.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Add to basket.png"))); // NOI18N
-        btnHoaDon.setText("Hóa đơn");
+        btnHoaDon.setText("Bán hàng");
         btnHoaDon.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnHoaDonActionPerformed(evt);
@@ -97,7 +98,17 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnHoaDon);
 
-        btnThongKe.setBackground(new java.awt.Color(255, 255, 204));
+        btnQlhd.setBackground(new java.awt.Color(204, 255, 255));
+        btnQlhd.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Notes.png"))); // NOI18N
+        btnQlhd.setText("Quản lý hóa đơn");
+        btnQlhd.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnQlhdActionPerformed(evt);
+            }
+        });
+        panelMenu.add(btnQlhd);
+
+        btnThongKe.setBackground(new java.awt.Color(204, 255, 255));
         btnThongKe.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/Price list.png"))); // NOI18N
         btnThongKe.setText("Thống kê");
         btnThongKe.addActionListener(new java.awt.event.ActionListener() {
@@ -107,7 +118,7 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnThongKe);
 
-        btnNhanVien.setBackground(new java.awt.Color(255, 153, 153));
+        btnNhanVien.setBackground(new java.awt.Color(204, 255, 255));
         btnNhanVien.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/images/User.png"))); // NOI18N
         btnNhanVien.setText("Nhân Viên");
         btnNhanVien.addActionListener(new java.awt.event.ActionListener() {
@@ -117,6 +128,7 @@ public class TrangChu extends javax.swing.JFrame {
         });
         panelMenu.add(btnNhanVien);
 
+        btnDangXuat.setBackground(new java.awt.Color(204, 255, 255));
         btnDangXuat.setIcon(new javax.swing.ImageIcon(getClass().getResource("/image/iconresources (1)/Home-icon-16.png"))); // NOI18N
         btnDangXuat.setText("Đăng Xuất");
         btnDangXuat.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +274,7 @@ public class TrangChu extends javax.swing.JFrame {
         panel.setLayout(new FlowLayout());
         this.pack();
         f.setVisible(true);
+        setLocationRelativeTo(null);
     }//GEN-LAST:event_btnNhanVienActionPerformed
 
     private void crudMauSacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudMauSacActionPerformed
@@ -279,6 +292,16 @@ public class TrangChu extends javax.swing.JFrame {
     private void crudKhuyenMaiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudKhuyenMaiActionPerformed
         new FormKhuyenMai().setVisible(true);
     }//GEN-LAST:event_crudKhuyenMaiActionPerformed
+
+    private void btnQlhdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlhdActionPerformed
+        panel.removeAll();
+        HDForm f=new HDForm();
+        panel.add(f);
+        panel.setLayout(new FlowLayout());
+        this.pack();
+        f.setVisible(true);
+        setLocationRelativeTo(null);
+    }//GEN-LAST:event_btnQlhdActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,7 +337,7 @@ public class TrangChu extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 TaiKhoanView tkv = new TaiKhoanView();
-                tkv.setLoaiTk("nhanvien");
+                tkv.setLoaiTk("quanly");
                 NhanVienModel nv = new NhanVienModel();
                 nv.setMaNV(1);
                 nv.setTenNV("Ngọc Văn");
@@ -329,6 +352,7 @@ public class TrangChu extends javax.swing.JFrame {
     private javax.swing.JButton btnKhachHang;
     private javax.swing.JButton btnNhanVien;
     private javax.swing.JButton btnQLSP;
+    private javax.swing.JButton btnQlhd;
     private javax.swing.JButton btnThongKe;
     private javax.swing.JMenuItem crudChatLieu;
     private javax.swing.JMenuItem crudKhuyenMai;
