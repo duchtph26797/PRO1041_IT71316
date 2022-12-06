@@ -137,7 +137,9 @@ public class HDCTRepository {
     }
 
     public float tongTienHd(String mahd) {
-        String query = "select sum(dongia*soluong) from hdct where mahd=?";
+        String query = "select sum(dongia*soluong-dongia*soluong*muckm/100) from hdct"
+                + " join hoadon on hdct.mahd = hoadon.mahd"
+                + " join khuyenmai on khuyenmai.makm = hoadon.makm where hdct.mahd=?";
         try ( Connection con = DBConnection.openDbConnection();  PreparedStatement ps = con.prepareStatement(query)) {
             ps.setObject(1, mahd);
             ResultSet rs = ps.executeQuery();

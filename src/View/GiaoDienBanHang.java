@@ -90,7 +90,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     public GiaoDienBanHang(NhanVienModel nvHome) {
         initComponents();
         txtChao.setText("^_^XIN CHÀO " + nvHome.getTenNV());
-        if(nvHome.getTenNV()==null){
+        if (nvHome.getTenNV() == null) {
             txtChao.setText("^_^XIN CHÀO QUẢN LÝ");
             btnTaoHD.setEnabled(false);
         }
@@ -104,7 +104,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         tblHd.setModel(dtmHd);
         String[] header2 = {"STT", "Mã HĐ", "Ngày tạo", "Tên NV", "Khách hàng", "Mức Km", "Tình trạng"};
         dtmHd.setColumnIdentifiers(header2);
-        
+
         dcmMucKm = (DefaultComboBoxModel) cbMucKm.getModel();
         loadMucKm(iKhuyenMaiService.getListMucKm());
 
@@ -770,6 +770,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         });
 
         btnThanhToan.setText("Thanh toán");
+        btnThanhToan.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnThanhToanMouseClicked(evt);
+            }
+        });
         btnThanhToan.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnThanhToanActionPerformed(evt);
@@ -921,7 +926,7 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             hd.setNv(nvGdbh);
             //
             KhuyenMai km = new KhuyenMai();
-            int makm=Integer.parseInt(iKhuyenMaiService.getListMucKm().get(cbMucKm.getSelectedIndex()).split("-")[0]);
+            int makm = Integer.parseInt(iKhuyenMaiService.getListMucKm().get(cbMucKm.getSelectedIndex()).split("-")[0]);
             km.setMaKm(makm);
             System.out.println(makm);
 
@@ -947,11 +952,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
 
     private void btnSerachKhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSerachKhActionPerformed
         String sdt = txtSearchKh.getText().trim();
-        if(sdt.isEmpty()){
+        if (sdt.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Nhập sdt khách hàng cần tìm");
             return;
         }
-        List<KhachHangDomainModel> listKH = new ArrayList<>();      
+        List<KhachHangDomainModel> listKH = new ArrayList<>();
         listKH = serviceKH.Search(sdt);
         if (listKH.size() == 0) {
             JOptionPane.showMessageDialog(this, "Khách hàng không tồn tại");
@@ -1096,6 +1101,26 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         }
 
         Qlsp qlsp = getQlsp();
+        int sl;
+        try {
+            String slClone = JOptionPane.showInputDialog(this, "Nhập số lượng mua");
+            if (slClone == null) {
+                return;
+            }
+            sl = Integer.parseInt(slClone);
+            if (sl <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
+                return;
+            }
+            if (sl > iQlspService.dem_sl_ctsp(String.valueOf(maCtsp))) {
+                JOptionPane.showMessageDialog(this, "Số lượng trong kho không đủ");
+                return;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
+            return;
+        }
+
         if (JOptionPane.showConfirmDialog(this, "---Thông tin sản phẩm---\n"
                 + "\nMã Sp: " + qlsp.getMaSp()
                 + "\nMã ctsp: " + qlsp.getMaCtsp()
@@ -1105,27 +1130,8 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 + "\nChất liệu:" + qlsp.getTenCl()
                 + "\nSize: " + qlsp.getTenKc()
                 + "\nĐơn giá:" + qlsp.getDonGia()
-                + "\nMô tả:" + qlsp.getMoTa(), "Bạn chắc chắn mua sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
-
-            int sl;
-            try {
-                String slClone = JOptionPane.showInputDialog(this, "Nhập số lượng mua");
-                if (slClone == null) {
-                    return;
-                }
-                sl = Integer.parseInt(slClone);
-                if (sl <= 0) {
-                    JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
-                    return;
-                }
-                if (sl > iQlspService.dem_sl_ctsp(String.valueOf(maCtsp))) {
-                    JOptionPane.showMessageDialog(this, "Số lượng trong kho không đủ");
-                    return;
-                }
-            } catch (Exception e) {
-                JOptionPane.showMessageDialog(this, "Số lượng nguyên dương");
-                return;
-            }
+                + "\nMô tả:" + qlsp.getMoTa()
+                + "\nSố lượng:" + sl, "Bạn chắc chắn mua sản phẩm", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
             HDCTDomainModel hd = new HDCTDomainModel(
                     maHd,
                     maCtsp,
@@ -1177,8 +1183,17 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Chọn hóa đơn cần thanh toán");
             return;
         }
-        if (JOptionPane.showConfirmDialog(this, 
-                "Bạn chắc chắn thanh toán không?",
+        ArrayList<HdctView> list = hDCTService.getAllHdctByMaHd(tblHd.getValueAt(rowHd, 1).toString());
+        String tb = "Mã ctsp \t Tên sp \t Màu \t Loại \t Chất liệu \t Size \t Số lượng \t Đơn giá \t Tổng \n";
+        for (HdctView hdct : list) {
+            float tong = hdct.getDonGia() * hdct.getSoLuong();
+            tb += hdct.getMactsp() + " \t\t " + hdct.getTenSp() + " \t\t "+ hdct.getTenMs() + " \t\t " + 
+                    hdct.getTenLoai() + " \t\t " + hdct.getTenCl() + " \t\t " + hdct.getTenKc()
+                    + " \t\t " + hdct.getSoLuong() + " \t\t " + hdct.getDonGia() + " \t\t " + tong + "\n";
+        }
+        tb+="Phải trả: "+String.valueOf(hDCTService.tongTienHd(tblHd.getValueAt(rowHd, 1).toString()));
+        if (JOptionPane.showConfirmDialog(this,
+                tb,
                 "Bạn chắc chắn thanh toán không?", JOptionPane.YES_NO_OPTION)
                 == JOptionPane.YES_OPTION) {
             try {
@@ -1320,6 +1335,10 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
     private void txtTienKhachDuaKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtTienKhachDuaKeyPressed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtTienKhachDuaKeyPressed
+
+    private void btnThanhToanMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnThanhToanMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnThanhToanMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
