@@ -62,6 +62,7 @@ public class TrangChu extends javax.swing.JFrame {
         crudMauSac = new javax.swing.JMenuItem();
         crudLoaiHang = new javax.swing.JMenuItem();
         crudKhuyenMai = new javax.swing.JMenuItem();
+        crudTaiKhoan = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -190,6 +191,15 @@ public class TrangChu extends javax.swing.JFrame {
         });
         jMenu1.add(crudKhuyenMai);
 
+        crudTaiKhoan.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_6, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        crudTaiKhoan.setText("Quản lý tài khoản");
+        crudTaiKhoan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crudTaiKhoanActionPerformed(evt);
+            }
+        });
+        jMenu1.add(crudTaiKhoan);
+
         jMenuBar1.add(jMenu1);
 
         setJMenuBar(jMenuBar1);
@@ -303,6 +313,10 @@ public class TrangChu extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }//GEN-LAST:event_btnQlhdActionPerformed
 
+    private void crudTaiKhoanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crudTaiKhoanActionPerformed
+        new FormQLTaiKhoan().setVisible(true);
+    }//GEN-LAST:event_crudTaiKhoanActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -359,6 +373,7 @@ public class TrangChu extends javax.swing.JFrame {
     private javax.swing.JMenuItem crudKichCo;
     private javax.swing.JMenuItem crudLoaiHang;
     private javax.swing.JMenuItem crudMauSac;
+    private javax.swing.JMenuItem crudTaiKhoan;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;

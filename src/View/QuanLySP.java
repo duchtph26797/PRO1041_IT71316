@@ -78,6 +78,7 @@ public class QuanLySP extends javax.swing.JPanel {
         loadCbbSize(kichCoServices.getListTenKC());
         loadCbbMauSac(mauSacServices.getTenMS());
         loadData(iQlspService.getAll());
+        listClone=iQlspService.getAll();
     }
     
     private void loadCbbMaSp(ArrayList<String> list) {
@@ -141,6 +142,7 @@ public class QuanLySP extends javax.swing.JPanel {
     
     private void loadData(ArrayList<Qlsp> list) {
         dtm.setRowCount(0);
+        listClone=list;
         for (Qlsp qlsp : list) {
             dtm.addRow(new Object[]{
                 qlsp.getMaCtsp(),
