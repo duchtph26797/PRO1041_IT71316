@@ -936,10 +936,11 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(this, "Tạo hóa đơn thành công");
                 loadTBHoadon(HD.getAllHdGdbh());
             } else {
-                JOptionPane.showMessageDialog(this, "Tạo hóa đơn thất bại");
+                JOptionPane.showMessageDialog(this, "Mã khách hàng không tồn tại");
             }
         } catch (Exception e) {
-
+            JOptionPane.showMessageDialog(this, "Mã khách hàng không tồn tại");
+            return;
         }
     }//GEN-LAST:event_btnTaoHDActionPerformed
 
@@ -1003,7 +1004,9 @@ public class GiaoDienBanHang extends javax.swing.JPanel {
         DateFormat df = new SimpleDateFormat("yyyy-mm-dd");
         String ngaySinh = df.format(ngaySinhClone);
         KhachHangDomainModel kh = new KhachHangDomainModel(tenKH, diaChi, sdt, ngaySinh);
-        JOptionPane.showMessageDialog(this, serviceKH.add(tenKH, sdt, sdt, ngaySinh));
+        if(JOptionPane.showConfirmDialog(this, "Bạn chắc chắn thêm không") == JOptionPane.YES_OPTION){
+            JOptionPane.showMessageDialog(this, serviceKH.add(tenKH, sdt, sdt, ngaySinh));
+        }
     }//GEN-LAST:event_btnThemActionPerformed
 
     private void btnHuyDonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnHuyDonActionPerformed

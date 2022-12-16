@@ -33,7 +33,6 @@ public class TrangChu extends javax.swing.JFrame {
             btnNhanVien.setEnabled(false);
             btnQlhd.setEnabled(false);
             btnQLSP.setEnabled(false);
-            btnKhachHang.setEnabled(false);
             
             crudChatLieu.setEnabled(false);
             crudKichCo.setEnabled(false);

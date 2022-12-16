@@ -41,14 +41,14 @@ import javax.swing.table.DefaultTableModel;
  * @author Admin
  */
 public class QuanLySP extends javax.swing.JPanel {
-    
+
     private DefaultTableModel dtm;
     DefaultComboBoxModel dcmMaSP;
     DefaultComboBoxModel dcmLoaiHang, dcmLoaiHangSerch;
     DefaultComboBoxModel dcmChatLieu, dcmChatLieuSerch;
     DefaultComboBoxModel dcmSize, dcmSizeSearch;
     DefaultComboBoxModel dcmMau, dcmMauSerch;
-    
+
     IQlspService iQlspService;
     ISanPhamService iSanPhamService;
     LoaiHangServices loaiHangServices;
@@ -56,31 +56,31 @@ public class QuanLySP extends javax.swing.JPanel {
     ChatLieuServices chatLieuServices;
     KichCoServices kichCoServices;
     ArrayList<Qlsp> listClone;
-    
+
     public QuanLySP() {
         initComponents();
-        
+
         iQlspService = new QlspImpl();
         iSanPhamService = new SanPhamImpl();
         loaiHangServices = new LoaiHangIplm();
         mauSacServices = new MauSacIplm();
         chatLieuServices = new ChatLieuIplm();
         kichCoServices = new KichCoIplm();
-        
+
         dtm = (DefaultTableModel) tblQLSP.getModel();
-        
+
         String[] hihi = {"Mã CTSP", "Tên SP", "Màu", "Loại hàng", "Chất Liệu", "Size", "Số lượng", "Đơn giá", "Trạng thái"};
         dtm.setColumnIdentifiers(hihi);
-        
+
         loadCbbMaSp(iSanPhamService.getListMaSp());
         loadCbbLoaiHang(loaiHangServices.getListTenLoai());
         loadCbbChatLieu(chatLieuServices.getListTenCL());
         loadCbbSize(kichCoServices.getListTenKC());
         loadCbbMauSac(mauSacServices.getTenMS());
         loadData(iQlspService.getAll());
-        listClone=iQlspService.getAll();
+        listClone = iQlspService.getAll();
     }
-    
+
     private void loadCbbMaSp(ArrayList<String> list) {
         dcmMaSP = (DefaultComboBoxModel) cbbMaSP.getModel();
         dcmMaSP.removeAllElements();
@@ -88,7 +88,7 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmMaSP.addElement(s);
         }
     }
-    
+
     void loadCbbLoaiHang(ArrayList<String> list) {
         dcmLoaiHang = (DefaultComboBoxModel) cbbLoai.getModel();
         dcmLoaiHangSerch = (DefaultComboBoxModel) cbbSearchLoaiSP.getModel();
@@ -100,7 +100,7 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmLoaiHangSerch.addElement(s);
         }
     }
-    
+
     void loadCbbChatLieu(ArrayList<String> list) {
         dcmChatLieu = (DefaultComboBoxModel) cbbChatLieu.getModel();
         dcmChatLieuSerch = (DefaultComboBoxModel) cbbSearchChatLieu.getModel();
@@ -111,9 +111,9 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmChatLieu.addElement(s);
             dcmChatLieuSerch.addElement(s);
         }
-        
+
     }
-    
+
     void loadCbbSize(ArrayList<String> list) {
         dcmSize = (DefaultComboBoxModel) cbbSize.getModel();
         dcmSizeSearch = (DefaultComboBoxModel) cbbSearchSize.getModel();
@@ -124,9 +124,9 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmSize.addElement(s);
             dcmSizeSearch.addElement(s);
         }
-        
+
     }
-    
+
     void loadCbbMauSac(ArrayList<String> list) {
         dcmMau = (DefaultComboBoxModel) cbbMauSac.getModel();
         dcmMauSerch = (DefaultComboBoxModel) cbbSearchMauSP.getModel();
@@ -137,12 +137,12 @@ public class QuanLySP extends javax.swing.JPanel {
             dcmMau.addElement(s);
             dcmMauSerch.addElement(s);
         }
-        
+
     }
-    
+
     private void loadData(ArrayList<Qlsp> list) {
         dtm.setRowCount(0);
-        listClone=list;
+        listClone = list;
         for (Qlsp qlsp : list) {
             dtm.addRow(new Object[]{
                 qlsp.getMaCtsp(),
@@ -157,9 +157,8 @@ public class QuanLySP extends javax.swing.JPanel {
             });
         }
     }
-    
+
     Qlsp getQlsp() {
-        int mactsp = Integer.parseInt(txtChiTietSP.getText());
         int masp = Integer.parseInt(cbbMaSP.getSelectedItem().toString());
         String tensp = txtTenSP.getText();
         String size = cbbSize.getSelectedItem().toString();
@@ -173,10 +172,10 @@ public class QuanLySP extends javax.swing.JPanel {
         if (cbbTrangThai.getSelectedItem().toString().equalsIgnoreCase("Đang bán")) {
             tt = 1;
         }
-        Qlsp qlsp = new Qlsp(mactsp, masp, tensp, ms, cl, size, lh, sl, dg, mota, tt);
+        Qlsp qlsp = new Qlsp(1, masp, tensp, ms, cl, size, lh, sl, dg, mota, tt);
         return qlsp;
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -636,17 +635,19 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private void btnThemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnThemActionPerformed
         try {
-            Qlsp qlsp = getQlsp();
-            if (iQlspService.check_ton_tai_ctsp(qlsp)) {
-                JOptionPane.showMessageDialog(this, "sản phẩm đã tồn tại");
-                return;
-            } else {
-                System.out.println("view  " + qlsp.toString());
-                if (iQlspService.them(qlsp)) {
-                    JOptionPane.showMessageDialog(this, "Thêm thành công");
-                    loadData(iQlspService.getAll());
+            if (validateAdd()) {
+                Qlsp qlsp = getQlsp();
+                if (iQlspService.check_ton_tai_ctsp(qlsp)) {
+                    JOptionPane.showMessageDialog(this, "sản phẩm đã tồn tại");
+                    return;
                 } else {
-                    JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                    System.out.println("view  " + qlsp.toString());
+                    if (iQlspService.them(qlsp)) {
+                        JOptionPane.showMessageDialog(this, "Thêm thành công");
+                        loadData(iQlspService.getAll());
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Thêm thất bại");
+                    }
                 }
             }
         } catch (Exception e) {
@@ -654,7 +655,42 @@ public class QuanLySP extends javax.swing.JPanel {
             e.printStackTrace();
         }
     }//GEN-LAST:event_btnThemActionPerformed
-    
+
+    Boolean validateAdd() {
+        String tenSp = txtTenSP.getText().trim();
+        String slClone = txtSoLuong.getText().trim();
+        String dgClone = txtdDonGia.getText().trim();
+        String mota = txtMoTa.getText().trim();
+        if (tenSp.isEmpty() || slClone.isEmpty() || dgClone.isEmpty() || mota.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Không được để trống");
+            return false;
+        }
+        int sl;
+        float dg;
+
+        try {
+            sl = Integer.parseInt(slClone);
+            if (sl <= 0) {
+                JOptionPane.showMessageDialog(this, "Số lượng là số nguyên dương");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Số lượng là số nguyên dương");
+            return false;
+        }
+
+        try {
+            dg = Float.parseFloat(dgClone);
+            if (dg <= 0) {
+                JOptionPane.showMessageDialog(this, "Đơn giá là số thực dương");
+                return false;
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Đơn giá là số thực dương");
+            return false;
+        }
+        return true;
+    }
 
     private void cbbSearchSizeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbSearchSizeActionPerformed
         // TODO add your handling code here:
@@ -713,7 +749,16 @@ public class QuanLySP extends javax.swing.JPanel {
 
     private void btnSuaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSuaActionPerformed
         try {
+            if(txtChiTietSP.getText().trim().isEmpty()){
+                JOptionPane.showMessageDialog(this, "Mã ctsp không được để trống");
+                return;
+            }
             Qlsp qlsp = getQlsp();
+            qlsp.setMaCtsp(Integer.parseInt(txtChiTietSP.getText()));
+            if (iQlspService.check_ton_tai_ctsp(qlsp)) {
+                    JOptionPane.showMessageDialog(this, "sản phẩm đã tồn tại");
+                    return;
+            }
             if (iQlspService.sua(qlsp)) {
                 JOptionPane.showMessageDialog(this, "Sửa thành công");
                 loadData(iQlspService.getAll());
@@ -762,10 +807,10 @@ public class QuanLySP extends javax.swing.JPanel {
         txtMoTa.setText(listClone.get(i).getMoTa());
         txtChiTietSP.setText(tblQLSP.getValueAt(i, 0).toString());
         dcmMaSP.setSelectedItem(listClone.get(i).getMaSp());
-        if(listClone.get(i).getTrangThai()==1){
+        if (listClone.get(i).getTrangThai() == 1) {
             cbbTrangThai.setSelectedItem("Đang bán");
         }
-        if(listClone.get(i).getTrangThai()==0){
+        if (listClone.get(i).getTrangThai() == 0) {
             cbbTrangThai.setSelectedItem("Vô hiệu hóa");
         }
     }//GEN-LAST:event_tblQLSPMouseClicked
@@ -784,7 +829,7 @@ public class QuanLySP extends javax.swing.JPanel {
         if (!txtSearchMaSp.getText().trim().isEmpty()) {
             list.add("sanpham.Masp=" + txtSearchMaSp.getText() + " ");
         }
-        
+
         if (!cbbSearchMauSP.getSelectedItem().toString().equalsIgnoreCase("All")) {
             list.add(" Tenms=N'" + cbbSearchMauSP.getSelectedItem().toString() + "' ");
         }
@@ -798,8 +843,6 @@ public class QuanLySP extends javax.swing.JPanel {
             list.add(" tencl=N'" + cbbSearchChatLieu.getSelectedItem().toString() + "' ");
         }
 
-        
-        
         if (iQlspService.boLoc(list).size() == 0) {
             JOptionPane.showMessageDialog(this, "Thông tin cần tìm không có");
             return;

@@ -263,8 +263,18 @@ public class FormQLKH extends javax.swing.JPanel {
         String dc = txtDC.getText();
         String sdt = txtSDT.getText();
         String date = txtNam.getText() + "-" + txtThang.getText() + "-" + txtNgay.getText();
-        JOptionPane.showMessageDialog(this, service.add(ten, dc, sdt, date));
-        loadTableData(service.getAll());
+        if(!sdt.matches("0+[0-9]{9}")){
+            JOptionPane.showMessageDialog(this, "Sdt bắt đầu từ 0 và có 10 số");
+            return;
+        }
+        if (service.Search(sdt).size() == 0) {
+            JOptionPane.showMessageDialog(this, service.add(ten, dc, sdt, date));
+            loadTableData(service.getAll());
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "Sdt đã tồn tại");
+            return;
+        }
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
