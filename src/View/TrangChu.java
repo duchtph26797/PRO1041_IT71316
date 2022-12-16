@@ -18,29 +18,34 @@ import javax.swing.BoxLayout;
  * @author TRUNG DUC
  */
 public class TrangChu extends javax.swing.JFrame {
-
+    
     public TrangChu() {
         initComponents();
     }
-
+    
     NhanVienModel nvHome = new NhanVienModel();
-
+    
     public TrangChu(TaiKhoanView tkv, NhanVienModel nv) {
         initComponents();
         setLocationRelativeTo(null);
         if (tkv.getLoaiTk().equalsIgnoreCase("nhanvien")) {
             btnThongKe.setEnabled(false);
             btnNhanVien.setEnabled(false);
-
+            btnQlhd.setEnabled(false);
+            btnQLSP.setEnabled(false);
+            btnKhachHang.setEnabled(false);
+            
             crudChatLieu.setEnabled(false);
             crudKichCo.setEnabled(false);
             crudLoaiHang.setEnabled(false);
             crudMauSac.setEnabled(false);
+            crudKhuyenMai.setEnabled(false);
+            crudTaiKhoan.setEnabled(false);
             //
             nvHome = nv;
         }
     }
-
+    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -305,7 +310,7 @@ public class TrangChu extends javax.swing.JFrame {
 
     private void btnQlhdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnQlhdActionPerformed
         panel.removeAll();
-        HDForm f=new HDForm();
+        HDForm f = new HDForm();
         panel.add(f);
         panel.setLayout(new FlowLayout());
         this.pack();
